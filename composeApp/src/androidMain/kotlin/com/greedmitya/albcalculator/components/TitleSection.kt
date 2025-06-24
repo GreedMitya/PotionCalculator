@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun TitleSection(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.width(140.dp),
+        modifier = modifier.width(150.dp),
         horizontalAlignment = Alignment.CenterHorizontally  // ← вот оно
     ) {
         Text(
