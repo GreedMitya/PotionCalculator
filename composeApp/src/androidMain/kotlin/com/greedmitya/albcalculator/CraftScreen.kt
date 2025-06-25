@@ -12,13 +12,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.greedmitya.albcalculator.CraftViewModel
 import com.greedmitya.albcalculator.R
 import com.greedmitya.albcalculator.components.*
 import com.greedmitya.albcalculator.model.BottomNavItemData
+import com.greedmitya.albcalculator.ui.components.IngredientItem
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
+
     // Навигационные элементы
     val navItems = listOf(
         BottomNavItemData("Craft", R.drawable.ic_craft),
@@ -27,6 +31,8 @@ fun CraftScreen(viewModel: CraftViewModel) {
         BottomNavItemData("Settings", R.drawable.ic_settings)
     )
     var selectedIndex by remember { mutableStateOf(0) }
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
         containerColor = AppColors.BackgroundDark,
@@ -45,12 +51,13 @@ fun CraftScreen(viewModel: CraftViewModel) {
             }
         }
     ) { innerPadding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(scrollState) // ← это важно
                 .padding(innerPadding)
-                .statusBarsPadding()              // учёт высоты статус-бара
-                .padding(top = 60.dp, start = 30.dp, end = 30.dp),
+                .padding(top = 60.dp, start = 30.dp, end = 30.dp, bottom = 30.dp), // ← добавь bottom padding
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -169,7 +176,35 @@ fun CraftScreen(viewModel: CraftViewModel) {
                     )
                 }
             }
+            Spacer(Modifier.height(24.dp))
+            val ingredients = viewModel.getRecipeForSelected()
 
+            Column {
+                ingredients.forEach { ingredient ->
+                    IngredientItem(
+                        ingredient = ingredient.copy(
+                            price = viewModel.ingredientPrices[ingredient.name]?.toDoubleOrNull()
+                        ),
+                        onPriceChange = { newPrice ->
+                            viewModel.ingredientPrices[ingredient.name] = newPrice
+                        }
+                    )
+                    Spacer(Modifier.height(12.dp))
+                }
+
+                if (viewModel.selectedPotion != null) {
+                    ResultItem(
+                        potionDisplayName = viewModel.selectedPotion ?: "Unknown Potion",
+                        tier = viewModel.selectedTier ?: "T4",
+                        enchantment = viewModel.enchantments.indexOf(viewModel.selectedEnchantment ?: "Normal (.0)"),
+                        pricePerItem = viewModel.potionSellPrice,
+                        onPriceChange = { viewModel.potionSellPrice = it },
+                        profitSilver = viewModel.profitSilver,
+                        profitPercent = viewModel.profitPercent,
+                        quantity = 5
+                    )
+                }
+            }
             Spacer(Modifier.height(40.dp))
 
             // Кнопки действия

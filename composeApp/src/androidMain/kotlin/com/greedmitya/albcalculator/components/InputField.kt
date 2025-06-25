@@ -22,7 +22,9 @@ fun InputField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isNumeric: Boolean = true
+    isNumeric: Boolean = true,
+    enabled: Boolean = true // ← добавляем параметр
+
 ) {
     Column(
         modifier = modifier
@@ -39,6 +41,7 @@ fun InputField(
         TextField(
             value = value,
             onValueChange = onValueChange,
+            enabled = enabled,
             keyboardOptions = KeyboardOptions(
                 keyboardType = if (isNumeric) KeyboardType.Number else KeyboardType.Text
             ),

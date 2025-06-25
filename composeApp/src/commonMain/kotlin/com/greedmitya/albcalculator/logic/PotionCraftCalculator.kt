@@ -1,19 +1,42 @@
+import com.greedmitya.albcalculator.model.PotionCraftResult
+
 object PotionCraftCalculator {
-    private const val EXTRA_COST_PERCENT = 0.08
 
-    fun calculate(recipe: PotionRecipe): PotionCraftResult {
-        val resourceSum = recipe.ingredients.sumOf { it.price }
-        val baseWithPlacement = resourceSum * (1 + recipe.cityTaxPercent)
-
-        val total = if (recipe.useFocus) {
-            (baseWithPlacement * (1 + EXTRA_COST_PERCENT)) * 0.85
-        } else {
-            baseWithPlacement * (1 + EXTRA_COST_PERCENT)
+    fun calculate(
+        ingredients: List<Ingredient>,
+        feePerNutrition: Double,
+        useFocus: Boolean,
+        isPremium: Boolean,
+        focusBasic: Double?,
+        focusMastery: Double?,
+        focusTotal: Double?
+    ): PotionCraftResult {
+        // 1. Сумма ресурсов
+        val resourceSum = ingredients.sumOf {
+            (it.price ?: 0.0) * it.quantity
         }
+
+        // 2. Стоимость питания
+        val fee = feePerNutrition
+
+        // 3. Коэффициент фокуса (если включён)
+        val focusReduction = if (useFocus && focusBasic != null && focusMastery != null && focusTotal != null) {
+            val totalReduction = (focusBasic + focusMastery) / focusTotal
+            totalReduction.coerceIn(0.0, 1.0)
+        } else 0.0
+
+        // 4. Стоимость с учётом фокуса
+        val afterFocusCost = resourceSum * (1 - focusReduction)
+
+        // 5. Применим премиум-бонус (например, 15% экономии)
+        val finalCost = if (isPremium) afterFocusCost * 0.85 else afterFocusCost
+
+        // 6. Учёт стоимости питания
+        val total = finalCost + fee
 
         return PotionCraftResult(
             totalResources = resourceSum,
-            withPlacementFee = baseWithPlacement,
+            withPlacementFee = finalCost,
             finalCost = total
         )
     }

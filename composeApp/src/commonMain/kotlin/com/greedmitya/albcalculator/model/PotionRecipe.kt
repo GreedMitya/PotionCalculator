@@ -1,6 +1,15 @@
-data class PotionRecipe(
+data class Ingredient(
     val name: String,
-    val ingredients: List<Ingredient>,
+    val quantity: Int,
+    val price: Double? = null // может быть пустым до API
+)
+
+data class PotionRecipe(
+    val potionId: String,
+    val displayName: String,
+    val tier: String,
+    val enchantment: Int,
+    val city: String?,
     val useFocus: Boolean,
-    val cityTaxPercent: Double // Пример: 0.15 для 15%
+    val ingredients: List<Ingredient>
 )

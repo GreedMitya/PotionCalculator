@@ -7,6 +7,8 @@ object AppColors {
     val PanelBrown = Color(0xFF2A2A2A)
     val PrimaryGold = Color(0xFFC47A30)
     val LightBeige = Color(0xFFF2E9DC)
+    val Gray400 = Color(0xff666666)
+    val Gray500 = Color(0xff333333)
     val Gray300 = Color(0xFF999999)
     val Gray200 = Color(0xFFCCCCCC)
     val ToggleGold =  Color(0xFFF0AD4E)
