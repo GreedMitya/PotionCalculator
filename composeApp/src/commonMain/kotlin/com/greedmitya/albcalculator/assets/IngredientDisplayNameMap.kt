@@ -1,7 +1,7 @@
 package com.greedmitya.albcalculator.assets
 val ingredientNameMap = mapOf(
-    "ARCANE_AGARIC" to "Arcane Agaric",
-    "BASIC_ARCANE_EXTRACT" to "Basic Arcane Extract",
+    "T2_AGARIC" to "Arcane Agaric",
+    "T1_ALCHEMY_EXTRACT_LEVEL1" to "Basic Arcane Extract",
     "BEAR_ICE_CREAM" to "Bear Ice Cream",
     "BLAZING_BONES" to "Blazing Bones",
     "BRIGHTLEAF_COMFREY" to "Brightleaf Comfrey",

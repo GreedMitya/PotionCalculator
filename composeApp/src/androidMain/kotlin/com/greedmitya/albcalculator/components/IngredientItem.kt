@@ -20,10 +20,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
-import com.greedmitya.albcalculator.components.InputField
-import com.greedmitya.albcalculator.components.LabeledInputField
-import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapByUniqueName
-import com.greedmitya.albcalculator.assets.getDisplayNameFromFileName
+import com.greedmitya.albcalculator.assets.getDisplayNameFromItemId
+import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
 
 // В файле IngredientItem.kt
 @Composable
@@ -48,7 +46,7 @@ fun IngredientItem(
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
-                text = getDisplayNameFromFileName(ingredient.name),
+                text = getDisplayNameFromItemId(ingredient.name),
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium
@@ -66,7 +64,7 @@ fun IngredientItem(
         ) {
             // Иконка
             Image(
-                bitmap = loadIngredientImageBitmapByUniqueName(ingredient.name),
+                bitmap = loadIngredientImageBitmapById(ingredient.name),
                 contentDescription = ingredient.name,
                 modifier = Modifier
                     .size(90.dp)
