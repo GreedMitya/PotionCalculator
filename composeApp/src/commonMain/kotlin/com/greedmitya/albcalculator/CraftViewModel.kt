@@ -12,21 +12,21 @@ import com.greedmitya.albcalculator.model.potionIngredientsByTierAndEnchant
 class CraftViewModel : ViewModel() {
     // --- 1) Списки опций для дропдаунов ---
     val allPotions = listOf(
-        PotionInfo("Acid Potion", "POTION_ACID", listOf("T3", "T5", "T7")),
-        PotionInfo("Berserk Potion", "POTION_BERSERK", listOf("T4", "T6", "T8")),
-        PotionInfo("Calming Potion", "POTION_MOB_RESET", listOf("T3", "T5", "T7")),
-        PotionInfo("Cleansing Potion", "POTION_CLEANSE2", listOf("T3", "T5", "T7")),
+        PotionInfo("Healing Potion", "POTION_HEAL", listOf("T2", "T4", "T6")),
         PotionInfo("Energy Potion", "POTION_ENERGY", listOf("T2", "T4", "T6")),
         PotionInfo("Gigantify Potion", "POTION_REVIVE", listOf("T3", "T5", "T7")),
-        PotionInfo("Healing Potion", "POTION_HEAL", listOf("T2", "T4", "T6")),
-        PotionInfo("Hellfire Potion", "POTION_LAVA", listOf("T4", "T6", "T8")),
-        PotionInfo("Invisibility Potion", "POTION_CLEANSE", listOf("T8")),
         PotionInfo("Resistance Potion", "POTION_STONESKIN", listOf("T3", "T5", "T7")),
         PotionInfo("Poison Potion", "POTION_COOLDOWN", listOf("T4", "T6", "T8")),
+        PotionInfo("Invisibility Potion", "POTION_CLEANSE", listOf("T8")),
         PotionInfo("Sticky Potion", "POTION_SLOWFIELD", listOf("T3", "T5", "T7")),
-        PotionInfo("Gathering Yield Potion", "POTION_GATHER", listOf("T4", "T6", "T8")),
-        PotionInfo("Tornado in a Bottle", "POTION_TORNADO", listOf("T4", "T6", "T8")),
-        PotionInfo("Ale", "POTION_BEER", listOf("T6", "T7", "T8")),
+        PotionInfo("Alcohol", "ALCOHOL", listOf("T6", "T7", "T8"),outputQuantity = 1),
+        PotionInfo("Acid Potion", "POTION_ACID", listOf("T3", "T5", "T7"),outputQuantity = 10),
+        PotionInfo("Berserk Potion", "POTION_BERSERK", listOf("T4", "T6", "T8"),outputQuantity = 10),
+        PotionInfo("Calming Potion", "POTION_MOB_RESET", listOf("T3", "T5", "T7"),outputQuantity = 10),
+        PotionInfo("Cleansing Potion", "POTION_CLEANSE2", listOf("T3", "T5", "T7"),outputQuantity = 10),
+        PotionInfo("Hellfire Potion", "POTION_LAVA", listOf("T4", "T6", "T8"),outputQuantity = 10),
+        PotionInfo("Gathering Yield Potion", "POTION_GATHER", listOf("T4", "T6", "T8"),outputQuantity = 10),
+        PotionInfo("Tornado in a Bottle", "POTION_TORNADO", listOf("T4", "T6", "T8"),outputQuantity = 10),
     )
 
     val potions: List<String>
@@ -81,6 +81,10 @@ class CraftViewModel : ViewModel() {
     var focusBasic by mutableStateOf("")
     var focusMastery by mutableStateOf("")
     var focusTotal by mutableStateOf("")
+
+    val outputQuantity: Int
+        get() = selectedPotionInfo?.outputQuantity ?: 5
+
 
     fun getFullItemId(): String? {
         val tier = selectedTier ?: return null

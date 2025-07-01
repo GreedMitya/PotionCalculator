@@ -471,69 +471,85 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
             1 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_WEREWOLF", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_WEREWOLF", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_WEREWOLF", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
         // Berserk Potion (T6)
         "T6" to mapOf(
             0 to listOf(
-                Ingredient("T5_ALCHEMY_RARE_WEREWOLF", 1),  // Fine Werewolf Fangs x1
-                Ingredient("T6_FOXGLOVE", 24),              // Elusive Foxglove x24
-                Ingredient("T5_TEASEL", 12)                 // Dragon Teasel x12
+                Ingredient("T5_ALCHEMY_RARE_WEREWOLF", 1),
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T2_AGARIC", 24),
+                Ingredient("T6_ALCOHOL", 12),
             ),
             1 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T2_AGARIC", 24),
+                Ingredient("T6_ALCOHOL", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T2_AGARIC", 24),
+                Ingredient("T6_ALCOHOL", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T2_AGARIC", 24),
+                Ingredient("T6_ALCOHOL", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Berserk Potion (T8)
         "T8" to mapOf(
             0 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_WEREWOLF", 1),  // Excellent Werewolf Fangs x1
-                Ingredient("T8_YARROW", 72),                // Ghoul Yarrow x72
-                Ingredient("T7_MULLEIN", 36)                // Firetouched Mullein x36
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T8_ALCOHOL", 36),
             ),
             1 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_WEREWOLF", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -542,74 +558,90 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T4" to mapOf(
             0 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_IMP", 1),   // Rugged Imp's Horn x1
-                Ingredient("T4_BURDOCK", 16)            // Crenellated Burdock x16
+                Ingredient("T4_MILK", 16)            // Crenellated Burdock x16
             ),
             1 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_IMP", 1),
-                Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T4_MILK", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_IMP", 1),
-                Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T4_MILK", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_IMP", 1),
-                Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T4_MILK", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
         // Hellfire Potion (T6)
         "T6" to mapOf(
             0 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_IMP", 1),   // Fine Imp's Horn x1
-                Ingredient("T6_FOXGLOVE", 24),          // Elusive Foxglove x24
-                Ingredient("T5_TEASEL", 12)             // Dragon Teasel x12
+                Ingredient("T6_MILK", 48),
+                Ingredient("T6_FOXGLOVE", 24),
+                Ingredient("T3_EGG", 12),
             ),
             1 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T6_MILK", 48),
                 Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T6_MILK", 48),
                 Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T6_MILK", 48),
                 Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Hellfire Potion (T8)
         "T8" to mapOf(
             0 to listOf(
-                Ingredient("T7_ALCHEMY_RARE_IMP", 1),   // Excellent Imp's Horn x1
-                Ingredient("T8_YARROW", 72),            // Ghoul Yarrow x72
-                Ingredient("T7_MULLEIN", 36)            // Firetouched Mullein x36
+                Ingredient("T7_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T8_MILK", 144),
+                Ingredient("T8_YARROW", 72),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
             ),
             1 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T8_MILK", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T8_MILK", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_IMP", 1),
+                Ingredient("T8_MILK", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -617,75 +649,91 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         // Minor Gathering Potion (T4)
         "T4" to mapOf(
             0 to listOf(
-                Ingredient("T4_BURDOCK", 8),
-                Ingredient("T3_COMFREY", 4)
+                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T4_BUTTER", 16),
             ),
             1 to listOf(
-                Ingredient("T4_BURDOCK", 8),
-                Ingredient("T3_COMFREY", 4),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T4_BUTTER", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
-                Ingredient("T4_BURDOCK", 8),
-                Ingredient("T3_COMFREY", 4),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T4_BUTTER", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
-                Ingredient("T4_BURDOCK", 8),
-                Ingredient("T3_COMFREY", 4),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T4_BUTTER", 16),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
         // Gathering Potion (T6)
         "T6" to mapOf(
             0 to listOf(
-                Ingredient("T6_FOXGLOVE", 24),  // Elusive Foxglove x24
-                Ingredient("T5_TEASEL", 12),    // Dragon Teasel x12
-                Ingredient("T5_EGG", 6)         // Goose Eggs x6
+                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T6_BUTTER", 48),
+                Ingredient("T6_FOXGLOVE", 24),
+                Ingredient("T5_TEASEL", 12),
             ),
             1 to listOf(
+                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T6_BUTTER", 48),
                 Ingredient("T6_FOXGLOVE", 24),
                 Ingredient("T5_TEASEL", 12),
-                Ingredient("T5_EGG", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
+                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T6_BUTTER", 48),
                 Ingredient("T6_FOXGLOVE", 24),
                 Ingredient("T5_TEASEL", 12),
-                Ingredient("T5_EGG", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
+                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T6_BUTTER", 48),
                 Ingredient("T6_FOXGLOVE", 24),
                 Ingredient("T5_TEASEL", 12),
-                Ingredient("T5_EGG", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Gathering Potion (T8)
         "T8" to mapOf(
             0 to listOf(
-                Ingredient("T8_YARROW", 72),   // Ghoul Yarrow x72
-                Ingredient("T7_MULLEIN", 36),  // Firetouched Mullein x36
-                Ingredient("T8_MILK", 6)       // Cow's Milk x6
+                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T8_BUTTER", 144),
+                Ingredient("T8_YARROW", 72),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T6_FOXGLOVE", 36),
+                Ingredient("T8_ALCOHOL", 36),
             ),
             1 to listOf(
+                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T8_BUTTER", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T8_MILK", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T6_FOXGLOVE", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
+                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T8_BUTTER", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T8_MILK", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T6_FOXGLOVE", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
+                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T8_BUTTER", 144),
                 Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T8_MILK", 6),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T6_FOXGLOVE", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -693,75 +741,91 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         // Minor Tornado in a Bottle (T4)
         "T4" to mapOf(
             0 to listOf(
-                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),  // Rugged Runestone Tooth x1
+                Ingredient("T3_ALCHEMY_RARE_EAGLE", 1),  // Rugged Runestone Tooth x1
                 Ingredient("T4_BURDOCK", 16)
             ),
             1 to listOf(
-                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T3_ALCHEMY_RARE_EAGLE", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
-                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T3_ALCHEMY_RARE_EAGLE", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
-                Ingredient("T3_ALCHEMY_RARE_ELEMENTAL", 1),
+                Ingredient("T3_ALCHEMY_RARE_EAGLE", 1),
                 Ingredient("T4_BURDOCK", 16),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
         // Tornado in a Bottle (T6)
         "T6" to mapOf(
             0 to listOf(
-                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),  // Fine Runestone Tooth x1
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12)
+                Ingredient("T5_ALCHEMY_RARE_EAGLE", 1),  // Fine Runestone Tooth x1
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T5_TEASEL", 24),
+                Ingredient("T3_EGG", 12),
             ),
             1 to listOf(
-                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T5_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T5_TEASEL", 24),
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
-                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T5_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T5_TEASEL", 24),
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
-                Ingredient("T5_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T6_FOXGLOVE", 24),
-                Ingredient("T5_TEASEL", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T5_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T6_FOXGLOVE", 48),
+                Ingredient("T5_TEASEL", 24),
+                Ingredient("T3_EGG", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Tornado in a Bottle (T8)
         "T8" to mapOf(
             0 to listOf(
-                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),  // Excellent Runestone Tooth x1
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36)
+                Ingredient("T7_ALCHEMY_RARE_EAGLE", 1),  // Excellent Runestone Tooth x1
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T7_ALCOHOL", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
             ),
             1 to listOf(
-                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T7_ALCOHOL", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
-                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T7_ALCOHOL", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
-                Ingredient("T7_ALCHEMY_RARE_ELEMENTAL", 1),
-                Ingredient("T8_YARROW", 72),
-                Ingredient("T7_MULLEIN", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_ALCHEMY_RARE_EAGLE", 1),
+                Ingredient("T8_YARROW", 144),
+                Ingredient("T7_MULLEIN", 72),
+                Ingredient("T7_ALCOHOL", 72),
+                Ingredient("T5_EGG", 36),
+                Ingredient("T8_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -770,21 +834,21 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T3" to mapOf(
             0 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_PANTHER", 1),  // Rugged Shadow Claws x1
-                Ingredient("T3_COMFREY", 8)
+                Ingredient("T3_COMFREY", 16)
             ),
             1 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
@@ -792,52 +856,68 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T5" to mapOf(
             0 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_PANTHER", 1),   // Fine Shadow Claws x1
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T2_AGARIC", 12),
             ),
             1 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T2_AGARIC", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T2_AGARIC", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T2_AGARIC", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Calming Potion (T7)
         "T7" to mapOf(
             0 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_PANTHER", 1),   // Excellent Shadow Claws x1
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T2_AGARIC", 36),
+                Ingredient("T7_ALCOHOL", 36),
             ),
             1 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T2_AGARIC", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T2_AGARIC", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_PANTHER", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T2_AGARIC", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -846,21 +926,21 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T3" to mapOf(
             0 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_ENT", 1),  // Rugged Sylvian Root x1
-                Ingredient("T3_COMFREY", 8)
+                Ingredient("T3_COMFREY", 16)
             ),
             1 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
@@ -868,52 +948,68 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T5" to mapOf(
             0 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_ENT", 1),   // Fine Sylvian Root x1
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T3_COMFREY", 24),
+                Ingredient("T4_BUTTER", 12),
             ),
             1 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T3_COMFREY", 24),
+                Ingredient("T4_BUTTER", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T3_COMFREY", 24),
+                Ingredient("T4_BUTTER", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T3_COMFREY", 24),
+                Ingredient("T4_BUTTER", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Cleansing Potion (T7)
         "T7" to mapOf(
             0 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_ENT", 1),   // Excellent Sylvian Root x1
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T4_BURDOCK", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_BUTTER", 36),
+                Ingredient("T7_ALCOHOL", 36),
             ),
             1 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T4_BURDOCK", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_BUTTER", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T4_BURDOCK", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_BUTTER", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_ENT", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T4_BURDOCK", 72),
+                Ingredient("T3_COMFREY", 72),
+                Ingredient("T6_BUTTER", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -922,21 +1018,21 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T3" to mapOf(
             0 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_DIREBEAR", 1),  // Rugged Spirit Paws x1
-                Ingredient("T3_COMFREY", 8)
+                Ingredient("T3_COMFREY", 16)
             ),
             1 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 10)
             ),
             2 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 10)
             ),
             3 to listOf(
                 Ingredient("T3_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T3_COMFREY", 8),
+                Ingredient("T3_COMFREY", 16),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 10)
             )
         ),
@@ -944,52 +1040,68 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
         "T5" to mapOf(
             0 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_DIREBEAR", 1),  // Fine Spirit Paws x1
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T4_MILK", 12),
             ),
             1 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T4_MILK", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 30)
             ),
             2 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T4_MILK", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 30)
             ),
             3 to listOf(
                 Ingredient("T5_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T5_TEASEL", 24),
-                Ingredient("T4_BURDOCK", 12),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T5_TEASEL", 48),
+                Ingredient("T4_BURDOCK", 24),
+                Ingredient("T4_MILK", 12),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 30)
             )
         ),
         // Major Acid Potion (T7)
         "T7" to mapOf(
             0 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_DIREBEAR", 1),  // Excellent Spirit Paws x1
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T6_MILK", 36),
+                Ingredient("T7_ALCOHOL", 36),
             ),
             1 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T6_MILK", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL1", 90)
             ),
             2 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T6_MILK", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL2", 90)
             ),
             3 to listOf(
                 Ingredient("T7_ALCHEMY_RARE_DIREBEAR", 1),
-                Ingredient("T7_MULLEIN", 72),
-                Ingredient("T6_FOXGLOVE", 36),
-                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 15)
+                Ingredient("T7_MULLEIN", 144),
+                Ingredient("T6_FOXGLOVE", 72),
+                Ingredient("T6_ALCOHOL", 72),
+                Ingredient("T6_MILK", 36),
+                Ingredient("T7_ALCOHOL", 36),
+                Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 90)
             )
         )
     ),
@@ -1027,6 +1139,24 @@ val potionIngredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ing
                 Ingredient("T8_MILK", 18),
                 Ingredient("T8_ALCOHOL", 18),
                 Ingredient("T1_ALCHEMY_EXTRACT_LEVEL3", 45)
+            )
+        )
+    ),
+    "ALCOHOL" to mapOf(
+        // Invisibility Potion (T8)
+        "T6" to mapOf(
+            0 to listOf(
+                Ingredient("T6_POTATO", 1),
+            )
+        ),
+        "T7" to mapOf(
+            0 to listOf(
+                Ingredient("T7_CORN", 1),
+            )
+        ),
+        "T8" to mapOf(
+            0 to listOf(
+                Ingredient("T8_PUMPKIN", 1),
             )
         )
     )

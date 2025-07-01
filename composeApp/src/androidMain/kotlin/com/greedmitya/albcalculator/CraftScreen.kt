@@ -201,7 +201,7 @@ fun CraftScreen(viewModel: CraftViewModel) {
                         onPriceChange = { viewModel.potionSellPrice = it },
                         profitSilver = viewModel.profitSilver,
                         profitPercent = viewModel.profitPercent,
-                        quantity = 5
+                        quantity = viewModel.outputQuantity
                     )
                 }
             }
