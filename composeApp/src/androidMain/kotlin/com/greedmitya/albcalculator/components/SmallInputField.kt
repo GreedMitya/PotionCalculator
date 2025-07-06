@@ -1,5 +1,7 @@
 package com.greedmitya.albcalculator.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,20 +13,39 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
 
 @Composable
 fun SmallInputField(
     title: String,
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isError: Boolean = false
 ) {
+    var localError by remember { mutableStateOf(false) }
+
+    LaunchedEffect(isError) {
+        if (isError) {
+            localError = true
+            delay(3000)
+            localError = false
+        }
+    }
+
+    val borderColor by rememberBlinkingError(isError)
+
     Column(
         modifier = modifier.widthIn(min = 80.dp, max = 120.dp)
     ) {
@@ -55,7 +76,7 @@ fun SmallInputField(
             ),
             modifier = Modifier
                 .height(48.dp)
-                .border(1.dp, AppColors.PrimaryGold, RoundedCornerShape(6.dp))
+                .border(1.dp, borderColor, RoundedCornerShape(6.dp))
         )
     }
 }

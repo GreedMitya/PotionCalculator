@@ -1,6 +1,6 @@
 package com.greedmitya.albcalculator.ui.screens.craft
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -9,224 +9,144 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
+import com.greedmitya.albcalculator.CraftContent
 import com.greedmitya.albcalculator.CraftViewModel
+import com.greedmitya.albcalculator.FavoritesScreen
 import com.greedmitya.albcalculator.R
 import com.greedmitya.albcalculator.components.*
 import com.greedmitya.albcalculator.model.BottomNavItemData
 import com.greedmitya.albcalculator.ui.components.IngredientItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
-
-    // Навигационные элементы
-    val navItems = listOf(
-        BottomNavItemData("Craft", R.drawable.ic_craft),
-        BottomNavItemData("Favorites", R.drawable.ic_favorites),
-        BottomNavItemData("How to use", R.drawable.ic_how_to_use),
-        BottomNavItemData("Settings", R.drawable.ic_settings)
-    )
-    var selectedIndex by remember { mutableStateOf(0) }
-
+    val isPremium by viewModel::isPremium
+    val useFocus by viewModel::useFocus
+    val isReady by remember { derivedStateOf { viewModel.isReadyToCalculate } }
+    val isMarketReady by remember { derivedStateOf { viewModel.isReadyForMarket } }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
+
+    val navItems = listOf(
+        BottomNavItemData(
+            label = "Craft",
+            iconResId = R.drawable.ic_craft,
+            selectedIconResId = R.drawable.ic_craft_active
+        ),
+        BottomNavItemData(
+            label = "Favorites",
+            iconResId = R.drawable.ic_favorites,
+            selectedIconResId = R.drawable.ic_favorites_active
+        ),
+        BottomNavItemData(
+            label = "How to use",
+            iconResId = R.drawable.ic_how_to_use,
+            selectedIconResId = R.drawable.ic_how_to_active
+        ),
+        BottomNavItemData(
+            label = "Settings",
+            iconResId = R.drawable.ic_settings,
+            selectedIconResId = R.drawable.ic_settings_active
+        )
+    )
+
+    var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
         containerColor = AppColors.BackgroundDark,
+        snackbarHost = {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 60.dp),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                SnackbarHost(
+                    hostState = snackbarHostState,
+                    snackbar = { data ->
+                        Snackbar(
+                            containerColor = AppColors.Gray500,
+                            contentColor = AppColors.White,
+                            shape = RoundedCornerShape(26.dp),
+                            modifier = Modifier
+                                .padding(horizontal = 24.dp)
+                                .wrapContentWidth()
+                                .defaultMinSize(minWidth = 50.dp)
+                                .widthIn(max = 120.dp)
+                        ) {
+                            Text(
+                                text = data.visuals.message,
+                                fontSize = 14.sp,
+                                lineHeight = 18.sp,
+                                maxLines = 2,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
+                )
+            }
+        },
         bottomBar = {
             Surface(
-                color = Color(0xFF2A2A2A),
+                color = AppColors.PanelBrown,
                 tonalElevation = 4.dp,
                 modifier = Modifier.navigationBarsPadding()
             ) {
                 BottomNavigationBar(
                     items = navItems,
-                    selectedIndex = selectedIndex,
-                    onSelect = { selectedIndex = it },
+                    selectedIndex = selectedTab,
+                    onSelect = { selectedTab = it },
                     modifier = Modifier.fillMaxWidth()
                 )
             }
         }
     ) { innerPadding ->
 
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(scrollState) // ← это важно
                 .padding(innerPadding)
-                .padding(top = 60.dp, start = 30.dp, end = 30.dp, bottom = 30.dp), // ← добавь bottom padding
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start
         ) {
-            // Заголовок
-            Box(
-                Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                TitleSection()
-            }
-            Spacer(Modifier.height(20.dp))
-
-            // Селектор Зелий
-            SelectorBlock(
-                title = "Potion",
-                options = viewModel.potions,
-                selectedOption = viewModel.selectedPotion,
-                onOptionSelected = { viewModel.onPotionSelected(it) },
-                modifier = Modifier.fillMaxWidth(),
-                menuMaxHeight = 240.dp
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            // Tier и Enchantment
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                SelectorBlock(
-                    title = "Tier",
-                    options = viewModel.availableTiers, // = [] если зелье не выбрано
-                    selectedOption = viewModel.selectedTier,
-                    onOptionSelected = { viewModel.selectedTier = it },
-                    modifier = Modifier.weight(1f)
+            when (selectedTab) {
+                0 -> CraftContent(
+                    viewModel = viewModel,
+                    isReady = isReady,
+                    isMarketReady = isMarketReady,
+                    snackbarHostState = snackbarHostState,
+                    coroutineScope = coroutineScope,
+                    scrollState = scrollState
                 )
 
-                val enchantOptions = if (viewModel.selectedPotion != null) viewModel.enchantments else emptyList()
-
-                SelectorBlock(
-                    title = "Enchantment",
-                    options = enchantOptions,
-                    selectedOption = viewModel.selectedEnchantment,
-                    onOptionSelected = { viewModel.selectedEnchantment = it },
-                    modifier = Modifier.weight(1f)
+                1 -> FavoritesScreen(
+                    viewModel = viewModel,
+                    onNavigateToCraft = { selectedTab = 0 }
                 )
-
-
-            }
-            Spacer(Modifier.height(12.dp))
-
-            // City и Fee
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                SelectorBlock(
-                    title = "City",
-                    options = viewModel.cities,
-                    selectedOption = viewModel.selectedCity,
-                    onOptionSelected = { viewModel.selectedCity = it },
-                    modifier = Modifier.weight(1f),
-                )
-                InputField(
-                    title = "Fee for 100 nutrition",
-                    value = viewModel.feePerNutritionInput,
-                    onValueChange = { viewModel.feePerNutritionInput = it },
-                    modifier = Modifier.weight(1f),
-                    isNumeric = true
-                )
-            }
-
-            Spacer(Modifier.height(24.dp))
-
-            // Переключатели
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                ToggleOption(
-                    label = "Premium",
-                    checked = viewModel.isPremium,
-                    onCheckedChange = { viewModel.isPremium = it },
-                    modifier = Modifier.weight(1f)
-                )
-                ToggleOption(
-                    label = "Use focus",
-                    checked = viewModel.useFocus,
-                    onCheckedChange = { viewModel.useFocus = it },
-                    modifier = Modifier.weight(1f)
-                )
-            }
-            if (viewModel.useFocus) {
-                Spacer(Modifier.height(12.dp))
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    SmallInputField(
-                        title = "Basic",
-                        value = viewModel.focusBasic,
-                        onValueChange = { viewModel.focusBasic = it },
-                        modifier = Modifier.weight(1f)
-                    )
-                    SmallInputField(
-                        title = "Mastery",
-                        value = viewModel.focusMastery,
-                        onValueChange = { viewModel.focusMastery = it },
-                        modifier = Modifier.weight(1f)
-                    )
-                    SmallInputField(
-                        title = "Total",
-                        value = viewModel.focusTotal,
-                        onValueChange = { viewModel.focusTotal = it },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-            Spacer(Modifier.height(24.dp))
-            val ingredients = viewModel.getRecipeForSelected()
-
-            Column {
-                ingredients.forEach { ingredient ->
-                    IngredientItem(
-                        ingredient = ingredient.copy(
-                            price = viewModel.ingredientPrices[ingredient.name]?.toDoubleOrNull()
-                        ),
-                        onPriceChange = { newPrice ->
-                            viewModel.ingredientPrices[ingredient.name] = newPrice
-                        }
-                    )
-                    Spacer(Modifier.height(12.dp))
-                }
-
-                if (viewModel.selectedPotion != null) {
-                    ResultItem(
-                        potionDisplayName = viewModel.selectedPotion ?: "Unknown Potion",
-                        tier = viewModel.selectedTier ?: "T4",
-                        enchantment = viewModel.enchantments.indexOf(viewModel.selectedEnchantment ?: "Normal (.0)"),
-                        pricePerItem = viewModel.potionSellPrice,
-                        onPriceChange = { viewModel.potionSellPrice = it },
-                        profitSilver = viewModel.profitSilver,
-                        profitPercent = viewModel.profitPercent,
-                        quantity = viewModel.outputQuantity
-                    )
-                }
-            }
-            Spacer(Modifier.height(40.dp))
-
-            // Кнопки действия
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                ActionTextButton(
-                    text = "Calculate",
-                    onClick = { viewModel.calculateProfit() },
-                    modifier = Modifier.weight(1f)
-                )
-                ActionTextButton(
-                    text = "Market",
-                    onClick = { /* TODO */ },
-                    modifier = Modifier.weight(1f)
-                )
-                ActionIconButton(
-                    iconResId = R.drawable.button_dots_false, // ← замени на свою иконку
-                    onClick = { /* TODO */ }
-                )
+                // 2 -> HowToUseScreen()
+                // 3 -> SettingsScreen()
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+

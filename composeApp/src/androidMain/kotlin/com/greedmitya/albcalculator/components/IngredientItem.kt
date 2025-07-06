@@ -1,18 +1,31 @@
 package com.greedmitya.albcalculator.ui.components
 
 import Ingredient
+import com.greedmitya.albcalculator.R
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -22,40 +35,58 @@ import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.assets.getDisplayNameFromItemId
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
+import com.greedmitya.albcalculator.components.rememberBlinkingError
+import kotlinx.coroutines.delay
 
-// В файле IngredientItem.kt
 @Composable
 fun IngredientItem(
     ingredient: Ingredient,
     onPriceChange: (String) -> Unit,
+    onCopy: () -> Unit = {},
+    isError: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val clipboardManager = LocalClipboardManager.current
+    val displayName = getDisplayNameFromItemId(ingredient.name)
+
+
     Column(
         modifier = modifier
             .width(350.dp)
             .background(AppColors.Gray400, RoundedCornerShape(8.dp))
             .padding(bottom = 12.dp)
     ) {
-        // Шапка с названием
-        Box(
+        // Header с копированием
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(29.dp)
                 .background(AppColors.Gray500, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
                 .padding(horizontal = 12.dp, vertical = 4.dp),
-            contentAlignment = Alignment.CenterStart
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = getDisplayNameFromItemId(ingredient.name),
+                text = displayName,
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium
+            )
+
+            Image(
+                painter = painterResource(R.drawable.clone),
+                contentDescription = "Copy Ingredient Name",
+                modifier = Modifier
+                    .size(16.dp)
+                    .clickable {
+                        clipboardManager.setText(AnnotatedString(displayName))
+                        onCopy()
+                    }
             )
         }
 
         Spacer(Modifier.height(8.dp))
 
-        // Основной ряд: картинка + колонка с двумя строками
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,9 +104,16 @@ fun IngredientItem(
 
             Spacer(Modifier.width(15.dp))
 
-            // Колонка с Cost и Quantity
             Column(modifier = Modifier.weight(1f)) {
-                // — Cost per item —
+                val borderColor by rememberBlinkingError(isError)
+                val blinkOverlayColor by animateColorAsState(
+                    targetValue = if (isError) AppColors.PanelBrown.copy(alpha = 0.8f) else AppColors.PanelBrown,
+                    animationSpec = tween(durationMillis = 400)
+                )
+
+
+
+                // Цена
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -87,14 +125,22 @@ fun IngredientItem(
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.weight(1f)
                     )
+
                     Box(
                         modifier = Modifier
                             .width(120.dp)
-                            .background(AppColors.PanelBrown, RoundedCornerShape(8.dp))
-                            .border(1.dp, AppColors.PrimaryGold, RoundedCornerShape(8.dp))
-                            .padding(horizontal = 12.dp, vertical = 8.dp),
-                        contentAlignment = Alignment.CenterStart
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(AppColors.PanelBrown)
+                            .border(1.dp, borderColor, RoundedCornerShape(8.dp)),
+                        contentAlignment = Alignment.Center
                     ) {
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(blinkOverlayColor)
+                        )
+
                         val priceText = ingredient.price?.toString() ?: ""
                         BasicTextField(
                             value = priceText,
@@ -108,16 +154,22 @@ fun IngredientItem(
                                 fontFamily = FontFamily.Serif
                             ),
                             decorationBox = { inner ->
-                                if (priceText.isEmpty()) {
-                                    Text(
-                                        text = "Enter",
-                                        color = AppColors.LightBeige,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Medium,
-                                        fontFamily = FontFamily.Serif
-                                    )
+                                Box(
+                                    modifier = Modifier
+                                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                                    contentAlignment = Alignment.CenterStart
+                                ) {
+                                    if (priceText.isEmpty()) {
+                                        Text(
+                                            text = "Enter",
+                                            color = AppColors.LightBeige,
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight.Medium,
+                                            fontFamily = FontFamily.Serif
+                                        )
+                                    }
+                                    inner()
                                 }
-                                inner()
                             }
                         )
                     }
@@ -125,7 +177,7 @@ fun IngredientItem(
 
                 Spacer(Modifier.height(12.dp))
 
-                // — Quantity, выровненное под полем ввода —
+                // Кол-во
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -139,8 +191,8 @@ fun IngredientItem(
                     )
                     Box(
                         modifier = Modifier
-                            .width(120.dp)      // та же ширина
-                            .padding(start = 12.dp), // тот же left-padding
+                            .width(120.dp)
+                            .padding(start = 12.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
@@ -156,6 +208,3 @@ fun IngredientItem(
         }
     }
 }
-
-
-

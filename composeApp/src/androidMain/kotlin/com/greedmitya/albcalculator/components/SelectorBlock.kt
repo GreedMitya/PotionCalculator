@@ -1,5 +1,7 @@
 package com.greedmitya.albcalculator.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,6 +18,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.*
 import com.greedmitya.albcalculator.R
+import kotlinx.coroutines.delay
 
 @Composable
 fun SelectorBlock(
@@ -23,16 +26,39 @@ fun SelectorBlock(
     options: List<String>,
     selectedOption: String?,
     onOptionSelected: (String) -> Unit,
-    modifier: Modifier = Modifier ,
+    modifier: Modifier = Modifier,
+    isError: Boolean = false,
     menuMaxHeight: Dp? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectorWidth by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
 
-    Column(
-        modifier = modifier
-    ) {
+    // Вспомогательное состояние для управления миганием
+    var blinkState by remember { mutableStateOf(false) }
+
+    // Реакция на isError: запускаем мигание
+    LaunchedEffect(isError) {
+        if (isError) {
+            blinkState = true
+            delay(300)
+            blinkState = false
+            delay(300)
+            blinkState = true
+            delay(3000)
+            blinkState = false
+        }
+    }
+
+    // Цвет рамки с анимацией
+    val animatedBorderColor by rememberBlinkingError(isError)
+
+    val animatedBackgroundColor by animateColorAsState(
+        targetValue = if (blinkState) AppColors.PanelBrown.copy(alpha = 0.8f) else AppColors.PanelBrown,
+        animationSpec = tween(durationMillis = 400)
+    )
+
+    Column(modifier = modifier) {
         Text(
             text = title,
             fontSize = 16.sp,
@@ -48,11 +74,11 @@ fun SelectorBlock(
                 }
                 .border(
                     width = 1.dp,
-                    color = AppColors.PrimaryGold,
+                    color = animatedBorderColor,
                     shape = RoundedCornerShape(8.dp)
                 )
-                .background(AppColors.PanelBrown, RoundedCornerShape(8.dp))
-                .clickable { expanded = !expanded }
+                .background(animatedBackgroundColor, RoundedCornerShape(8.dp))
+                .clickable { expanded = true }
                 .padding(horizontal = 12.dp, vertical = 12.dp)
         ) {
             Row(
@@ -102,3 +128,6 @@ fun SelectorBlock(
         }
     }
 }
+
+
+

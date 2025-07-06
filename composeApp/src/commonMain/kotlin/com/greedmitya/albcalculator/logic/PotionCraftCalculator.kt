@@ -9,35 +9,51 @@ object PotionCraftCalculator {
         isPremium: Boolean,
         focusBasic: Double?,
         focusMastery: Double?,
-        focusTotal: Double?
+        focusTotal: Double?,
+        itemValue: Int,
+        city: String?,
+        sellPrice: Double?,
+        outputQuantity: Int
     ): PotionCraftResult {
-        // 1. Сумма ресурсов
-        val resourceSum = ingredients.sumOf {
-            (it.price ?: 0.0) * it.quantity
+        // 1. Сегрегация ингредиентов
+        val rareIngredients = ingredients.filter { it.name.contains("RARE", ignoreCase = true) }
+        val regularIngredients = ingredients - rareIngredients
+
+        // 2. Считаем по группам
+        val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
+        val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
+
+        // 3. Возврат ресурсов только с обычных
+        val returnRate = when (city) {
+            "Brecilien" -> 0.248
+            else -> 0.152
         }
+        val regularAfterReturn = regularRawCost * (1 - returnRate)
 
-        // 2. Стоимость питания
-        val fee = feePerNutrition
+        // 4. Общая стоимость всех ресурсов после возврата
+        val totalCostAfterReturn = rareCost + regularAfterReturn
 
-        // 3. Коэффициент фокуса (если включён)
-        val focusReduction = if (useFocus && focusBasic != null && focusMastery != null && focusTotal != null) {
-            val totalReduction = (focusBasic + focusMastery) / focusTotal
-            totalReduction.coerceIn(0.0, 1.0)
-        } else 0.0
+        // 5. Налог за крафт
+        val craftingTax = feePerNutrition * itemValue * 0.001125
+        val craftingTaxPerItem = craftingTax / outputQuantity
 
-        // 4. Стоимость с учётом фокуса
-        val afterFocusCost = resourceSum * (1 - focusReduction)
+        // 6. Себестоимость одной банки
+        val costPerItem = (totalCostAfterReturn / outputQuantity) + craftingTaxPerItem
 
-        // 5. Применим премиум-бонус (например, 15% экономии)
-        val finalCost = if (isPremium) afterFocusCost * 0.85 else afterFocusCost
+        // 7. Расчёт прибыли
+        val taxRate = if (isPremium) 0.065 else 0.105
+        val netSell = (sellPrice ?: 0.0) * (1 - taxRate)
 
-        // 6. Учёт стоимости питания
-        val total = finalCost + fee
+        val profitSilver = netSell - costPerItem
+        println("💰 isPremium=$isPremium, taxRate=$taxRate, netSell=$netSell, costPerItem=$costPerItem, profitSilver=$profitSilver")
 
         return PotionCraftResult(
-            totalResources = resourceSum,
-            withPlacementFee = finalCost,
-            finalCost = total
+            totalResources = rareCost + regularRawCost,
+            withPlacementFee = totalCostAfterReturn,
+            finalCost = costPerItem,
+            estimatedSellPrice = sellPrice,
+            profitSilver = profitSilver
         )
     }
-}
+    }
+

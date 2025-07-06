@@ -8,15 +8,19 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    kotlin("plugin.serialization") version "1.9.22"
+
 }
 
 kotlin {
     androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
         }
     }
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -40,6 +44,8 @@ kotlin {
             implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
             implementation("androidx.activity:activity-compose:1.8.0")
             implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+            implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 
 
         }
@@ -52,6 +58,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("io.ktor:ktor-client-core:2.3.5")
+            implementation("io.ktor:ktor-client-cio:2.3.5")
+            implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
 
         }
         commonTest.dependencies {

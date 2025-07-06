@@ -13,5 +13,10 @@ object AppColors {
     val Gray200 = Color(0xFFCCCCCC)
     val ToggleGold =  Color(0xFFF0AD4E)
     val White = Color(0xFFF2E9DC)
+    val Secondary_Beige = Color(0xffd0a586)
+
+    val shimmerColor = Color(0x66FFD700) // мягкий золотистый с прозрачностью
+
+
 }
 
