@@ -31,10 +31,11 @@ kotlin {
             isStatic = true
         }
     }
-    
+
    // jvm("desktop")
 
     sourceSets {
+
         //val desktopMain by getting
         androidMain.dependencies {
             implementation(compose.preview)

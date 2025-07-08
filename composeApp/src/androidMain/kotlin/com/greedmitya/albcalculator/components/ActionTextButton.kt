@@ -14,8 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -23,6 +21,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.greedmitya.albcalculator.R
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import com.greedmitya.albcalculator.ui.theme.EBGaramond
+
 
 @Composable
 fun ActionTextButton(
@@ -59,9 +62,9 @@ fun ActionTextButton(
         Text(
             text = text,
             color = textColor,
-            fontSize = 16.sp,
+            fontFamily = EBGaramond,
             fontWeight = FontWeight.SemiBold,
-            fontFamily = FontFamily.Serif
+            fontSize = 20.sp
         )
     }
 }
@@ -79,6 +82,11 @@ fun ActionIconMenuButton(
     val isPressed by interactionSource.collectIsPressedAsState()
 
     val backgroundColor = if (isPressed) AppColors.PrimaryGold else AppColors.Gray200
+
+
+
+
+    var showConfirmPopup by remember { mutableStateOf(false) }
 
     Box(modifier) {
         Box(
@@ -132,12 +140,21 @@ fun ActionIconMenuButton(
                         text = "Save to Favorites",
                         onClick = {
                             expanded = false
-                            onSaveClick()
+                            showConfirmPopup = true
                         }
                     )
                 }
             }
         }
+        if (showConfirmPopup) {
+        SaveToFavoritesPopup(
+            onDismiss = { showConfirmPopup = false },
+            onConfirm = {
+                showConfirmPopup = false
+                onSaveClick()
+            }
+        )
+    }
     }
 }
 
@@ -164,9 +181,9 @@ fun DropdownMenuItemCustom(
         Text(
             text = text,
             color = AppColors.PrimaryGold,
-            fontSize = 20.sp,
+            fontFamily = EBGaramond,
             fontWeight = FontWeight.SemiBold,
-            fontFamily = FontFamily.Serif
+            fontSize = 20.sp
         )
     }
 }

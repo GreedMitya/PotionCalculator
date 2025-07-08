@@ -1,6 +1,7 @@
 package com.greedmitya.albcalculator
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,9 +19,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,13 +39,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
+import com.greedmitya.albcalculator.components.DeleteFromFavoritesDialog
 import com.greedmitya.albcalculator.model.FavoriteRecipe
-import kotlinx.serialization.Serializable
 
 @Composable
 fun FavoritesScreen(
     viewModel: CraftViewModel,
-    onNavigateToCraft: () -> Unit
+    onNavigateToCraft: () -> Unit,
+    scrollState: ScrollState
 )
  {
     val favorites = viewModel.favorites
@@ -79,6 +86,7 @@ fun FavoritesScreen(
                     onRemove = { viewModel.removeFromFavorites(recipe) },
                     onApply = {
                         viewModel.applyFavorite(recipe)
+                        viewModel.resetPrices()
                         onNavigateToCraft()
                     }
                 )
@@ -93,6 +101,18 @@ fun FavoriteRecipeItem(
     onRemove: () -> Unit,
     onApply: () -> Unit
 ) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    if (showDeleteDialog) {
+        DeleteFromFavoritesDialog(
+            onDismiss = { showDeleteDialog = false },
+            onConfirm = {
+                showDeleteDialog = false
+                onRemove()
+            }
+        )
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,7 +121,7 @@ fun FavoriteRecipeItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Левая часть: картинка + инфо
+        // Левая часть
         Row(
             modifier = Modifier.width(240.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -149,7 +169,6 @@ fun FavoriteRecipeItem(
                         fontWeight = FontWeight.Medium,
                         fontFamily = FontFamily.Serif
                     )
-
                 }
             }
         }
@@ -162,7 +181,7 @@ fun FavoriteRecipeItem(
                     .clip(RoundedCornerShape(8.dp))
                     .background(AppColors.Secondary_Beige)
                     .border(1.dp, AppColors.PrimaryGold, RoundedCornerShape(8.dp))
-                    .clickable { onRemove() },
+                    .clickable { showDeleteDialog = true },
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -192,5 +211,6 @@ fun FavoriteRecipeItem(
         }
     }
 }
+
 
 

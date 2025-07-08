@@ -51,7 +51,7 @@ fun CraftContent(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .padding(top = 60.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
+            .padding(top = 40.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {

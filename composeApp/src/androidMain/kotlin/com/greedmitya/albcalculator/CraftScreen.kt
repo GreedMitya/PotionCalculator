@@ -7,11 +7,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -21,12 +18,11 @@ import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.CraftContent
 import com.greedmitya.albcalculator.CraftViewModel
 import com.greedmitya.albcalculator.FavoritesScreen
+import com.greedmitya.albcalculator.HowToUseScreen
 import com.greedmitya.albcalculator.R
+import com.greedmitya.albcalculator.SettingsScreen
 import com.greedmitya.albcalculator.components.*
 import com.greedmitya.albcalculator.model.BottomNavItemData
-import com.greedmitya.albcalculator.ui.components.IngredientItem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
@@ -36,7 +32,8 @@ fun CraftScreen(viewModel: CraftViewModel) {
     val isMarketReady by remember { derivedStateOf { viewModel.isReadyForMarket } }
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
-    val scrollState = rememberScrollState()
+    var selectedTab by remember { mutableStateOf(0) }
+    val scrollState = remember(selectedTab) { ScrollState(0) }
 
     val navItems = listOf(
         BottomNavItemData(
@@ -60,8 +57,6 @@ fun CraftScreen(viewModel: CraftViewModel) {
             selectedIconResId = R.drawable.ic_settings_active
         )
     )
-
-    var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
         containerColor = AppColors.BackgroundDark,
@@ -130,18 +125,17 @@ fun CraftScreen(viewModel: CraftViewModel) {
                     coroutineScope = coroutineScope,
                     scrollState = scrollState
                 )
-
                 1 -> FavoritesScreen(
                     viewModel = viewModel,
-                    onNavigateToCraft = { selectedTab = 0 }
+                    onNavigateToCraft = { selectedTab = 0 },
+                    scrollState = scrollState
                 )
-                // 2 -> HowToUseScreen()
-                // 3 -> SettingsScreen()
+                2 -> HowToUseScreen(scrollState = scrollState)
+                3 -> SettingsScreen(viewModel = viewModel, scrollState = scrollState)
             }
         }
     }
 }
-
 
 
 

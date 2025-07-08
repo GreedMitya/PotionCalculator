@@ -2,6 +2,7 @@ package com.greedmitya.albcalculator.storage
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.greedmitya.albcalculator.model.FavoriteRecipe
@@ -10,6 +11,8 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 private val Context.dataStore by preferencesDataStore(name = "favorites")
+private val SERVER_KEY = stringPreferencesKey("selected_server")
+
 
 object FavoritesStorage {
     private val KEY = stringSetPreferencesKey("favorites_set")
@@ -30,4 +33,14 @@ object FavoritesStorage {
             } catch (e: Exception) { null }
         }
     }
+    suspend fun loadSelectedServer(context: Context): String {
+        val prefs = context.dataStore.data.first()
+        return prefs[SERVER_KEY] ?: "Europe"
+    }
+
+    suspend fun saveSelectedServer(context: Context, server: String) {
+        context.dataStore.edit { it[SERVER_KEY] = server }
+    }
 }
+
+

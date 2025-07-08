@@ -36,6 +36,7 @@ import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.assets.getDisplayNameFromItemId
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
 import com.greedmitya.albcalculator.components.rememberBlinkingError
+import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import kotlinx.coroutines.delay
 
 @Composable
@@ -62,7 +63,7 @@ fun IngredientItem(
                 .fillMaxWidth()
                 .height(29.dp)
                 .background(AppColors.Gray500, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-                .padding(horizontal = 12.dp, vertical = 4.dp),
+                .padding(horizontal = 12.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -70,7 +71,8 @@ fun IngredientItem(
                 text = displayName,
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily.Serif,
             )
 
             Image(
@@ -102,7 +104,7 @@ fun IngredientItem(
                     .clip(RoundedCornerShape(8.dp))
             )
 
-            Spacer(Modifier.width(15.dp))
+            Spacer(Modifier.width(20.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 val borderColor by rememberBlinkingError(isError)
@@ -115,18 +117,23 @@ fun IngredientItem(
 
                 // Цена
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween // ⬅️ фикс
                 ) {
                     Text(
-                        text = "Cost per item",
+                        text = "Price per Item",
                         color = AppColors.BackgroundDark,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.weight(1f)
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = FontFamily.Serif,
+                        softWrap = true, // ✅ разрешаем перенос
+                        maxLines = 2,    // ✅ максимум 2 строки
+                        modifier = Modifier
+                            .fillMaxWidth(0.4f) // ✅ ограничиваем ширину, чтобы он знал когда переносить
                     )
-
-                    Box(
+                Box(
                         modifier = Modifier
                             .width(120.dp)
                             .clip(RoundedCornerShape(8.dp))
@@ -185,8 +192,9 @@ fun IngredientItem(
                     Text(
                         text = "Quantity",
                         color = AppColors.BackgroundDark,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = FontFamily.Serif,
                         modifier = Modifier.weight(1f)
                     )
                     Box(
@@ -200,7 +208,7 @@ fun IngredientItem(
                             color = AppColors.LightBeige,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
-                            fontFamily = FontFamily.Serif
+                            fontFamily = FontFamily.Serif,
                         )
                     }
                 }

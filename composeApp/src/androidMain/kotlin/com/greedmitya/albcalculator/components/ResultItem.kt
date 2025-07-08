@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
+import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import kotlinx.coroutines.delay
 
 
@@ -91,7 +92,7 @@ fun ResultItem(
                 .fillMaxWidth()
                 .height(29.dp)
                 .background(AppColors.Gray500, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-                .padding(horizontal = 12.dp, vertical = 4.dp),
+                .padding(horizontal = 12.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -99,7 +100,8 @@ fun ResultItem(
                 text = potionDisplayName,
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily.Serif,
             )
             Image(
                 painter = painterResource(R.drawable.clone),
@@ -118,8 +120,8 @@ fun ResultItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.Top
         ) {
             // Icon
             Image(
@@ -130,9 +132,9 @@ fun ResultItem(
                     .clip(RoundedCornerShape(8.dp))
             )
 
-            Spacer(Modifier.width(15.dp))
+            Spacer(Modifier.width(20.dp))
 
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.weight(1f).padding(top = 4.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -140,8 +142,9 @@ fun ResultItem(
                     Text(
                         text = "Price per Item",
                         color = AppColors.BackgroundDark,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = FontFamily.Serif,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -176,7 +179,7 @@ fun ResultItem(
                                 color = AppColors.LightBeige,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                fontFamily = FontFamily.Serif
+                                fontFamily = FontFamily.Serif,
                             ),
                             decorationBox = { inner ->
                                 Box(
@@ -201,11 +204,11 @@ fun ResultItem(
                 }
 
                 Spacer(Modifier.height(12.dp))
-                ResultRow("Quantity", quantity.toString())
+                ResultRow("Quantity per Craft", quantity.toString())
                 Spacer(Modifier.height(12.dp))
                 ResultRow("Profit", profitSilver, shimmerColor)
                 Spacer(Modifier.height(12.dp))
-                ResultRow("Profit, %", profitPercent, shimmerColor)
+                ResultRow("Profit %", profitPercent, shimmerColor)
             }
         }
     }
@@ -219,7 +222,7 @@ fun ResultRow(
     shimmerColor: Color = Color.Transparent
 ) {
     val (finalLabel, labelColor) = remember(label, value) {
-        if (label == "Profit, %" || label == "Profit") {
+        if (label == "Profit %" || label == "Profit") {
             val percent = value.filter { it.isDigit() || it == '.' || it == '-' }.toFloatOrNull()
             val arrow = when {
                 percent == null -> ""
@@ -244,8 +247,9 @@ fun ResultRow(
         Text(
             text = finalLabel,
             color = labelColor,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily.Serif,
             modifier = Modifier.weight(1f)
         )
 
@@ -266,7 +270,7 @@ fun ResultRow(
                 color = AppColors.LightBeige,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                fontFamily = FontFamily.Serif
+                fontFamily = FontFamily.Serif,
             )
         }
     }

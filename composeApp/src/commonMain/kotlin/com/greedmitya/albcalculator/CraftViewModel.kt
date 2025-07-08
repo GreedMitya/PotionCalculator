@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
+
 class CraftViewModel : ViewModel() {
     val favorites = mutableStateListOf<FavoriteRecipe>()
     val allPotions = listOf(
@@ -76,6 +77,19 @@ class CraftViewModel : ViewModel() {
 
     var validateForCalculate by mutableStateOf(false)
     var validateForMarket by mutableStateOf(false)
+    val serverDisplayNames = mapOf(
+        "europe" to "Europe",
+        "west" to "North America",
+        "east" to "Asia"
+    )
+    var selectedServer by mutableStateOf("Europe")
+        private set
+
+    fun updateServer(newValue: String) {
+        selectedServer = newValue
+    }
+
+
 
     val isPotionError get() = (validateForCalculate || validateForMarket) && selectedPotion == null
     val isTierError get() = (validateForCalculate || validateForMarket) && selectedTier == null
@@ -220,7 +234,8 @@ class CraftViewModel : ViewModel() {
         val potionId = getFullItemId() ?: return
         val city = selectedCity ?: return
         val itemIds = (ingredients.map { it.name } + potionId).distinct()
-        val url = "https://europe.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$city"
+        val serverCode = serverDisplayNames.entries.firstOrNull { it.value == selectedServer }?.key ?: "europe"
+        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$city"
 
         potionSellPrice = ""
         ingredientPrices.clear()
