@@ -57,7 +57,6 @@ fun FavoritesScreen(
              .background(AppColors.BackgroundDark)
              .padding(horizontal = 20.dp, vertical = 60.dp)
      ) {
-         // ✅ Новый заголовок
          Column(
              modifier = Modifier.fillMaxWidth(),
              horizontalAlignment = Alignment.CenterHorizontally
@@ -121,7 +120,6 @@ fun FavoriteRecipeItem(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Левая часть
         Row(
             modifier = Modifier.width(240.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -173,7 +171,6 @@ fun FavoriteRecipeItem(
             }
         }
 
-        // Правая часть: кнопки
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             Box(
                 modifier = Modifier

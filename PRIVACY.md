@@ -1,21 +1,30 @@
-Privacy Policy
-Last updated: July 9, 2025
-App name: Albion Potion Calculator
-Developer: @greedmitya
+# Privacy Policy – Albion Potion Calculator
 
-1. No Personal Data Collection
-   This app does not collect, store, or transmit any personal information.
+_Last updated: July 9, 2025_
 
-It runs entirely on your device and does not require login, account creation, or access to any personal data.
+## 1. No Personal Data Collected
 
-2. Network Usage
-   The app may perform read-only API requests to the public Albion Online Data Project API (https://www.albion-online-data.com/) to retrieve in-game market prices. These requests are anonymous and do not include personal information.
+Albion Potion Calculator does **not collect, store, or share** any personal information. The app runs entirely on the user's device and does not access contacts, location, or other personal data.
 
-3. No Ads, No Analytics
-   This app does not contain ads
+## 2. Network Usage
 
-4. Changes
-   If this privacy policy changes, the updated version will be published in the GitHub repository under the same license.
+The app may fetch market data from the public Albion Online Data Project API:  
+[https://www.albion-online-data.com](https://www.albion-online-data.com)
 
-5. Contact
-   If you have any questions about this policy, please open an issue on GitHub or contact the developer directly by mail senseimitya@gmail.com.
+These API requests are anonymous and contain no personal or device-related information.
+
+## 3. No Ads or Analytics
+
+This app:
+- Does **not** display ads
+- Does **not** track users
+- Does **not** include third-party analytics services
+
+## 4. Contact
+
+For questions regarding this privacy policy, please contact the developer via GitHub:  
+[https://github.com/GreedMitya](https://github.com/GreedMitya)
+
+---
+
+© 2025 GreedMitya. All rights reserved.

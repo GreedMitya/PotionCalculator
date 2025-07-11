@@ -15,7 +15,7 @@ object AppColors {
     val White = Color(0xFFF2E9DC)
     val Secondary_Beige = Color(0xffd0a586)
 
-    val shimmerColor = Color(0x66FFD700) // мягкий золотистый с прозрачностью
+    val shimmerColor = Color(0x66FFD700)
 
 
 }

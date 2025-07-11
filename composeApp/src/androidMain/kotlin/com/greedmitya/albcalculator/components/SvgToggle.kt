@@ -29,7 +29,6 @@ fun SvgToggle(
             .clickable { onToggle(!selected) }
     ) {
         Canvas(modifier = Modifier.matchParentSize()) {
-            // теперь toPx() доступен без отдельного импорта
             val dashEffect = PathEffect.dashPathEffect(
                 floatArrayOf(10.dp.toPx(), 5.dp.toPx()), 0f
             )

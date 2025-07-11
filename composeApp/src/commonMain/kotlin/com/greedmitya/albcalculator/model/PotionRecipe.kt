@@ -1,7 +1,7 @@
 data class Ingredient(
     val name: String,
     val quantity: Int,
-    val price: Double? = null // может быть пустым до API
+    val price: Double? = null
 )
 
 data class PotionRecipe(

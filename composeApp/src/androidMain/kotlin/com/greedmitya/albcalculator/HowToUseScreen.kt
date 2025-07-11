@@ -31,7 +31,6 @@ fun HowToUseScreen(scrollState: ScrollState) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Шапка
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "Potion Crafting",
@@ -49,7 +48,6 @@ fun HowToUseScreen(scrollState: ScrollState) {
             )
         }
 
-        // Шаги
         InstructionStep(
             number = 1,
             text = "Select the potion you want to craft along with its tier and enchantment level."

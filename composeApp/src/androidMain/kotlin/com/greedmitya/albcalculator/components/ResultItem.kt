@@ -86,7 +86,6 @@ fun ResultItem(
             .background(AppColors.Gray400, RoundedCornerShape(8.dp))
             .padding(bottom = 12.dp)
     ) {
-        // Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -123,7 +122,6 @@ fun ResultItem(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.Top
         ) {
-            // Icon
             Image(
                 bitmap = loadPotionImageBitmapFromDisplayName(potionDisplayName, tier, enchantment),
                 contentDescription = potionDisplayName,
@@ -149,7 +147,6 @@ fun ResultItem(
                     )
 
                     val borderColor by rememberBlinkingError(isError && hasAppeared)
-                    //val blinkState = rememberBlinkStateForKey(isBlinkKey)
                     val blinkOverlayColor by animateColorAsState(
                         targetValue = if (isError) AppColors.PanelBrown.copy(alpha = 0.8f) else AppColors.PanelBrown,
                         animationSpec = tween(durationMillis = 400)

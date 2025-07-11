@@ -68,9 +68,7 @@ fun loadIngredientImageBitmapById(
     }
 }
 
-// В AssetLoader.kt или в любом утильном объекте
 @Composable
-// AssetLoader.kt
 fun getDisplayNameFromItemId(itemId: String): String {
     return ingredientDisplayNames[itemId] ?: prettifyId(itemId)
 }
@@ -129,10 +127,10 @@ val ingredientDisplayNames = mapOf(
 
 private fun prettifyId(id: String): String {
     return id
-        .replace(Regex("T\\d+_"), "")      // Убираем T4_, T5_ и т.п.
-        .replace('_', ' ')                 // Заменяем _ на пробел
+        .replace(Regex("T\\d+_"), "")
+        .replace('_', ' ')
         .lowercase()
-        .replaceFirstChar { it.uppercaseChar() } // Первая заглавная
+        .replaceFirstChar { it.uppercaseChar() }
 }
 
 

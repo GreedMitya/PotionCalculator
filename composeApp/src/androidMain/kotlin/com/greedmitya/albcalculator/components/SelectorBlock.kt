@@ -33,11 +33,8 @@ fun SelectorBlock(
     var expanded by remember { mutableStateOf(false) }
     var selectorWidth by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current
-
-    // Вспомогательное состояние для управления миганием
     var blinkState by remember { mutableStateOf(false) }
 
-    // Реакция на isError: запускаем мигание
     LaunchedEffect(isError) {
         if (isError) {
             blinkState = true
@@ -50,7 +47,6 @@ fun SelectorBlock(
         }
     }
 
-    // Цвет рамки с анимацией
     val animatedBorderColor by rememberBlinkingError(isError)
 
     val animatedBackgroundColor by animateColorAsState(

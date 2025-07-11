@@ -57,7 +57,6 @@ fun IngredientItem(
             .background(AppColors.Gray400, RoundedCornerShape(8.dp))
             .padding(bottom = 12.dp)
     ) {
-        // Header с копированием
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -95,7 +94,7 @@ fun IngredientItem(
                 .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Иконка
+
             Image(
                 bitmap = loadIngredientImageBitmapById(ingredient.name),
                 contentDescription = ingredient.name,
@@ -115,12 +114,12 @@ fun IngredientItem(
 
 
 
-                // Цена
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween // ⬅️ фикс
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = "Price per Item",
@@ -128,10 +127,10 @@ fun IngredientItem(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         fontFamily = FontFamily.Serif,
-                        softWrap = true, // ✅ разрешаем перенос
-                        maxLines = 2,    // ✅ максимум 2 строки
+                        softWrap = true,
+                        maxLines = 2,
                         modifier = Modifier
-                            .fillMaxWidth(0.4f) // ✅ ограничиваем ширину, чтобы он знал когда переносить
+                            .fillMaxWidth(0.4f)
                     )
                 Box(
                         modifier = Modifier
@@ -184,7 +183,7 @@ fun IngredientItem(
 
                 Spacer(Modifier.height(12.dp))
 
-                // Кол-во
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically

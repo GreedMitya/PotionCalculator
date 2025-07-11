@@ -13,23 +13,19 @@ import com.greedmitya.albcalculator.storage.FavoritesStorage
 
 @Composable
 fun AndroidApp() {
-    // 1) Скрываем системные бары
     val systemUiController = rememberSystemUiController()
     SideEffect {
         systemUiController.isSystemBarsVisible = false
     }
 
-    // 2) Берём ViewModel
     val context = LocalContext.current
     val viewModel = remember { CraftViewModel() }
 
-// загрузи сохранённые избранные
     LaunchedEffect(Unit) {
         val saved = FavoritesStorage.loadFavorites(context)
         viewModel.loadFavoritesExternally(saved)
     }
 
-// слушай и сохраняй при изменении
     LaunchedEffect(viewModel) {
         snapshotFlow { viewModel.currentFavorites() }
             .collect { newList ->
@@ -38,9 +34,6 @@ fun AndroidApp() {
     }
 
 
-
-
-    // 3) Запускаем навигацию, передавая ViewModel
     MaterialTheme {
         AppNavigation(viewModel)
     }

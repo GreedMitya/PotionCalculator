@@ -7,7 +7,7 @@ import androidx.compose.ui.res.painterResource
 @Composable
 fun loadAssetPainter(
     id: String,
-    folder: String, // "ingredients" или "potions"
+    folder: String,
     fallback: String = "default.png"
 ): Painter {
     return try {

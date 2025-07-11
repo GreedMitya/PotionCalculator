@@ -33,7 +33,7 @@ fun LabeledInputField(
             fontSize = 16.sp,
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.Medium,
-            color = Color(0xFF1F160E) // заменяет AppColors.DarkBackground
+            color = Color(0xFF1F160E)
         )
         Spacer(Modifier.height(4.dp))
         Box(

@@ -26,7 +26,7 @@ fun DeleteFromFavoritesDialog(
     onConfirm: () -> Unit
 ) {
     Dialog(
-        onDismissRequest = {}, // блокируем закрытие по клику вне
+        onDismissRequest = {},
         properties = DialogProperties(
             dismissOnClickOutside = false,
             dismissOnBackPress = false

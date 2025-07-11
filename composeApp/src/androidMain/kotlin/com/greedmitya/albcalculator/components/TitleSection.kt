@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 fun TitleSection(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.width(150.dp),
-        horizontalAlignment = Alignment.CenterHorizontally  // ← вот оно
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Potion Crafting",

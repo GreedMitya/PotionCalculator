@@ -16,7 +16,6 @@ import kotlinx.coroutines.delay
 fun rememberBlinkingError(isErrorTrigger: Boolean): State<Color> {
     var showError by remember { mutableStateOf(false) }
 
-    // Этот эффект отменяется при повторном запуске
     LaunchedEffect(isErrorTrigger) {
         if (isErrorTrigger) {
             showError = true
@@ -27,7 +26,7 @@ fun rememberBlinkingError(isErrorTrigger: Boolean): State<Color> {
             delay(1000)
             showError = false
         } else {
-            showError = false // сбрасываем мгновенно
+            showError = false
         }
     }
 

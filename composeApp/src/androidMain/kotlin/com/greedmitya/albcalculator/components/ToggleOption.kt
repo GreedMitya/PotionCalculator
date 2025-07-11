@@ -35,7 +35,6 @@ fun ToggleOption(
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp
             )
-            // Трек
             Box(
                 modifier = Modifier
                     .size(width = 40.dp, height = 20.dp)
@@ -44,7 +43,6 @@ fun ToggleOption(
                         shape = RoundedCornerShape(30.dp)
                     )
             ) {
-                // Сам ползунок
                 Box(
                     modifier = Modifier
                         .size(16.dp)

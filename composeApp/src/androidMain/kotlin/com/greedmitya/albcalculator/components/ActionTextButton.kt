@@ -98,7 +98,7 @@ fun ActionIconMenuButton(
                     indication = null,
                     enabled = enabled
                 ) {
-                    expanded = !expanded // 👈 повторный клик — скрыть
+                    expanded = !expanded
                 },
             contentAlignment = Alignment.Center
         ) {
@@ -116,7 +116,7 @@ fun ActionIconMenuButton(
                 offset = IntOffset(0, -130),
                 onDismissRequest = { expanded = false },
                 properties = PopupProperties(
-                    focusable = true, // 👈 нужно для скрытия при клике вне
+                    focusable = true,
                     dismissOnBackPress = true,
                     dismissOnClickOutside = true
                 )

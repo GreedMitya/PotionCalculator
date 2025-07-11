@@ -11,7 +11,6 @@ fun CoroutineScope.showTimedSnackbar(
     message: String,
     durationMs: Long = 800
 ) {
-    // Отображаем snackbar в отдельной корутине
     launch {
         hostState.showSnackbar(
             message = message,
@@ -19,9 +18,7 @@ fun CoroutineScope.showTimedSnackbar(
         )
     }
 
-    // И параллельно ждём, потом закрываем
     launch {
-        // Ждём, пока он появится
         while (hostState.currentSnackbarData == null) {
             delay(10)
         }
