@@ -1,7 +1,8 @@
 Copyright (c) 2025 GreedMitya
 
-All rights reserved.
+This project is provided for educational and demonstration purposes as part of a personal portfolio.
 
-This source code is proprietary and confidential.
-Unauthorized copying of this file, via any medium, is strictly prohibited.
-This code is intended for private or commercial use only with explicit permission.
+You may view and explore the code freely.  
+If you'd like to reuse or adapt parts of this project in your own work, please contact the author for permission.
+
+Commercial use without explicit permission is not allowed.
