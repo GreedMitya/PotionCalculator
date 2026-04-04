@@ -42,8 +42,7 @@ kotlin {
             implementation(libs.androidx.splashscreen)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.datastore.preferences)
-
-
+            implementation(libs.google.billing)
 
         }
         commonMain.dependencies {
@@ -85,8 +84,8 @@ android {
         applicationId = "com.greedmitya.albcalculator"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2
-        versionName = "1.0.1"
+        versionCode = 3
+        versionName = "1.0.2"
     }
     packaging {
         resources {
