@@ -1,4 +1,5 @@
 import com.greedmitya.albcalculator.model.PotionCraftResult
+import io.github.aakira.napier.Napier
 
 object PotionCraftCalculator {
 
@@ -31,7 +32,7 @@ object PotionCraftCalculator {
         val taxRate = if (isPremium) 0.065 else 0.105
         val netSell = (sellPrice ?: 0.0) * (1 - taxRate)
         val profitSilver = netSell - costPerItem
-        println("💰 isPremium=$isPremium, taxRate=$taxRate, netSell=$netSell, costPerItem=$costPerItem, profitSilver=$profitSilver")
+        Napier.d("💰 isPremium=$isPremium, taxRate=$taxRate, netSell=$netSell, costPerItem=$costPerItem, profitSilver=$profitSilver")
 
         return PotionCraftResult(
             totalResources = rareCost + regularRawCost,
@@ -41,5 +42,5 @@ object PotionCraftCalculator {
             profitSilver = profitSilver
         )
     }
-    }
+}
 

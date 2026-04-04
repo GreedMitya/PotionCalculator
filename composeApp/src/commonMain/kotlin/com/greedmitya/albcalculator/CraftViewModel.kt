@@ -23,8 +23,12 @@ import kotlinx.serialization.json.Json
 import com.greedmitya.albcalculator.network.AlbionMarketRepository
 import com.greedmitya.albcalculator.model.ApiResult
 import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
+import io.github.aakira.napier.Napier
 
 class CraftViewModel(private val repository: AlbionMarketRepository, private val calculateProfitUseCase: CalculateProfitUseCase) : ViewModel() {
+    var networkError by mutableStateOf<String?>(null)
+        private set
+
     val favorites = mutableStateListOf<FavoriteRecipe>()
     val allPotions = listOf(
         PotionInfo("Healing Potion", "POTION_HEAL", listOf("T2", "T4", "T6")),
@@ -253,10 +257,12 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
                     }
                 }
                 is ApiResult.Error -> {
-                    result.exception.printStackTrace()
-                    // TODO: handle error in UI later
+                    networkError = "API Error: ${result.exception.message}"
+                    Napier.e("Network fetch failed", result.exception)
                 }
-                ApiResult.Loading -> {}
+                ApiResult.Loading -> {
+                    networkError = null
+                }
             }
         }
     }
