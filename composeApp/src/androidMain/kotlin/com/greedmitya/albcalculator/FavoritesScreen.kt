@@ -79,7 +79,10 @@ fun FavoritesScreen(
         Spacer(Modifier.height(12.dp))
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            items(favorites) { recipe ->
+            items(
+                items = favorites,
+                key = { "${it.potionName}-${it.tier}-${it.enchantment}-${it.city}" },
+            ) { recipe ->
                 FavoriteRecipeItem(
                     recipe = recipe,
                     onRemove = { viewModel.removeFromFavorites(recipe) },

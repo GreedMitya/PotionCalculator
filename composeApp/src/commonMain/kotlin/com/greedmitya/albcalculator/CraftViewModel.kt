@@ -1,31 +1,42 @@
 package com.greedmitya.albcalculator
 
-import com.greedmitya.albcalculator.model.Ingredient
-import com.greedmitya.albcalculator.model.PotionInfo
-import com.greedmitya.albcalculator.model.PotionRecipe
-import com.greedmitya.albcalculator.logic.PotionCraftCalculator
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.greedmitya.albcalculator.model.PotionCraftResult
-import com.greedmitya.albcalculator.model.potionIngredientsByTierAndEnchant
 import androidx.lifecycle.viewModelScope
+import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
+import com.greedmitya.albcalculator.model.ApiResult
 import com.greedmitya.albcalculator.model.FavoriteRecipe
-import com.greedmitya.albcalculator.model.potionItemValues
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
+import com.greedmitya.albcalculator.model.Ingredient
+import com.greedmitya.albcalculator.model.PotionCraftResult
+import com.greedmitya.albcalculator.model.PotionInfo
+import com.greedmitya.albcalculator.model.potionIngredientsByTierAndEnchant
+import com.greedmitya.albcalculator.network.AlbionMarketRepository
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import com.greedmitya.albcalculator.network.AlbionMarketRepository
-import com.greedmitya.albcalculator.model.ApiResult
-import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
-import io.github.aakira.napier.Napier
 
-class CraftViewModel(private val repository: AlbionMarketRepository, private val calculateProfitUseCase: CalculateProfitUseCase) : ViewModel() {
+class CraftViewModel(
+    private val repository: AlbionMarketRepository,
+    private val calculateProfitUseCase: CalculateProfitUseCase,
+) : ViewModel() {
+
+    companion object {
+        /** Delay to allow Compose to flush state before validation triggers */
+        private const val VALIDATION_DEBOUNCE_MS = 10L
+        /** Duration error fields blink before auto-clearing */
+        private const val ERROR_BLINK_DURATION_MS = 2000L
+        /** Sequential animation delays for price reset choreography */
+        private const val RESET_CLEAR_DELAY_MS = 50L
+        private const val RESET_SHIMMER_SHOW_DELAY_MS = 100L
+        private const val RESET_SHIMMER_HIDE_DELAY_MS = 400L
+        /** If sell/buy ratio exceeds this, ignore sell price as likely stale */
+        private const val SELL_BUY_RATIO_THRESHOLD = 2.0
+        /** Markup applied to buy orders when no sell order exists */
+        private const val BUY_ORDER_MARKUP = 1.1
+        /** Minimum valid price from API */
+        private const val MIN_VALID_PRICE = 1
+    }
     var networkError by mutableStateOf<String?>(null)
         private set
 
@@ -108,7 +119,7 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
         validateForMarket = false
         validateForCalculate = false
         viewModelScope.launch {
-            delay(10)
+            delay(VALIDATION_DEBOUNCE_MS)
             validateForCalculate = true
         }
     }
@@ -117,7 +128,7 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
         validateForCalculate = false
         validateForMarket = false
         viewModelScope.launch {
-            delay(10)
+            delay(VALIDATION_DEBOUNCE_MS)
             validateForMarket = true
         }
     }
@@ -144,7 +155,7 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
         blinkingErrorFields = invalidFields
 
         viewModelScope.launch {
-            delay(2000)
+            delay(ERROR_BLINK_DURATION_MS)
             blinkingErrorFields = emptySet()
         }
     }
@@ -198,14 +209,14 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
         blinkIngredients = ingredientNames
         isBlinkingResult = true
         viewModelScope.launch {
-            delay(50)
+            delay(RESET_CLEAR_DELAY_MS)
             ingredientPrices.clear()
             potionSellPrice = ""
             resultInternal = null
             shimmerColor.value = Color(0xFFCCCCCC)
-            delay(100)
+            delay(RESET_SHIMMER_SHOW_DELAY_MS)
             shimmerColor.value = Color.Transparent
-            delay(400)
+            delay(RESET_SHIMMER_HIDE_DELAY_MS)
             blinkIngredients = emptySet()
             isBlinkingResult = false
         }
@@ -229,7 +240,6 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
         val city = selectedCity ?: return
         val itemIds = (ingredients.map { it.name } + potionId).distinct()
         val serverCode = serverDisplayNames.entries.firstOrNull { it.value == selectedServer }?.key ?: "europe"
-        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$city"
 
         potionSellPrice = ""
         ingredientPrices.clear()
@@ -244,13 +254,13 @@ class CraftViewModel(private val repository: AlbionMarketRepository, private val
                         val sell = entry.sell_price_min.takeIf { it > 0 }
                         val buy = entry.buy_price_max.takeIf { it > 0 }
                         val selectedPrice = when {
-                            sell != null && buy != null -> if (sell.toDouble() / buy <= 2.0) sell else null
+                            sell != null && buy != null -> if (sell.toDouble() / buy <= SELL_BUY_RATIO_THRESHOLD) sell else null
                             sell != null -> sell
-                            buy != null -> (buy * 1.1).toInt()
+                            buy != null -> (buy * BUY_ORDER_MARKUP).toInt()
                             else -> null
                         }
                         selectedPrice?.let { price ->
-                            val rounded = price.coerceAtLeast(1)
+                            val rounded = price.coerceAtLeast(MIN_VALID_PRICE)
                             if (id == potionId) potionSellPrice = rounded.toString()
                             else ingredientPrices[id] = rounded.toString()
                         }

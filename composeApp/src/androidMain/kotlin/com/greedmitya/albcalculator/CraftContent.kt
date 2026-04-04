@@ -13,9 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
@@ -44,8 +41,8 @@ fun CraftContent(
     coroutineScope: CoroutineScope,
     scrollState: ScrollState
 ) {
-    val isPremium by viewModel::isPremium
-    val useFocus by viewModel::useFocus
+    val isPremium = viewModel.isPremium
+    val useFocus = viewModel.useFocus
 
     Column(
         modifier = Modifier
@@ -197,7 +194,7 @@ fun CraftContent(
                 Spacer(Modifier.height(12.dp))
             }
 
-            val result by remember { derivedStateOf { viewModel.result } }
+            val result = viewModel.result
             if (viewModel.selectedPotion != null) {
                 ResultItem(
                     potionDisplayName = viewModel.selectedPotion ?: "",

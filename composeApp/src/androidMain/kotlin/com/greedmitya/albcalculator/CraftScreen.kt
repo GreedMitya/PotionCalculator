@@ -26,8 +26,6 @@ import com.greedmitya.albcalculator.model.BottomNavItemData
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
-    val isPremium by viewModel::isPremium
-    val useFocus by viewModel::useFocus
     val isReady by remember { derivedStateOf { viewModel.isReadyToCalculate } }
     val isMarketReady by remember { derivedStateOf { viewModel.isReadyForMarket } }
     val snackbarHostState = remember { SnackbarHostState() }

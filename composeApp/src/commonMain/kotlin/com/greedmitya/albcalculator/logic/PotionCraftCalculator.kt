@@ -2,9 +2,21 @@ package com.greedmitya.albcalculator.logic
 
 import com.greedmitya.albcalculator.model.Ingredient
 import com.greedmitya.albcalculator.model.PotionCraftResult
-import io.github.aakira.napier.Napier
 
+/**
+ * Pure calculation engine for potion crafting profit.
+ * MUST remain a pure function: no state, no side effects, no I/O.
+ * All dependencies are passed as parameters — input → output only.
+ */
 object PotionCraftCalculator {
+
+    private const val BRECILIEN_RETURN_RATE = 0.248
+    private const val DEFAULT_RETURN_RATE = 0.152
+    private const val CRAFTING_TAX_MULTIPLIER = 0.001125
+    private const val PREMIUM_MARKET_TAX_RATE = 0.065
+    private const val STANDARD_MARKET_TAX_RATE = 0.105
+
+    private const val RARE_INGREDIENT_MARKER = "RARE"
 
     fun calculate(
         ingredients: List<Ingredient>,
@@ -17,32 +29,35 @@ object PotionCraftCalculator {
         itemValue: Int,
         city: String?,
         sellPrice: Double?,
-        outputQuantity: Int
+        outputQuantity: Int,
     ): PotionCraftResult {
-        val rareIngredients = ingredients.filter { it.name.contains("RARE", ignoreCase = true) }
+        val rareIngredients = ingredients.filter {
+            it.name.contains(RARE_INGREDIENT_MARKER, ignoreCase = true)
+        }
         val regularIngredients = ingredients - rareIngredients
         val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
         val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
+
         val returnRate = when (city) {
-            "Brecilien" -> 0.248
-            else -> 0.152
+            "Brecilien" -> BRECILIEN_RETURN_RATE
+            else -> DEFAULT_RETURN_RATE
         }
+
         val regularAfterReturn = regularRawCost * (1 - returnRate)
         val totalCostAfterReturn = rareCost + regularAfterReturn
-        val craftingTax = feePerNutrition * itemValue * 0.001125
+        val craftingTax = feePerNutrition * itemValue * CRAFTING_TAX_MULTIPLIER
         val craftingTaxPerItem = craftingTax / outputQuantity
         val costPerItem = (totalCostAfterReturn / outputQuantity) + craftingTaxPerItem
-        val taxRate = if (isPremium) 0.065 else 0.105
+        val taxRate = if (isPremium) PREMIUM_MARKET_TAX_RATE else STANDARD_MARKET_TAX_RATE
         val netSell = (sellPrice ?: 0.0) * (1 - taxRate)
         val profitSilver = netSell - costPerItem
-        Napier.d("💰 isPremium=$isPremium, taxRate=$taxRate, netSell=$netSell, costPerItem=$costPerItem, profitSilver=$profitSilver")
 
         return PotionCraftResult(
             totalResources = rareCost + regularRawCost,
             withPlacementFee = totalCostAfterReturn,
             finalCost = costPerItem,
             estimatedSellPrice = sellPrice,
-            profitSilver = profitSilver
+            profitSilver = profitSilver,
         )
     }
 }
