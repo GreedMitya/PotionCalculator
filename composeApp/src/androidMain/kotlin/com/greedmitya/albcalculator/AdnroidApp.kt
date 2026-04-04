@@ -9,12 +9,13 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.greedmitya.albcalculator.storage.FavoritesStorage
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun AndroidApp() {
 
     val context = LocalContext.current
-    val viewModel = remember { CraftViewModel() }
+    val viewModel = koinViewModel<CraftViewModel>()
 
     LaunchedEffect(Unit) {
         val saved = FavoritesStorage.loadFavorites(context)

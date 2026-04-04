@@ -20,9 +20,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import com.greedmitya.albcalculator.network.AlbionMarketRepository
+import com.greedmitya.albcalculator.model.ApiResult
+import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
 
-
-class CraftViewModel : ViewModel() {
+class CraftViewModel(private val repository: AlbionMarketRepository, private val calculateProfitUseCase: CalculateProfitUseCase) : ViewModel() {
     val favorites = mutableStateListOf<FavoriteRecipe>()
     val allPotions = listOf(
         PotionInfo("Healing Potion", "POTION_HEAL", listOf("T2", "T4", "T6")),
@@ -170,26 +172,19 @@ class CraftViewModel : ViewModel() {
     }
 
     fun calculateProfit() {
-        val ingredients = getRecipeForSelected().map {
-            val price = ingredientPrices[it.name]?.toDoubleOrNull()
-            it.copy(price = price)
-        }
-
-        val itemValue = selectedPotionInfo?.baseId?.let { baseId ->
-            potionItemValues[baseId]?.get(selectedTier ?: "")
-        } ?: 0
-
-        resultInternal = PotionCraftCalculator.calculate(
-            ingredients = ingredients,
-            feePerNutrition = feePerNutritionInput.toDoubleOrNull() ?: 0.0,
+        resultInternal = calculateProfitUseCase.execute(
+            ingredients = getRecipeForSelected(),
+            ingredientPrices = ingredientPrices,
+            baseId = selectedPotionInfo?.baseId,
+            selectedTier = selectedTier,
+            feePerNutritionInput = feePerNutritionInput,
             useFocus = useFocus,
             isPremium = isPremium,
-            focusBasic = focusBasic.toDoubleOrNull(),
-            focusMastery = focusMastery.toDoubleOrNull(),
-            focusTotal = focusTotal.toDoubleOrNull(),
-            itemValue = itemValue,
-            city = selectedCity,
-            sellPrice = potionSellPrice.toDoubleOrNull(),
+            focusBasic = focusBasic,
+            focusMastery = focusMastery,
+            focusTotal = focusTotal,
+            selectedCity = selectedCity,
+            potionSellPrice = potionSellPrice,
             outputQuantity = outputQuantity
         )
     }
@@ -224,11 +219,6 @@ class CraftViewModel : ViewModel() {
 
     val isReadyForMarket: Boolean get() = selectedPotion != null && selectedTier != null && selectedEnchantment != null && selectedCity != null
 
-    @Serializable
-    data class MarketItemPrice(val item_id: String, val city: String, val sell_price_min: Int, val buy_price_max: Int)
-
-    private val httpClient = HttpClient(CIO)
-
     fun fetchPricesForCurrentRecipe() {
         val ingredients = getRecipeForSelected()
         val potionId = getFullItemId() ?: return
@@ -241,28 +231,32 @@ class CraftViewModel : ViewModel() {
         ingredientPrices.clear()
 
         viewModelScope.launch {
-            try {
-                val responseText = httpClient.get(url).body<String>()
-                val priceData = Json { ignoreUnknownKeys = true }.decodeFromString<List<MarketItemPrice>>(responseText)
-                val grouped = priceData.filter { it.city == city }.groupBy { it.item_id }
-                grouped.forEach { (id, entries) ->
-                    val entry = entries.firstOrNull() ?: return@forEach
-                    val sell = entry.sell_price_min.takeIf { it > 0 }
-                    val buy = entry.buy_price_max.takeIf { it > 0 }
-                    val selectedPrice = when {
-                        sell != null && buy != null -> if (sell.toDouble() / buy <= 2.0) sell else null
-                        sell != null -> sell
-                        buy != null -> (buy * 1.1).toInt()
-                        else -> null
-                    }
-                    selectedPrice?.let { price ->
-                        val rounded = price.coerceAtLeast(1)
-                        if (id == potionId) potionSellPrice = rounded.toString()
-                        else ingredientPrices[id] = rounded.toString()
+            val result = repository.getPrices(itemIds, city, serverCode)
+            when (result) {
+                is ApiResult.Success -> {
+                    val grouped = result.data.groupBy { it.item_id }
+                    grouped.forEach { (id, entries) ->
+                        val entry = entries.firstOrNull() ?: return@forEach
+                        val sell = entry.sell_price_min.takeIf { it > 0 }
+                        val buy = entry.buy_price_max.takeIf { it > 0 }
+                        val selectedPrice = when {
+                            sell != null && buy != null -> if (sell.toDouble() / buy <= 2.0) sell else null
+                            sell != null -> sell
+                            buy != null -> (buy * 1.1).toInt()
+                            else -> null
+                        }
+                        selectedPrice?.let { price ->
+                            val rounded = price.coerceAtLeast(1)
+                            if (id == potionId) potionSellPrice = rounded.toString()
+                            else ingredientPrices[id] = rounded.toString()
+                        }
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
+                is ApiResult.Error -> {
+                    result.exception.printStackTrace()
+                    // TODO: handle error in UI later
+                }
+                ApiResult.Loading -> {}
             }
         }
     }
