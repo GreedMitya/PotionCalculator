@@ -59,6 +59,8 @@ The inspiration came from a large and complex Excel sheet — the goal was to ma
 
 UI layout created in collaboration with designer [@Denys_Burov](https://www.figma.com/design/xXitkvBczZIf8pEuLsFsTi/Albion-Calculator?node-id=0-1&p=f&m=dev) in Figma.
 
+https://burovdenys.myportfolio.com/
+
 ---
 
 ## 📱 Screenshots:
