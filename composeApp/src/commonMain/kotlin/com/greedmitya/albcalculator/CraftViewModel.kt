@@ -5,20 +5,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
+import com.greedmitya.albcalculator.domain.FavoritesRepository
+import com.greedmitya.albcalculator.domain.FetchPricesUseCase
 import com.greedmitya.albcalculator.model.ApiResult
 import com.greedmitya.albcalculator.model.FavoriteRecipe
 import com.greedmitya.albcalculator.model.Ingredient
 import com.greedmitya.albcalculator.model.PotionCraftResult
 import com.greedmitya.albcalculator.model.PotionInfo
+import com.greedmitya.albcalculator.model.PotionRecipeLoader
 import com.greedmitya.albcalculator.model.potionIngredientsByTierAndEnchant
-import com.greedmitya.albcalculator.network.AlbionMarketRepository
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import potioncalculator.composeapp.generated.resources.Res
 
+@OptIn(ExperimentalResourceApi::class)
 class CraftViewModel(
-    private val repository: AlbionMarketRepository,
+    private val fetchPricesUseCase: FetchPricesUseCase,
     private val calculateProfitUseCase: CalculateProfitUseCase,
+    private val favoritesRepository: FavoritesRepository,
 ) : ViewModel() {
 
     companion object {
@@ -30,13 +36,8 @@ class CraftViewModel(
         private const val RESET_CLEAR_DELAY_MS = 50L
         private const val RESET_SHIMMER_SHOW_DELAY_MS = 100L
         private const val RESET_SHIMMER_HIDE_DELAY_MS = 400L
-        /** If sell/buy ratio exceeds this, ignore sell price as likely stale */
-        private const val SELL_BUY_RATIO_THRESHOLD = 2.0
-        /** Markup applied to buy orders when no sell order exists */
-        private const val BUY_ORDER_MARKUP = 1.1
-        /** Minimum valid price from API */
-        private const val MIN_VALID_PRICE = 1
     }
+
     var networkError by mutableStateOf<String?>(null)
         private set
 
@@ -79,7 +80,6 @@ class CraftViewModel(
     var blinkingErrorFields by mutableStateOf(setOf<String>())
         private set
 
-
     val ingredientPrices = mutableStateMapOf<String, String>()
     private var resultInternal by mutableStateOf<PotionCraftResult?>(null)
     val result: PotionCraftResult? get() = resultInternal
@@ -97,16 +97,37 @@ class CraftViewModel(
     val serverDisplayNames = mapOf(
         "europe" to "Europe",
         "west" to "North America",
-        "east" to "Asia"
+        "east" to "Asia",
     )
     var selectedServer by mutableStateOf("Europe")
         private set
 
-    fun updateServer(newValue: String) {
-        selectedServer = newValue
+    init {
+        viewModelScope.launch {
+            // Load recipe data first — everything else depends on it
+            try {
+                val jsonBytes = Res.readBytes("files/recipes.json")
+                PotionRecipeLoader.initializeWith(jsonBytes.decodeToString())
+            } catch (e: Exception) {
+                Napier.e("Failed to load recipes.json from resources", e)
+            }
+
+            // Load persisted user preferences
+            val saved = favoritesRepository.loadFavorites()
+            favorites.addAll(saved)
+            val storedServer = favoritesRepository.loadSelectedServer()
+            selectedServer = storedServer
+        }
     }
 
+    fun updateServer(newValue: String) {
+        selectedServer = newValue
+        viewModelScope.launch {
+            favoritesRepository.saveSelectedServer(newValue)
+        }
+    }
 
+    // region Validation
 
     val isPotionError get() = (validateForCalculate || validateForMarket) && selectedPotion == null
     val isTierError get() = (validateForCalculate || validateForMarket) && selectedTier == null
@@ -132,6 +153,7 @@ class CraftViewModel(
             validateForMarket = true
         }
     }
+
     fun triggerBlinkForErrors(type: String) {
         val invalidFields = mutableSetOf<String>()
 
@@ -165,6 +187,9 @@ class CraftViewModel(
         return validateForCalculate && value == null
     }
 
+    // endregion
+
+    // region Recipe & Calculation
 
     fun onPotionSelected(potionName: String) {
         selectedPotion = potionName
@@ -200,7 +225,7 @@ class CraftViewModel(
             focusTotal = focusTotal,
             selectedCity = selectedCity,
             potionSellPrice = potionSellPrice,
-            outputQuantity = outputQuantity
+            outputQuantity = outputQuantity,
         )
     }
 
@@ -232,7 +257,12 @@ class CraftViewModel(
         return hasBasicInfo && hasFee && hasSellPrice && allIngredientsHavePrices
     }
 
-    val isReadyForMarket: Boolean get() = selectedPotion != null && selectedTier != null && selectedEnchantment != null && selectedCity != null
+    val isReadyForMarket: Boolean get() =
+        selectedPotion != null && selectedTier != null && selectedEnchantment != null && selectedCity != null
+
+    // endregion
+
+    // region Price Fetching (delegated to FetchPricesUseCase)
 
     fun fetchPricesForCurrentRecipe() {
         val ingredients = getRecipeForSelected()
@@ -245,26 +275,18 @@ class CraftViewModel(
         ingredientPrices.clear()
 
         viewModelScope.launch {
-            val result = repository.getPrices(itemIds, city, serverCode)
+            val result = fetchPricesUseCase.execute(
+                itemIds = itemIds,
+                city = city,
+                serverCode = serverCode,
+                potionItemId = potionId,
+            )
             when (result) {
                 is ApiResult.Success -> {
-                    val grouped = result.data.groupBy { it.item_id }
-                    grouped.forEach { (id, entries) ->
-                        val entry = entries.firstOrNull() ?: return@forEach
-                        val sell = entry.sell_price_min.takeIf { it > 0 }
-                        val buy = entry.buy_price_max.takeIf { it > 0 }
-                        val selectedPrice = when {
-                            sell != null && buy != null -> if (sell.toDouble() / buy <= SELL_BUY_RATIO_THRESHOLD) sell else null
-                            sell != null -> sell
-                            buy != null -> (buy * BUY_ORDER_MARKUP).toInt()
-                            else -> null
-                        }
-                        selectedPrice?.let { price ->
-                            val rounded = price.coerceAtLeast(MIN_VALID_PRICE)
-                            if (id == potionId) potionSellPrice = rounded.toString()
-                            else ingredientPrices[id] = rounded.toString()
-                        }
+                    result.data.ingredientPrices.forEach { (id, price) ->
+                        ingredientPrices[id] = price
                     }
+                    result.data.potionSellPrice?.let { potionSellPrice = it }
                 }
                 is ApiResult.Error -> {
                     networkError = "API Error: ${result.exception.message}"
@@ -277,37 +299,40 @@ class CraftViewModel(
         }
     }
 
+    // endregion
+
+    // region Favorites (delegated to FavoritesRepository)
+
     fun saveToFavorites() {
         val new = FavoriteRecipe(
             potionName = selectedPotion ?: return,
             tier = selectedTier ?: return,
             city = selectedCity ?: return,
-            enchantment = enchantments.indexOf(selectedEnchantment ?: "Normal (.0)")
+            enchantment = enchantments.indexOf(selectedEnchantment ?: "Normal (.0)"),
         )
         if (!favorites.contains(new)) {
             favorites.add(new)
+            persistFavorites()
         }
     }
 
     fun removeFromFavorites(recipe: FavoriteRecipe) {
         favorites.remove(recipe)
+        persistFavorites()
     }
+
     fun applyFavorite(recipe: FavoriteRecipe) {
         selectedPotion = recipe.potionName
         selectedTier = recipe.tier
         selectedEnchantment = enchantments.getOrNull(recipe.enchantment)
         selectedCity = recipe.city
     }
-    fun loadFavoritesExternally(favs: List<FavoriteRecipe>) {
-        favorites.clear()
-        favorites.addAll(favs)
+
+    private fun persistFavorites() {
+        viewModelScope.launch {
+            favoritesRepository.saveFavorites(favorites.toList())
+        }
     }
 
-    fun currentFavorites(): List<FavoriteRecipe> {
-        return favorites.toList()
-    }
-
-
-
-
+    // endregion
 }

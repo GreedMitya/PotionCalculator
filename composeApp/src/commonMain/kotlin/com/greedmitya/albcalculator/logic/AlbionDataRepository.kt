@@ -8,7 +8,7 @@ interface AlbionDataRepository {
 
     /**
      * Получение средних цен по всем городам для выбранного массива предметов.
-     * Будет использоваться в PremiumManager.isPremium == true.
+     * Gated behind PremiumManager.isAppPremium == true.
      */
     suspend fun getGlobalPrices(itemIds: List<String>): Map<String, GlobalPriceInfo>
     

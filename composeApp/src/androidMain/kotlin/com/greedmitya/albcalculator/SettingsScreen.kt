@@ -11,30 +11,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
-import com.greedmitya.albcalculator.storage.FavoritesStorage
-import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
-
-    LaunchedEffect(Unit) {
-        val storedServer = FavoritesStorage.loadSelectedServer(context)
-        viewModel.updateServer(storedServer)
-    }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,13 +52,8 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
             title = "Server Region for API prices",
             options = viewModel.serverDisplayNames.values.toList(),
             selectedOption = viewModel.selectedServer,
-            onOptionSelected = {
-                viewModel.updateServer(it)
-                coroutineScope.launch {
-                    FavoritesStorage.saveSelectedServer(context, it)
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
+            onOptionSelected = { viewModel.updateServer(it) },
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

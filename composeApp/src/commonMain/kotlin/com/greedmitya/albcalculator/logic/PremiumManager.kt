@@ -5,18 +5,26 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Singleton state holder to manage the user's Premium Status across the entire app.
- * Integrated with RevenueCat later.
+ * APP-LEVEL premium subscription manager (future RevenueCat / Google Billing integration).
+ *
+ * IMPORTANT: This is NOT the same as the in-game "Premium" toggle in the calculator.
+ * - **In-game premium** (`CraftViewModel.isPremium`): Albion Online subscription status
+ *   that affects market tax rates (6.5% vs 10.5%). Users toggle this themselves.
+ * - **App premium** (this class): App subscription that will gate premium-only features
+ *   like Global Market Monitor, unlimited favorites, etc. Managed via purchase verification.
+ *
+ * TODO: Integrate with RevenueCat or Google Billing for real entitlement checks.
+ *       The [debugSetPremium] method is for development only and must be removed before release.
  */
 object PremiumManager {
-    // Временно заглушка: пока ставим false (для разработки можно переключать в true)
-    private val _isPremium = MutableStateFlow(false)
-    val isPremium: StateFlow<Boolean> = _isPremium.asStateFlow()
+    private val _isAppPremium = MutableStateFlow(false)
+    val isAppPremium: StateFlow<Boolean> = _isAppPremium.asStateFlow()
 
-    fun debugSetPremium(hasAccess: Boolean) {
-        _isPremium.value = hasAccess
+    /**
+     * Development-only setter. Must be replaced with real purchase verification before release.
+     * Do NOT expose this to the UI — app premium must be derived from verified purchases.
+     */
+    internal fun debugSetPremium(hasAccess: Boolean) {
+        _isAppPremium.value = hasAccess
     }
-    
-    // Здесь в будущем будут функции инициализации Purchases (RevenueCat)
-    // fun initializePurchases() { ... }
 }
