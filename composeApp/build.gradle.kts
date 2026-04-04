@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    kotlin("plugin.serialization") version "1.9.22"
+    alias(libs.plugins.kotlinSerialization)
 
 }
 
@@ -38,12 +38,10 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("com.google.android.material:material:1.11.0")
-            implementation("androidx.core:core-splashscreen:1.0.1")
-            implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-            implementation("androidx.activity:activity-compose:1.8.0")
-            implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
-            implementation("androidx.datastore:datastore-preferences:1.0.0")
+            implementation(libs.google.material)
+            implementation(libs.androidx.splashscreen)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.datastore.preferences)
 
 
 
@@ -57,12 +55,11 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation("io.ktor:ktor-client-core:2.3.5")
-            implementation("io.ktor:ktor-client-cio:2.3.5")
-            implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.serialization.json)
 
         }
         commonTest.dependencies {

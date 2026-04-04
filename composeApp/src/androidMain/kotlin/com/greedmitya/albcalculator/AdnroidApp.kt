@@ -8,15 +8,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.greedmitya.albcalculator.storage.FavoritesStorage
 
 @Composable
 fun AndroidApp() {
-    val systemUiController = rememberSystemUiController()
-    SideEffect {
-        systemUiController.isSystemBarsVisible = false
-    }
 
     val context = LocalContext.current
     val viewModel = remember { CraftViewModel() }

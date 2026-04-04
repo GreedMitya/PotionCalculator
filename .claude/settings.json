@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(./gradlew *)",
+      "Bash(ls *)",
+      "Bash(git *)",
+      "Edit(**/*.kt)",
+      "Edit(**/*.xml)",
+      "Edit(**/*.kts)",
+      "Edit(**/*.toml)",
+      "Edit(**/*.md)",
+      "Edit(**/*.json)",
+      "Edit(**/*.properties)"
+    ],
+    "deny": [
+      "Edit(keystore/**)",
+      "Edit(local.properties)",
+      "Bash(rm -rf *)"
+    ]
+  }
+}
