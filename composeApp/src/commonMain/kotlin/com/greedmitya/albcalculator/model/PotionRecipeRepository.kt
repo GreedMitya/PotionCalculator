@@ -1,6 +1,6 @@
 package com.greedmitya.albcalculator.model
 
-import Ingredient
+
 
 
 

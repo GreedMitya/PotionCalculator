@@ -1,7 +1,8 @@
 package com.greedmitya.albcalculator.ui.components
 
-import Ingredient
+import com.greedmitya.albcalculator.model.Ingredient
 import com.greedmitya.albcalculator.R
+import android.content.ClipData
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -18,12 +19,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -47,7 +51,8 @@ fun IngredientItem(
     isError: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
     val displayName = getDisplayNameFromItemId(ingredient.name)
 
 
@@ -71,7 +76,7 @@ fun IngredientItem(
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                fontFamily = FontFamily.Serif,
+                fontFamily = EBGaramond,
             )
 
             Image(
@@ -80,7 +85,9 @@ fun IngredientItem(
                 modifier = Modifier
                     .size(16.dp)
                     .clickable {
-                        clipboardManager.setText(AnnotatedString(displayName))
+                        scope.launch {
+                            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(null, displayName)))
+                        }
                         onCopy()
                     }
             )
@@ -126,7 +133,7 @@ fun IngredientItem(
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        fontFamily = FontFamily.Serif,
+                        fontFamily = EBGaramond,
                         softWrap = true,
                         maxLines = 2,
                         modifier = Modifier
@@ -157,7 +164,7 @@ fun IngredientItem(
                                 color = AppColors.LightBeige,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                fontFamily = FontFamily.Serif
+                                fontFamily = EBGaramond
                             ),
                             decorationBox = { inner ->
                                 Box(
@@ -171,7 +178,7 @@ fun IngredientItem(
                                             color = AppColors.LightBeige,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
-                                            fontFamily = FontFamily.Serif
+                                            fontFamily = EBGaramond
                                         )
                                     }
                                     inner()
@@ -193,7 +200,7 @@ fun IngredientItem(
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        fontFamily = FontFamily.Serif,
+                        fontFamily = EBGaramond,
                         modifier = Modifier.weight(1f)
                     )
                     Box(
@@ -207,7 +214,7 @@ fun IngredientItem(
                             color = AppColors.LightBeige,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
-                            fontFamily = FontFamily.Serif,
+                            fontFamily = EBGaramond,
                         )
                     }
                 }

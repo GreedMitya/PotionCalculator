@@ -1,6 +1,7 @@
 package com.greedmitya.albcalculator.components
 
 import com.greedmitya.albcalculator.R
+import android.content.ClipData
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -12,17 +13,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalClipboard
+import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -31,11 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
-import com.greedmitya.albcalculator.ui.theme.EBGaramond
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -48,37 +44,20 @@ fun ResultItem(
     profitSilver: String,
     profitPercent: String,
     quantity: Int,
-    isError: Boolean = false,
-    isBlinking: Boolean = false,
-    shimmerColor: Color = Color.Transparent,
+    isBlinking: Boolean,
+    shimmerColor: Color,
+    isError: Boolean,
     modifier: Modifier = Modifier,
     onCopy: () -> Unit = {}
 ) {
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
+    val scope = rememberCoroutineScope()
 
-    var hasAppeared by remember { mutableStateOf(false) }
-    var blinkState by remember { mutableStateOf(false) }
-    var localError by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        hasAppeared = true
-    }
-
-    LaunchedEffect(isBlinking, hasAppeared) {
-        if (isBlinking && hasAppeared) {
-            blinkState = true
-            delay(300)
-            blinkState = false
-        }
-    }
-
-    LaunchedEffect(isError, hasAppeared) {
-        if (isError && hasAppeared) {
-            localError = true
-            delay(3000)
-            localError = false
-        }
-    }
+    // Анимация мерцания при расчете (твоя фича)
+    val blinkColor by animateColorAsState(
+        targetValue = if (isBlinking) shimmerColor else Color.Transparent,
+        animationSpec = tween(durationMillis = 300)
+    )
 
     Column(
         modifier = modifier
@@ -96,19 +75,22 @@ fun ResultItem(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = potionDisplayName,
+                text = "$potionDisplayName ($tier.$enchantment)",
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                fontFamily = FontFamily.Serif,
+                fontFamily = EBGaramond,
             )
+
             Image(
                 painter = painterResource(R.drawable.clone),
                 contentDescription = "Copy Potion Name",
                 modifier = Modifier
                     .size(16.dp)
                     .clickable {
-                        clipboardManager.setText(AnnotatedString(potionDisplayName))
+                        scope.launch {
+                            clipboard.setClipEntry(ClipEntry(ClipData.newPlainText(null, potionDisplayName)))
+                        }
                         onCopy()
                     }
             )
@@ -119,8 +101,8 @@ fun ResultItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.Top
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 bitmap = loadPotionImageBitmapFromDisplayName(potionDisplayName, tier, enchantment),
@@ -132,41 +114,29 @@ fun ResultItem(
 
             Spacer(Modifier.width(20.dp))
 
-            Column(modifier = Modifier.weight(1f).padding(top = 4.dp)) {
+            Column(modifier = Modifier.weight(1f)) {
+                // Sell Price Input
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Price per Item",
+                        text = "Price per Potion",
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        fontFamily = FontFamily.Serif,
-                        modifier = Modifier.weight(1f)
+                        fontFamily = EBGaramond,
+                        modifier = Modifier.fillMaxWidth(0.4f)
                     )
-
-                    val borderColor by rememberBlinkingError(isError && hasAppeared)
-                    val blinkOverlayColor by animateColorAsState(
-                        targetValue = if (isError) AppColors.PanelBrown.copy(alpha = 0.8f) else AppColors.PanelBrown,
-                        animationSpec = tween(durationMillis = 400)
-                    )
-
                     Box(
                         modifier = Modifier
                             .width(120.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(AppColors.PanelBrown)
-                            .border(1.dp, borderColor, RoundedCornerShape(8.dp)),
+                            .border(1.dp, if (isError) Color.Red else Color.Transparent, RoundedCornerShape(8.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .matchParentSize()
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(blinkOverlayColor, RoundedCornerShape(8.dp))
-                        )
-
                         BasicTextField(
                             value = pricePerItem,
                             onValueChange = onPriceChange,
@@ -176,12 +146,11 @@ fun ResultItem(
                                 color = AppColors.LightBeige,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                fontFamily = FontFamily.Serif,
+                                fontFamily = EBGaramond
                             ),
                             decorationBox = { inner ->
                                 Box(
-                                    modifier = Modifier
-                                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                                     contentAlignment = Alignment.CenterStart
                                 ) {
                                     if (pricePerItem.isEmpty()) {
@@ -190,7 +159,7 @@ fun ResultItem(
                                             color = AppColors.LightBeige,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
-                                            fontFamily = FontFamily.Serif
+                                            fontFamily = EBGaramond
                                         )
                                     }
                                     inner()
@@ -201,78 +170,77 @@ fun ResultItem(
                 }
 
                 Spacer(Modifier.height(12.dp))
-                ResultRow("Quantity per Craft", quantity.toString())
-                Spacer(Modifier.height(12.dp))
-                ResultRow("Profit", profitSilver, shimmerColor)
-                Spacer(Modifier.height(12.dp))
-                ResultRow("Profit %", profitPercent, shimmerColor)
+
+                // Quantity
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Quantity",
+                        color = AppColors.BackgroundDark,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = EBGaramond,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .padding(start = 12.dp),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Text(
+                            text = quantity.toString(),
+                            color = AppColors.LightBeige,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = EBGaramond,
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(8.dp))
+
+                // Profit
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Profit",
+                        color = AppColors.BackgroundDark,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = EBGaramond,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .width(120.dp)
+                            .padding(start = 12.dp)
+                            .border(2.dp, blinkColor, RoundedCornerShape(4.dp)),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Column {
+                            Text(
+                                text = profitSilver,
+                                color = if (profitSilver.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = EBGaramond,
+                            )
+                            Text(
+                                text = "($profitPercent)",
+                                color = if (profitPercent.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = EBGaramond,
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 }
-
-
-@Composable
-fun ResultRow(
-    label: String,
-    value: String,
-    shimmerColor: Color = Color.Transparent
-) {
-    val (finalLabel, labelColor) = remember(label, value) {
-        if (label == "Profit %" || label == "Profit") {
-            val percent = value.filter { it.isDigit() || it == '.' || it == '-' }.toFloatOrNull()
-            val arrow = when {
-                percent == null -> ""
-                percent >= 0f -> " ▲"
-                else -> " ▼"
-            }
-            val color = when {
-                percent == null -> AppColors.BackgroundDark
-                percent >= 0f -> Color(0xFF4CAF50)
-                else -> Color(0xFFFF5252)
-            }
-            label + arrow to color
-        } else {
-            label to AppColors.BackgroundDark
-        }
-    }
-
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = finalLabel,
-            color = labelColor,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            fontFamily = FontFamily.Serif,
-            modifier = Modifier.weight(1f)
-        )
-
-        Box(
-            modifier = Modifier
-                .width(120.dp)
-                .padding(start = 12.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(shimmerColor, RoundedCornerShape(4.dp))
-            )
-
-            Text(
-                text = value,
-                color = AppColors.LightBeige,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                fontFamily = FontFamily.Serif,
-            )
-        }
-    }
-}
-
-
-
-

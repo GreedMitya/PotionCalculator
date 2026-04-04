@@ -1,6 +1,6 @@
 package com.greedmitya.albcalculator.logic
 
-import Ingredient
+import com.greedmitya.albcalculator.model.Ingredient
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import com.greedmitya.albcalculator.model.PotionCraftResult
