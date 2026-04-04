@@ -1,7 +1,7 @@
 package com.greedmitya.albcalculator.domain
 
-import Ingredient
-import PotionCraftCalculator
+import com.greedmitya.albcalculator.model.Ingredient
+import com.greedmitya.albcalculator.logic.PotionCraftCalculator
 import com.greedmitya.albcalculator.model.PotionCraftResult
 import com.greedmitya.albcalculator.model.potionItemValues
 

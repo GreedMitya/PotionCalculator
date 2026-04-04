@@ -1,3 +1,5 @@
+package com.greedmitya.albcalculator.model
+
 data class PotionInfo(
     val displayName: String,
     val baseId: String,

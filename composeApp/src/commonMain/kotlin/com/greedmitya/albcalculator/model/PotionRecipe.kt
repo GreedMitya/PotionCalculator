@@ -1,3 +1,5 @@
+package com.greedmitya.albcalculator.model
+
 data class Ingredient(
     val name: String,
     val quantity: Int,

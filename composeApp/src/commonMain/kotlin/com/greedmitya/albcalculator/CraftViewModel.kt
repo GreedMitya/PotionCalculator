@@ -1,9 +1,9 @@
 package com.greedmitya.albcalculator
 
-import Ingredient
-import PotionInfo
-import PotionRecipe
-import PotionCraftCalculator
+import com.greedmitya.albcalculator.model.Ingredient
+import com.greedmitya.albcalculator.model.PotionInfo
+import com.greedmitya.albcalculator.model.PotionRecipe
+import com.greedmitya.albcalculator.logic.PotionCraftCalculator
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel

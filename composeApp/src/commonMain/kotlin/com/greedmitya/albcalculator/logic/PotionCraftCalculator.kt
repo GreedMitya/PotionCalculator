@@ -1,3 +1,6 @@
+package com.greedmitya.albcalculator.logic
+
+import com.greedmitya.albcalculator.model.Ingredient
 import com.greedmitya.albcalculator.model.PotionCraftResult
 import io.github.aakira.napier.Napier
 

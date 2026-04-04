@@ -1,3 +1,10 @@
+package com.greedmitya.albcalculator
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
