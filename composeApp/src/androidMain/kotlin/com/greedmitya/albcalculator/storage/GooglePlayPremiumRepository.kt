@@ -24,7 +24,7 @@ import kotlin.coroutines.resume
  * Handles one-time purchase of "Craft+" premium, restorable after reinstall.
  */
 class GooglePlayPremiumRepository(
-    context: Context,
+    private val context: Context,
 ) : AppPremiumRepository {
 
     companion object {
@@ -91,6 +91,12 @@ class GooglePlayPremiumRepository(
     }
 
     override suspend fun isPremiumUnlocked(): Boolean {
+        val isDebug = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
+        if (isDebug) {
+            Napier.d("DEBUG build detected: Premium unlocked automatically")
+            return true
+        }
+
         if (!ensureConnected()) return false
 
         val params = QueryPurchasesParams.newBuilder()

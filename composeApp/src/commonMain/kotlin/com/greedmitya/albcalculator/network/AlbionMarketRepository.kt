@@ -61,7 +61,8 @@ class AlbionMarketRepositoryImpl(private val httpClient: HttpClient) : AlbionMar
         locations: String,
         serverCode: String,
     ): ApiResult<List<MarketItemPrice>> {
-        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$locations"
+        val encodedLocations = locations.replace(" ", "%20")
+        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$encodedLocations&qualities=1"
         return try {
             val responseText = httpClient.get(url).body<String>()
             val priceData = json.decodeFromString<List<MarketItemPrice>>(responseText)
