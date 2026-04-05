@@ -4,6 +4,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.greedmitya.albcalculator.domain.AppPremiumRepository
+import com.greedmitya.albcalculator.domain.AppPurchaseResult
 import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
 import com.greedmitya.albcalculator.domain.FavoritesRepository
 import com.greedmitya.albcalculator.domain.FetchPricesUseCase
@@ -25,6 +27,7 @@ class CraftViewModel(
     private val fetchPricesUseCase: FetchPricesUseCase,
     private val calculateProfitUseCase: CalculateProfitUseCase,
     private val favoritesRepository: FavoritesRepository,
+    private val appPremiumRepository: AppPremiumRepository,
 ) : ViewModel() {
 
     companion object {
@@ -40,6 +43,14 @@ class CraftViewModel(
 
     var networkError by mutableStateOf<String?>(null)
         private set
+
+    /** Whether the user has purchased Craft+ premium (unlocks Craft+, Markets, Advisor). */
+    var isAppPremiumUnlocked by mutableStateOf(false)
+        private set
+
+    /** Batch craft quantity for Craft+ mode. */
+    var craftQuantity by mutableStateOf("1")
+    val craftQuantityInt: Int get() = craftQuantity.toIntOrNull()?.coerceAtLeast(1) ?: 1
 
     val favorites = mutableStateListOf<FavoriteRecipe>()
     val allPotions = listOf(
@@ -117,6 +128,9 @@ class CraftViewModel(
             favorites.addAll(saved)
             val storedServer = favoritesRepository.loadSelectedServer()
             selectedServer = storedServer
+
+            // Check app premium status
+            isAppPremiumUnlocked = appPremiumRepository.isPremiumUnlocked()
         }
     }
 
@@ -226,6 +240,7 @@ class CraftViewModel(
             selectedCity = selectedCity,
             potionSellPrice = potionSellPrice,
             outputQuantity = outputQuantity,
+            craftQuantity = craftQuantityInt,
         )
     }
 
@@ -331,6 +346,44 @@ class CraftViewModel(
     private fun persistFavorites() {
         viewModelScope.launch {
             favoritesRepository.saveFavorites(favorites.toList())
+        }
+    }
+
+    // endregion
+
+    // region App Premium (Craft+ purchase)
+
+    fun purchasePremium(activity: Any) {
+        viewModelScope.launch {
+            when (val result = appPremiumRepository.purchasePremium(activity)) {
+                is AppPurchaseResult.Success,
+                is AppPurchaseResult.AlreadyOwned -> {
+                    isAppPremiumUnlocked = true
+                }
+                is AppPurchaseResult.Error -> {
+                    networkError = result.message
+                }
+                is AppPurchaseResult.UserCancelled -> {
+                    // No action needed
+                }
+            }
+        }
+    }
+
+    fun restorePurchases() {
+        viewModelScope.launch {
+            when (val result = appPremiumRepository.restorePurchases()) {
+                is AppPurchaseResult.Success,
+                is AppPurchaseResult.AlreadyOwned -> {
+                    isAppPremiumUnlocked = true
+                }
+                is AppPurchaseResult.Error -> {
+                    networkError = result.message
+                }
+                is AppPurchaseResult.UserCancelled -> {
+                    // No action needed
+                }
+            }
         }
     }
 

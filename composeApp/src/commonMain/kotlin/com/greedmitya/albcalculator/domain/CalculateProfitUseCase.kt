@@ -20,7 +20,8 @@ class CalculateProfitUseCase {
         focusTotal: String,
         selectedCity: String?,
         potionSellPrice: String,
-        outputQuantity: Int
+        outputQuantity: Int,
+        craftQuantity: Int = 1,
     ): PotionCraftResult {
 
         val ingredientsWithPrices = ingredients.map {
@@ -43,7 +44,8 @@ class CalculateProfitUseCase {
             itemValue = itemValue,
             city = selectedCity,
             sellPrice = potionSellPrice.toDoubleOrNull(),
-            outputQuantity = outputQuantity
+            outputQuantity = outputQuantity,
+            craftQuantity = craftQuantity,
         )
     }
 }

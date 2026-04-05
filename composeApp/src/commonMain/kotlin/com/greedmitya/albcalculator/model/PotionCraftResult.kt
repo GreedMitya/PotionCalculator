@@ -8,10 +8,14 @@ data class PotionCraftResult(
     val withPlacementFee: Double,
     val finalCost: Double,
     val estimatedSellPrice: Double? = null,
-    val profitSilver: Double
+    val profitSilver: Double,
+    val craftQuantity: Int = 1,
 ) {
     val profitPercent: Double?
         get() = if (finalCost != 0.0) (profitSilver / finalCost) * 100 else null
+
+    val totalProfitSilver: Double get() = profitSilver * craftQuantity
+    val totalCostSilver: Double get() = finalCost * craftQuantity
 
     private fun Double.toFixed(decimals: Int): String {
         val factor = 10.0.pow(decimals)
@@ -37,4 +41,7 @@ data class PotionCraftResult(
 
     val profitPercentFormatted: String
         get() = profitPercent?.let { "${formatWithSpaces(it, 1)}%" } ?: "-/-"
+
+    val totalProfitFormatted: String
+        get() = "${formatWithSpaces(totalProfitSilver)} silver"
 }

@@ -48,7 +48,9 @@ fun ResultItem(
     shimmerColor: Color,
     isError: Boolean,
     modifier: Modifier = Modifier,
-    onCopy: () -> Unit = {}
+    craftQuantity: Int = 1,
+    totalProfit: String = "",
+    onCopy: () -> Unit = {},
 ) {
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
@@ -235,6 +237,38 @@ fun ResultItem(
                                 color = if (profitPercent.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Normal,
+                                fontFamily = EBGaramond,
+                            )
+                        }
+                    }
+                }
+
+                if (craftQuantity > 1) {
+                    Spacer(Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "Total ($craftQuantity runs)",
+                            color = AppColors.BackgroundDark,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = EBGaramond,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Box(
+                            modifier = Modifier
+                                .width(120.dp)
+                                .padding(start = 12.dp),
+                            contentAlignment = Alignment.CenterStart,
+                        ) {
+                            Text(
+                                text = totalProfit,
+                                color = if (totalProfit.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
                                 fontFamily = EBGaramond,
                             )
                         }

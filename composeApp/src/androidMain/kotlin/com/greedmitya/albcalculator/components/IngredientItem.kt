@@ -49,7 +49,8 @@ fun IngredientItem(
     onPriceChange: (String) -> Unit,
     onCopy: () -> Unit = {},
     isError: Boolean = false,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    craftQuantity: Int = 1,
 ) {
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
@@ -209,10 +210,16 @@ fun IngredientItem(
                             .padding(start = 12.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
+                        val qtyText = if (craftQuantity > 1) {
+                            val total = ingredient.quantity * craftQuantity
+                            "$total (${ingredient.quantity}x$craftQuantity)"
+                        } else {
+                            ingredient.quantity.toString()
+                        }
                         Text(
-                            text = ingredient.quantity.toString(),
+                            text = qtyText,
                             color = AppColors.LightBeige,
-                            fontSize = 16.sp,
+                            fontSize = if (craftQuantity > 1) 13.sp else 16.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = EBGaramond,
                         )

@@ -1,0 +1,1220 @@
+{
+  "potions": {
+    "POTION_HEAL": {
+      "itemValues": {
+        "T2": 320,
+        "T4": 1200,
+        "T6": 4300
+      },
+      "recipes": {
+        "T2": {
+          "0": [
+            {"name": "T2_AGARIC", "quantity": 8}
+          ],
+          "1": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T4": {
+          "0": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_ENERGY": {
+      "itemValues": {
+        "T2": 320,
+        "T4": 1200,
+        "T6": 4300
+      },
+      "recipes": {
+        "T2": {
+          "0": [
+            {"name": "T2_AGARIC", "quantity": 8}
+          ],
+          "1": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T2_AGARIC", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T4": {
+          "0": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T6_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_REVIVE": {
+      "itemValues": {
+        "T3": 320,
+        "T5": 1700,
+        "T7": 5800
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_COMFREY", "quantity": 8}
+          ],
+          "1": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_STONESKIN": {
+      "itemValues": {
+        "T3": 320,
+        "T5": 1700,
+        "T7": 7200
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_COMFREY", "quantity": 8}
+          ],
+          "1": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T4_MILK", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T4_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T6_MILK", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_SLOWFIELD": {
+      "itemValues": {
+        "T3": 320,
+        "T5": 1700,
+        "T7": 7200
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_COMFREY", "quantity": 8}
+          ],
+          "1": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T3_COMFREY", "quantity": 8},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T4_BURDOCK", "quantity": 12},
+            {"name": "T5_EGG", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T4_BURDOCK", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T4_BURDOCK", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T4_BURDOCK", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T4_BURDOCK", "quantity": 36},
+            {"name": "T5_EGG", "quantity": 18},
+            {"name": "T7_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_COOLDOWN": {
+      "itemValues": {
+        "T3": 480,
+        "T5": 2200,
+        "T7": 7200
+      },
+      "recipes": {
+        "T4": {
+          "0": [
+            {"name": "T4_BURDOCK", "quantity": 8},
+            {"name": "T3_COMFREY", "quantity": 4}
+          ],
+          "1": [
+            {"name": "T4_BURDOCK", "quantity": 8},
+            {"name": "T3_COMFREY", "quantity": 4},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 5}
+          ],
+          "2": [
+            {"name": "T4_BURDOCK", "quantity": 8},
+            {"name": "T3_COMFREY", "quantity": 4},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 5}
+          ],
+          "3": [
+            {"name": "T4_BURDOCK", "quantity": 8},
+            {"name": "T3_COMFREY", "quantity": 4},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 5}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T3_COMFREY", "quantity": 12},
+            {"name": "T6_MILK", "quantity": 6}
+          ],
+          "1": [
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T3_COMFREY", "quantity": 12},
+            {"name": "T6_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 15}
+          ],
+          "2": [
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T3_COMFREY", "quantity": 12},
+            {"name": "T6_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 15}
+          ],
+          "3": [
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T3_COMFREY", "quantity": 12},
+            {"name": "T6_MILK", "quantity": 6},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 15}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "POTION_BERSERK": {
+      "itemValues": {
+        "T4": 640,
+        "T6": 3400,
+        "T8": 14400
+      },
+      "recipes": {
+        "T4": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T2_AGARIC", "quantity": 24},
+            {"name": "T6_ALCOHOL", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T2_AGARIC", "quantity": 24},
+            {"name": "T6_ALCOHOL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T2_AGARIC", "quantity": 24},
+            {"name": "T6_ALCOHOL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T2_AGARIC", "quantity": 24},
+            {"name": "T6_ALCOHOL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_WEREWOLF", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_LAVA": {
+      "itemValues": {
+        "T4": 640,
+        "T6": 3400,
+        "T8": 14400
+      },
+      "recipes": {
+        "T4": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T4_MILK", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T4_MILK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T4_MILK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T4_MILK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T6_MILK", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T6_MILK", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T6_MILK", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T6_MILK", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T8_MILK", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T8_MILK", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T8_MILK", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_IMP", "quantity": 1},
+            {"name": "T8_MILK", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_GATHER": {
+      "itemValues": {
+        "T4": 640,
+        "T6": 3400,
+        "T8": 14400
+      },
+      "recipes": {
+        "T4": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T4_BUTTER", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T4_BUTTER", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T4_BUTTER", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T4_BUTTER", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T6_BUTTER", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T6_BUTTER", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T6_BUTTER", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T6_BUTTER", "quantity": 48},
+            {"name": "T6_FOXGLOVE", "quantity": 24},
+            {"name": "T5_TEASEL", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T8_BUTTER", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T8_BUTTER", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T8_BUTTER", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_ELEMENTAL", "quantity": 1},
+            {"name": "T8_BUTTER", "quantity": 144},
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T6_FOXGLOVE", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_TORNADO": {
+      "itemValues": {
+        "T4": 640,
+        "T6": 3400,
+        "T8": 14400
+      },
+      "recipes": {
+        "T4": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T4_BURDOCK", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T6": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T6_FOXGLOVE", "quantity": 48},
+            {"name": "T5_TEASEL", "quantity": 24},
+            {"name": "T3_EGG", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_EAGLE", "quantity": 1},
+            {"name": "T8_YARROW", "quantity": 144},
+            {"name": "T7_MULLEIN", "quantity": 72},
+            {"name": "T7_ALCOHOL", "quantity": 72},
+            {"name": "T5_EGG", "quantity": 36},
+            {"name": "T8_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_MOB_RESET": {
+      "itemValues": {
+        "T3": 640,
+        "T5": 3400,
+        "T7": 14400
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T2_AGARIC", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T2_AGARIC", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T2_AGARIC", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T2_AGARIC", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T2_AGARIC", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T2_AGARIC", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T2_AGARIC", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_PANTHER", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T2_AGARIC", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_CLEANSE2": {
+      "itemValues": {
+        "T3": 640,
+        "T5": 3400,
+        "T7": 14400
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T3_COMFREY", "quantity": 24},
+            {"name": "T4_BUTTER", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T3_COMFREY", "quantity": 24},
+            {"name": "T4_BUTTER", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T3_COMFREY", "quantity": 24},
+            {"name": "T4_BUTTER", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T3_COMFREY", "quantity": 24},
+            {"name": "T4_BUTTER", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T4_BURDOCK", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_BUTTER", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T4_BURDOCK", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_BUTTER", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T4_BURDOCK", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_BUTTER", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_ENT", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T4_BURDOCK", "quantity": 72},
+            {"name": "T3_COMFREY", "quantity": 72},
+            {"name": "T6_BUTTER", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_ACID": {
+      "itemValues": {
+        "T3": 640,
+        "T5": 3400,
+        "T7": 14400
+      },
+      "recipes": {
+        "T3": {
+          "0": [
+            {"name": "T3_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16}
+          ],
+          "1": [
+            {"name": "T3_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 10}
+          ],
+          "2": [
+            {"name": "T3_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 10}
+          ],
+          "3": [
+            {"name": "T3_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T3_COMFREY", "quantity": 16},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 10}
+          ]
+        },
+        "T5": {
+          "0": [
+            {"name": "T5_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 12}
+          ],
+          "1": [
+            {"name": "T5_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 30}
+          ],
+          "2": [
+            {"name": "T5_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 30}
+          ],
+          "3": [
+            {"name": "T5_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T5_TEASEL", "quantity": 48},
+            {"name": "T4_BURDOCK", "quantity": 24},
+            {"name": "T4_MILK", "quantity": 12},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 30}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36}
+          ],
+          "1": [
+            {"name": "T7_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 90}
+          ],
+          "2": [
+            {"name": "T7_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 90}
+          ],
+          "3": [
+            {"name": "T7_ALCHEMY_RARE_DIREBEAR", "quantity": 1},
+            {"name": "T7_MULLEIN", "quantity": 144},
+            {"name": "T6_FOXGLOVE", "quantity": 72},
+            {"name": "T6_ALCOHOL", "quantity": 72},
+            {"name": "T6_MILK", "quantity": 36},
+            {"name": "T7_ALCOHOL", "quantity": 36},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 90}
+          ]
+        }
+      }
+    },
+    "POTION_CLEANSE": {
+      "itemValues": {
+        "T8": 7200
+      },
+      "recipes": {
+        "T8": {
+          "0": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18}
+          ],
+          "1": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL1", "quantity": 45}
+          ],
+          "2": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL2", "quantity": 45}
+          ],
+          "3": [
+            {"name": "T8_YARROW", "quantity": 72},
+            {"name": "T7_MULLEIN", "quantity": 36},
+            {"name": "T5_TEASEL", "quantity": 36},
+            {"name": "T8_MILK", "quantity": 18},
+            {"name": "T8_ALCOHOL", "quantity": 18},
+            {"name": "T1_ALCHEMY_EXTRACT_LEVEL3", "quantity": 45}
+          ]
+        }
+      }
+    },
+    "ALCOHOL": {
+      "itemValues": {
+        "T6": 960,
+        "T7": 1120,
+        "T8": 1280
+      },
+      "recipes": {
+        "T6": {
+          "0": [
+            {"name": "T6_POTATO", "quantity": 1}
+          ]
+        },
+        "T7": {
+          "0": [
+            {"name": "T7_CORN", "quantity": 1}
+          ]
+        },
+        "T8": {
+          "0": [
+            {"name": "T8_PUMPKIN", "quantity": 1}
+          ]
+        }
+      }
+    }
+  }
+}

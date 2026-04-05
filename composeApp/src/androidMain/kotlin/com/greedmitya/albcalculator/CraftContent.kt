@@ -1,5 +1,6 @@
 package com.greedmitya.albcalculator
 
+import android.app.Activity
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,8 +14,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.ActionIconMenuButton
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
+import com.greedmitya.albcalculator.components.CraftSubTabRow
 import com.greedmitya.albcalculator.components.InputField
 import com.greedmitya.albcalculator.components.ResultItem
 import com.greedmitya.albcalculator.components.SelectorBlock
@@ -43,11 +50,12 @@ fun CraftContent(
 ) {
     val isPremium = viewModel.isPremium
     val useFocus = viewModel.useFocus
+    var craftSubTab by rememberSaveable { mutableIntStateOf(0) }
+    val activity = LocalContext.current as? Activity
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
             .padding(top = 40.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
@@ -56,7 +64,7 @@ fun CraftContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp),
+                .padding(bottom = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -74,6 +82,30 @@ fun CraftContent(
                 fontWeight = FontWeight.Medium
             )
         }
+
+        CraftSubTabRow(
+            selectedIndex = craftSubTab,
+            isPremiumUnlocked = viewModel.isAppPremiumUnlocked,
+            onTabSelected = { craftSubTab = it },
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+        if (craftSubTab == 1 && !viewModel.isAppPremiumUnlocked) {
+            PremiumUpgradeScreen(
+                onBuyClick = { activity?.let { viewModel.purchasePremium(it) } },
+                onRestoreClick = { viewModel.restorePurchases() },
+                modifier = Modifier.weight(1f),
+            )
+            return
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(scrollState),
+        ) {
+
         SelectorBlock(
             title = "Potion",
             options = viewModel.potions,
@@ -138,40 +170,60 @@ fun CraftContent(
 
         Spacer(Modifier.height(24.dp))
 
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+        if (craftSubTab == 0) {
+            // Free Craft tab: only Premium toggle, no focus
             ToggleOption(
                 label = "Premium",
                 checked = isPremium,
                 onCheckedChange = { viewModel.isPremium = it },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.fillMaxWidth()
             )
-
-            ToggleOption(
-                label = "Use focus",
-                checked = useFocus,
-                onCheckedChange = { viewModel.useFocus = it },
-                modifier = Modifier.weight(1f)
-            )
-        }
-
-        if (useFocus) {
-            Spacer(Modifier.height(12.dp))
+        } else {
+            // Craft+ tab: Premium + Focus toggles + Batch quantity
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                SmallInputField("Basic", viewModel.focusBasic, { viewModel.focusBasic = it }, Modifier.weight(1f))
-                SmallInputField(
-                    "Mastery",
-                    viewModel.focusMastery,
-                    { viewModel.focusMastery = it },
-                    Modifier.weight(1f)
+                ToggleOption(
+                    label = "Premium",
+                    checked = isPremium,
+                    onCheckedChange = { viewModel.isPremium = it },
+                    modifier = Modifier.weight(1f)
                 )
-                SmallInputField("Total", viewModel.focusTotal, { viewModel.focusTotal = it }, Modifier.weight(1f))
+
+                ToggleOption(
+                    label = "Use focus",
+                    checked = useFocus,
+                    onCheckedChange = { viewModel.useFocus = it },
+                    modifier = Modifier.weight(1f)
+                )
             }
+
+            if (useFocus) {
+                Spacer(Modifier.height(12.dp))
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    SmallInputField("Basic", viewModel.focusBasic, { viewModel.focusBasic = it }, Modifier.weight(1f))
+                    SmallInputField(
+                        "Mastery",
+                        viewModel.focusMastery,
+                        { viewModel.focusMastery = it },
+                        Modifier.weight(1f)
+                    )
+                    SmallInputField("Total", viewModel.focusTotal, { viewModel.focusTotal = it }, Modifier.weight(1f))
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+            InputField(
+                title = "Craft Runs",
+                value = viewModel.craftQuantity,
+                onValueChange = { viewModel.craftQuantity = it },
+                modifier = Modifier.fillMaxWidth(),
+                isNumeric = true,
+            )
         }
 
         Spacer(Modifier.height(24.dp))
@@ -187,9 +239,10 @@ fun CraftContent(
                     onPriceChange = { newPrice ->
                         viewModel.ingredientPrices[ingredient.name] = newPrice
                     },
+                    craftQuantity = if (craftSubTab == 1) viewModel.craftQuantityInt else 1,
                     onCopy = {
                         coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)
-                    }
+                    },
                 )
                 Spacer(Modifier.height(12.dp))
             }
@@ -208,9 +261,11 @@ fun CraftContent(
                     isBlinking = viewModel.isBlinkingResult,
                     shimmerColor = viewModel.shimmerColor.value,
                     isError = viewModel.isSellPriceError,
+                    craftQuantity = viewModel.craftQuantityInt,
+                    totalProfit = result?.totalProfitFormatted ?: "",
                     onCopy = {
                         coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)
-                    }
+                    },
                 )
             }
 
@@ -270,5 +325,6 @@ fun CraftContent(
                 )
             }
         }
+        } // end scrollable Column
     }
 }

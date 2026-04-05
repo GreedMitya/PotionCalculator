@@ -19,10 +19,13 @@ import com.greedmitya.albcalculator.CraftContent
 import com.greedmitya.albcalculator.CraftViewModel
 import com.greedmitya.albcalculator.FavoritesScreen
 import com.greedmitya.albcalculator.HowToUseScreen
+import com.greedmitya.albcalculator.MarketsScreen
+import com.greedmitya.albcalculator.MarketsViewModel
 import com.greedmitya.albcalculator.R
 import com.greedmitya.albcalculator.SettingsScreen
 import com.greedmitya.albcalculator.components.*
 import com.greedmitya.albcalculator.model.BottomNavItemData
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
@@ -33,27 +36,34 @@ fun CraftScreen(viewModel: CraftViewModel) {
     var selectedTab by remember { mutableStateOf(0) }
     val scrollState = remember(selectedTab) { ScrollState(0) }
 
+    val marketsViewModel: MarketsViewModel = koinViewModel()
+
     val navItems = listOf(
         BottomNavItemData(
             label = "Craft",
             iconResId = R.drawable.ic_craft,
-            selectedIconResId = R.drawable.ic_craft_active
+            selectedIconResId = R.drawable.ic_craft_active,
+        ),
+        BottomNavItemData(
+            label = "Markets",
+            iconResId = R.drawable.ic_markets,
+            selectedIconResId = R.drawable.ic_markets_active,
         ),
         BottomNavItemData(
             label = "Favorites",
             iconResId = R.drawable.ic_favorites,
-            selectedIconResId = R.drawable.ic_favorites_active
+            selectedIconResId = R.drawable.ic_favorites_active,
         ),
         BottomNavItemData(
             label = "How to use",
             iconResId = R.drawable.ic_how_to_use,
-            selectedIconResId = R.drawable.ic_how_to_active
+            selectedIconResId = R.drawable.ic_how_to_active,
         ),
         BottomNavItemData(
             label = "Settings",
             iconResId = R.drawable.ic_settings,
-            selectedIconResId = R.drawable.ic_settings_active
-        )
+            selectedIconResId = R.drawable.ic_settings_active,
+        ),
     )
 
     Scaffold(
@@ -121,15 +131,20 @@ fun CraftScreen(viewModel: CraftViewModel) {
                     isMarketReady = isMarketReady,
                     snackbarHostState = snackbarHostState,
                     coroutineScope = coroutineScope,
-                    scrollState = scrollState
+                    scrollState = scrollState,
                 )
-                1 -> FavoritesScreen(
+                1 -> MarketsScreen(
+                    craftViewModel = viewModel,
+                    marketsViewModel = marketsViewModel,
+                    scrollState = scrollState,
+                )
+                2 -> FavoritesScreen(
                     viewModel = viewModel,
                     onNavigateToCraft = { selectedTab = 0 },
-                    scrollState = scrollState
+                    scrollState = scrollState,
                 )
-                2 -> HowToUseScreen(scrollState = scrollState)
-                3 -> SettingsScreen(viewModel = viewModel, scrollState = scrollState)
+                3 -> HowToUseScreen(scrollState = scrollState)
+                4 -> SettingsScreen(viewModel = viewModel, scrollState = scrollState)
             }
         }
     }

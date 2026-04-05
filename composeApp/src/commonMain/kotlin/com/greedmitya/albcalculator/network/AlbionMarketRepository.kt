@@ -22,6 +22,13 @@ interface AlbionMarketRepository {
         city: String,
         serverCode: String,
     ): ApiResult<List<MarketItemPrice>>
+
+    /** Fetch prices for multiple cities in one request (comma-separated locations). */
+    suspend fun getPricesMultiCity(
+        itemIds: List<String>,
+        cities: List<String>,
+        serverCode: String,
+    ): ApiResult<List<MarketItemPrice>>
 }
 
 class AlbionMarketRepositoryImpl(private val httpClient: HttpClient) : AlbionMarketRepository {
@@ -31,8 +38,30 @@ class AlbionMarketRepositoryImpl(private val httpClient: HttpClient) : AlbionMar
         itemIds: List<String>,
         city: String,
         serverCode: String,
+    ): ApiResult<List<MarketItemPrice>> =
+        fetchPrices(
+            itemIds = itemIds,
+            locations = city,
+            serverCode = serverCode,
+        )
+
+    override suspend fun getPricesMultiCity(
+        itemIds: List<String>,
+        cities: List<String>,
+        serverCode: String,
+    ): ApiResult<List<MarketItemPrice>> =
+        fetchPrices(
+            itemIds = itemIds,
+            locations = cities.joinToString(","),
+            serverCode = serverCode,
+        )
+
+    private suspend fun fetchPrices(
+        itemIds: List<String>,
+        locations: String,
+        serverCode: String,
     ): ApiResult<List<MarketItemPrice>> {
-        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$city"
+        val url = "https://$serverCode.albion-online-data.com/api/v2/stats/prices/${itemIds.joinToString(",")}.json?locations=$locations"
         return try {
             val responseText = httpClient.get(url).body<String>()
             val priceData = json.decodeFromString<List<MarketItemPrice>>(responseText)
