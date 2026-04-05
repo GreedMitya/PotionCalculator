@@ -28,7 +28,7 @@ class GooglePlayPremiumRepository(
 ) : AppPremiumRepository {
 
     companion object {
-        const val PREMIUM_PRODUCT_ID = "craft_plus_premium"
+        const val PREMIUM_PRODUCT_ID = "craft-plus-premium"
     }
 
     private var pendingPurchaseCallback: ((AppPurchaseResult) -> Unit)? = null
@@ -39,6 +39,7 @@ class GooglePlayPremiumRepository(
 
         when (billingResult.responseCode) {
             BillingClient.BillingResponseCode.OK -> {
+                Napier.d("Purchases updated successfully")
                 val purchased = purchases?.any { purchase ->
                     purchase.products.contains(PREMIUM_PRODUCT_ID) &&
                         purchase.purchaseState == Purchase.PurchaseState.PURCHASED
@@ -48,12 +49,15 @@ class GooglePlayPremiumRepository(
                 )
             }
             BillingClient.BillingResponseCode.USER_CANCELED -> {
+                Napier.i("User cancelled the purchase flow")
                 callback?.invoke(AppPurchaseResult.UserCancelled)
             }
             BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> {
+                Napier.i("Item already owned")
                 callback?.invoke(AppPurchaseResult.AlreadyOwned)
             }
             else -> {
+                Napier.e("Billing error: ${billingResult.responseCode} - ${billingResult.debugMessage}")
                 callback?.invoke(
                     AppPurchaseResult.Error("Billing error: ${billingResult.debugMessage}"),
                 )
@@ -72,10 +76,10 @@ class GooglePlayPremiumRepository(
         return suspendCancellableCoroutine { continuation ->
             billingClient.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    val isSuccess = billingResult.responseCode == BillingClient.BillingResponseCode.OK
+                    Napier.d("Billing setup finished: $isSuccess (code: ${billingResult.responseCode})")
                     if (continuation.isActive) {
-                        continuation.resume(
-                            billingResult.responseCode == BillingClient.BillingResponseCode.OK,
-                        )
+                        continuation.resume(isSuccess)
                     }
                 }
 
@@ -159,6 +163,12 @@ class GooglePlayPremiumRepository(
             .build()
 
         val result: ProductDetailsResult = billingClient.queryProductDetails(params)
-        return result.productDetailsList?.firstOrNull()
+        val product = result.productDetailsList?.firstOrNull()
+        if (product == null) {
+            Napier.e("Product $PREMIUM_PRODUCT_ID not found in Play Store. Response code: ${result.billingResult.responseCode}")
+        } else {
+            Napier.d("Product $PREMIUM_PRODUCT_ID found: ${product.name}")
+        }
+        return product
     }
 }
