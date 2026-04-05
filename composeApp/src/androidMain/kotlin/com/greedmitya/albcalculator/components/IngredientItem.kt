@@ -41,6 +41,7 @@ import com.greedmitya.albcalculator.assets.getDisplayNameFromItemId
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
 import com.greedmitya.albcalculator.components.rememberBlinkingError
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import com.greedmitya.albcalculator.util.formatSilver
 import kotlinx.coroutines.delay
 
 @Composable
@@ -222,6 +223,34 @@ fun IngredientItem(
                             fontSize = if (craftQuantity > 1) 13.sp else 16.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = EBGaramond,
+                        )
+                    }
+                }
+
+                val price = ingredient.price
+                if (price != null && price > 0) {
+                    Spacer(Modifier.height(8.dp))
+                    val totalQty = ingredient.quantity * craftQuantity
+                    val totalCost = price * totalQty
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "Total cost",
+                            color = AppColors.BackgroundDark,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = EBGaramond,
+                            modifier = Modifier.weight(1f),
+                        )
+                        Text(
+                            text = formatSilver(totalCost),
+                            color = AppColors.Secondary_Beige,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = EBGaramond,
+                            modifier = Modifier.padding(start = 12.dp),
                         )
                     }
                 }

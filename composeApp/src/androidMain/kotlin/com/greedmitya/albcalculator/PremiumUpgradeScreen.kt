@@ -38,11 +38,9 @@ fun PremiumUpgradeScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(top = 60.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
+            .padding(top = 16.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(Modifier.height(40.dp))
-
         Icon(
             painter = painterResource(R.drawable.ic_lock),
             contentDescription = null,

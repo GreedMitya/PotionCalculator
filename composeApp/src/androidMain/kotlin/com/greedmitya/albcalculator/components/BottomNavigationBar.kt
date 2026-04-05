@@ -32,7 +32,7 @@ fun BottomNavigationBar(
         modifier = modifier
             .height(barHeight)
             .background(Color(0xFF2A2A2A))
-            .padding(horizontal = 30.dp, vertical = 12.dp),
+            .padding(horizontal = 8.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -45,17 +45,25 @@ fun BottomNavigationBar(
 
             Column(
                 modifier = Modifier
-                    .width(81.5.dp)
+                    .weight(1f)
                     .clickable { onSelect(index) },
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.Center,
             ) {
                 Icon(
                     painter = iconPainter,
                     contentDescription = item.label,
-                    modifier = Modifier.size(108.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     tint = Color.Unspecified
                 )
+                if (item.showExternalLabel && showLabels) {
+                    Text(
+                        text = item.label,
+                        color = if (isSelected) Color(0xFFC47A30) else Color(0xFF999999),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Medium,
+                    )
+                }
             }
         }
     }

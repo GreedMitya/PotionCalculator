@@ -1,10 +1,10 @@
 package com.greedmitya.albcalculator
 
 import android.app.Activity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,10 +34,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
@@ -44,6 +46,7 @@ import com.greedmitya.albcalculator.domain.CITY_SHORT_NAMES
 import com.greedmitya.albcalculator.domain.MarketPriceRow
 import com.greedmitya.albcalculator.domain.PotionAdvisorResult
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import com.greedmitya.albcalculator.util.formatSilver
 
 @Composable
 fun MarketsScreen(
@@ -81,7 +84,7 @@ fun MarketsScreen(
             text = "Markets",
             color = AppColors.PrimaryGold,
             fontSize = 20.sp,
-            fontFamily = FontFamily.Serif,
+            fontFamily = EBGaramond,
             fontWeight = FontWeight.SemiBold,
         )
 
@@ -125,11 +128,13 @@ fun MarketsScreen(
                 state = marketsViewModel.herbsState,
                 onRefresh = { marketsViewModel.loadHerbs(serverCode) },
                 serverName = craftViewModel.selectedServer,
+                highlightHighest = false,
             )
             1 -> MarketPriceContent(
                 state = marketsViewModel.componentsState,
                 onRefresh = { marketsViewModel.loadComponents(serverCode) },
                 serverName = craftViewModel.selectedServer,
+                highlightHighest = false,
             )
             2 -> {
                 val potionItemIds = remember(craftViewModel.allPotions) {
@@ -141,6 +146,7 @@ fun MarketsScreen(
                     state = marketsViewModel.potionsState,
                     onRefresh = { marketsViewModel.loadPotions(potionItemIds, serverCode) },
                     serverName = craftViewModel.selectedServer,
+                    highlightHighest = true,
                 )
             }
             3 -> AdvisorContent(
@@ -157,6 +163,7 @@ private fun MarketPriceContent(
     state: MarketsUiState,
     onRefresh: () -> Unit,
     serverName: String,
+    highlightHighest: Boolean,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -204,76 +211,113 @@ private fun MarketPriceContent(
             )
         }
         is MarketsUiState.Success -> {
-            MarketPriceTable(rows = state.rows)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                state.rows.forEach { row ->
+                    MarketItemCard(row = row, highlightHighest = highlightHighest)
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun MarketPriceTable(rows: List<MarketPriceRow>) {
-    val horizontalScrollState = rememberScrollState()
-
-    Column {
-        // Header
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(horizontalScrollState)
-                .background(AppColors.Gray500, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-                .padding(vertical = 6.dp, horizontal = 8.dp),
-        ) {
-            Text(
-                text = "Item",
-                color = AppColors.PrimaryGold,
-                fontWeight = FontWeight.Bold,
-                fontSize = 12.sp,
-                modifier = Modifier.width(110.dp),
-            )
-            ALL_CITIES.forEach { city ->
-                Text(
-                    text = CITY_SHORT_NAMES[city] ?: city,
-                    color = AppColors.PrimaryGold,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 11.sp,
-                    modifier = Modifier.width(60.dp),
-                )
-            }
+private fun MarketItemCard(row: MarketPriceRow, highlightHighest: Boolean) {
+    val validPrices = row.pricesByCity.filter { it.value > 0 }
+    val bestPrice = if (highlightHighest) {
+        validPrices.values.maxOrNull() ?: 0
+    } else {
+        validPrices.values.minOrNull() ?: 0
+    }
+    val bestCity = if (bestPrice > 0) {
+        if (highlightHighest) {
+            validPrices.maxByOrNull { it.value }?.key
+        } else {
+            validPrices.minByOrNull { it.value }?.key
         }
+    } else null
 
-        // Rows
-        rows.forEachIndexed { index, row ->
-            val bgColor = if (index % 2 == 0) AppColors.Gray400 else AppColors.Gray500
-            val minPrice = row.pricesByCity.values.filter { it > 0 }.minOrNull() ?: 0
-
-            Row(
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(AppColors.Gray500, RoundedCornerShape(8.dp))
+            .padding(12.dp),
+    ) {
+        // Header: icon + name + best price
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                bitmap = loadIngredientImageBitmapById(row.itemId),
+                contentDescription = row.displayName,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(horizontalScrollState)
-                    .background(bgColor)
-                    .padding(vertical = 4.dp, horizontal = 8.dp),
-            ) {
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(6.dp)),
+            )
+            Spacer(Modifier.width(10.dp))
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = row.displayName,
                     color = AppColors.LightBeige,
-                    fontSize = 11.sp,
-                    modifier = Modifier.width(110.dp),
-                    maxLines = 1,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = EBGaramond,
                 )
-                ALL_CITIES.forEach { city ->
-                    val price = row.pricesByCity[city] ?: 0
-                    val textColor = when {
-                        price == 0 -> AppColors.Gray300
-                        price == minPrice && minPrice > 0 -> AppColors.PrimaryGold
-                        else -> AppColors.LightBeige
-                    }
+                if (bestPrice > 0 && bestCity != null) {
+                    val label = if (highlightHighest) "Best sell" else "Best buy"
+                    val shortCity = CITY_SHORT_NAMES[bestCity] ?: bestCity
                     Text(
-                        text = if (price > 0) price.toString() else "—",
-                        color = textColor,
-                        fontSize = 11.sp,
-                        fontWeight = if (price == minPrice && minPrice > 0) FontWeight.Bold else FontWeight.Normal,
-                        modifier = Modifier.width(60.dp),
+                        text = "$label: ${formatSilver(bestPrice.toDouble())} · $shortCity",
+                        color = AppColors.PrimaryGold,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                } else {
+                    Text(
+                        text = "No data",
+                        color = AppColors.Gray300,
+                        fontSize = 12.sp,
                     )
                 }
+            }
+        }
+
+        if (validPrices.isNotEmpty()) {
+            Spacer(Modifier.height(8.dp))
+            HorizontalDivider(color = AppColors.Gray400, thickness = 1.dp)
+            Spacer(Modifier.height(8.dp))
+
+            // City prices — 3 per row
+            val cityChunks = ALL_CITIES.chunked(3)
+            cityChunks.forEach { rowCities ->
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    rowCities.forEach { city ->
+                        val price = row.pricesByCity[city] ?: 0
+                        val isHighlighted = price > 0 && price == bestPrice
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Text(
+                                text = CITY_SHORT_NAMES[city] ?: city,
+                                color = if (isHighlighted) AppColors.PrimaryGold else AppColors.Gray300,
+                                fontSize = 10.sp,
+                                fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
+                            )
+                            Text(
+                                text = if (price > 0) formatSilver(price.toDouble()) else "—",
+                                color = if (isHighlighted) AppColors.PrimaryGold else AppColors.LightBeige,
+                                fontWeight = if (isHighlighted) FontWeight.Bold else FontWeight.Normal,
+                                fontSize = 12.sp,
+                            )
+                        }
+                    }
+                    // Pad remaining slots in the last row
+                    repeat(3 - rowCities.size) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                }
+                Spacer(Modifier.height(4.dp))
             }
         }
     }
@@ -290,7 +334,7 @@ private fun AdvisorContent(
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Bottom,
     ) {
         SelectorBlock(
             title = "City",
@@ -425,7 +469,7 @@ private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
         }
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = "$sign${result.profitSilver.toInt()}",
+                text = "$sign${formatSilver(result.profitSilver)}",
                 color = profitColor,
                 fontFamily = EBGaramond,
                 fontWeight = FontWeight.Bold,

@@ -48,6 +48,7 @@ fun CraftScreen(viewModel: CraftViewModel) {
             label = "Markets",
             iconResId = R.drawable.ic_markets,
             selectedIconResId = R.drawable.ic_markets_active,
+            showExternalLabel = true,
         ),
         BottomNavItemData(
             label = "Favorites",
