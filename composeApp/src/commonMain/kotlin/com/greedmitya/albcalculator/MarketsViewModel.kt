@@ -58,7 +58,13 @@ class MarketsViewModel(
         componentsState = MarketsUiState.Loading
         viewModelScope.launch {
             componentsState = when (val result = fetchMarketDataUseCase.execute(COMPONENT_ITEM_IDS, serverCode)) {
-                is ApiResult.Success -> MarketsUiState.Success(result.data)
+                is ApiResult.Success -> {
+                    val sorted = result.data.sortedWith(
+                        compareBy<MarketPriceRow> { extractTier(it.itemId) }
+                            .thenBy { it.displayName },
+                    )
+                    MarketsUiState.Success(sorted)
+                }
                 is ApiResult.Error -> MarketsUiState.Error(result.exception.message ?: "Unknown error")
                 ApiResult.Loading -> MarketsUiState.Loading
             }
@@ -69,11 +75,28 @@ class MarketsViewModel(
         potionsState = MarketsUiState.Loading
         viewModelScope.launch {
             potionsState = when (val result = fetchMarketDataUseCase.execute(potionItemIds, serverCode)) {
-                is ApiResult.Success -> MarketsUiState.Success(result.data)
+                is ApiResult.Success -> {
+                    val sorted = result.data.sortedWith(
+                        compareBy<MarketPriceRow> { extractTier(it.itemId) }
+                            .thenBy { it.displayName }
+                            .thenBy { extractEnchant(it.itemId) },
+                    )
+                    MarketsUiState.Success(sorted)
+                }
                 is ApiResult.Error -> MarketsUiState.Error(result.exception.message ?: "Unknown error")
                 ApiResult.Loading -> MarketsUiState.Loading
             }
         }
+    }
+
+    private fun extractTier(itemId: String): Int {
+        val match = Regex("^T(\\d+)_").find(itemId)
+        return match?.groupValues?.get(1)?.toIntOrNull() ?: 0
+    }
+
+    private fun extractEnchant(itemId: String): Int {
+        val atIndex = itemId.indexOf('@')
+        return if (atIndex >= 0) itemId.substring(atIndex + 1).toIntOrNull() ?: 0 else 0
     }
 
     fun analyzeAdvisor(

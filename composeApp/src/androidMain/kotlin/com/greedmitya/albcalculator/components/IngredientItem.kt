@@ -239,19 +239,25 @@ fun IngredientItem(
                         Text(
                             text = "Total cost",
                             color = AppColors.BackgroundDark,
-                            fontSize = 14.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = EBGaramond,
                             modifier = Modifier.weight(1f),
                         )
-                        Text(
-                            text = formatSilver(totalCost),
-                            color = AppColors.Secondary_Beige,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = EBGaramond,
-                            modifier = Modifier.padding(start = 12.dp),
-                        )
+                        Box(
+                            modifier = Modifier
+                                .width(120.dp)
+                                .padding(start = 12.dp),
+                            contentAlignment = Alignment.CenterStart,
+                        ) {
+                            Text(
+                                text = formatSilver(totalCost),
+                                color = AppColors.LightBeige,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = EBGaramond,
+                            )
+                        }
                     }
                 }
             }

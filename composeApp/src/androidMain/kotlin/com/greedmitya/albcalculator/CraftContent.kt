@@ -261,7 +261,7 @@ fun CraftContent(
                     isBlinking = viewModel.isBlinkingResult,
                     shimmerColor = viewModel.shimmerColor.value,
                     isError = viewModel.isSellPriceError,
-                    craftQuantity = viewModel.craftQuantityInt,
+                    craftQuantity = if (craftSubTab == 1) viewModel.craftQuantityInt else 1,
                     totalProfit = result?.totalProfitFormatted ?: "",
                     onCopy = {
                         coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)

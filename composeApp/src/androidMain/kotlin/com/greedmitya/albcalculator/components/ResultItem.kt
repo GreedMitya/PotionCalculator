@@ -227,14 +227,14 @@ fun ResultItem(
                         Column {
                             Text(
                                 text = profitSilver,
-                                color = if (profitSilver.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                color = if (totalProfit == "") AppColors.LightBeige else if (profitSilver.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = EBGaramond,
                             )
                             Text(
                                 text = "($profitPercent)",
-                                color = if (profitPercent.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                color = if (totalProfit == "") AppColors.LightBeige else if (profitPercent.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Normal,
                                 fontFamily = EBGaramond,
@@ -266,7 +266,7 @@ fun ResultItem(
                         ) {
                             Text(
                                 text = totalProfit,
-                                color = if (totalProfit.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
+                                color = if (totalProfit == "") AppColors.LightBeige else if (totalProfit.startsWith("-")) Color(0xFFF44336) else Color(0xFF4CAF50),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = EBGaramond,

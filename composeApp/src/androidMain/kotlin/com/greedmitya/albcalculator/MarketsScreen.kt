@@ -38,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
+import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
@@ -45,6 +46,7 @@ import com.greedmitya.albcalculator.domain.ALL_CITIES
 import com.greedmitya.albcalculator.domain.CITY_SHORT_NAMES
 import com.greedmitya.albcalculator.domain.MarketPriceRow
 import com.greedmitya.albcalculator.domain.PotionAdvisorResult
+import com.greedmitya.albcalculator.model.PotionInfo
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.util.formatSilver
 
@@ -147,6 +149,7 @@ fun MarketsScreen(
                     onRefresh = { marketsViewModel.loadPotions(potionItemIds, serverCode) },
                     serverName = craftViewModel.selectedServer,
                     highlightHighest = true,
+                    allPotions = craftViewModel.allPotions,
                 )
             }
             3 -> AdvisorContent(
@@ -164,6 +167,7 @@ private fun MarketPriceContent(
     onRefresh: () -> Unit,
     serverName: String,
     highlightHighest: Boolean,
+    allPotions: List<PotionInfo> = emptyList(),
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -213,15 +217,40 @@ private fun MarketPriceContent(
         is MarketsUiState.Success -> {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 state.rows.forEach { row ->
-                    MarketItemCard(row = row, highlightHighest = highlightHighest)
+                    val potionInfo = if (allPotions.isNotEmpty()) resolvePotionInfo(row.itemId, allPotions) else null
+                    MarketItemCard(
+                        row = row,
+                        highlightHighest = highlightHighest,
+                        potionInfo = potionInfo,
+                    )
                 }
             }
         }
     }
 }
 
+/** Parsed potion identity extracted from a raw item ID like "T4_POTION_HEAL@1". */
+private data class PotionRenderInfo(val displayName: String, val tier: String, val enchant: Int)
+
+/** Returns non-null only if [itemId] matches a known potion base ID. */
+private fun resolvePotionInfo(itemId: String, allPotions: List<PotionInfo>): PotionRenderInfo? {
+    val atIndex = itemId.indexOf('@')
+    val enchant = if (atIndex >= 0) itemId.substring(atIndex + 1).toIntOrNull() ?: 0 else 0
+    val withoutEnchant = if (atIndex >= 0) itemId.substring(0, atIndex) else itemId
+    val underscoreIndex = withoutEnchant.indexOf('_')
+    if (underscoreIndex < 0) return null
+    val tier = withoutEnchant.substring(0, underscoreIndex)
+    val baseId = withoutEnchant.substring(underscoreIndex + 1)
+    val potion = allPotions.find { it.baseId == baseId } ?: return null
+    return PotionRenderInfo(displayName = potion.displayName, tier = tier, enchant = enchant)
+}
+
 @Composable
-private fun MarketItemCard(row: MarketPriceRow, highlightHighest: Boolean) {
+private fun MarketItemCard(
+    row: MarketPriceRow,
+    highlightHighest: Boolean,
+    potionInfo: PotionRenderInfo? = null,
+) {
     val validPrices = row.pricesByCity.filter { it.value > 0 }
     val bestPrice = if (highlightHighest) {
         validPrices.values.maxOrNull() ?: 0
@@ -242,14 +271,30 @@ private fun MarketItemCard(row: MarketPriceRow, highlightHighest: Boolean) {
             .background(AppColors.Gray500, RoundedCornerShape(8.dp))
             .padding(12.dp),
     ) {
+        // Resolve display name: use parsed potion name (e.g. "T4 Healing Potion") or raw row name
+        val cardDisplayName = if (potionInfo != null) {
+            "${potionInfo.tier} ${potionInfo.displayName}" +
+                if (potionInfo.enchant > 0) " (.${potionInfo.enchant})" else ""
+        } else {
+            row.displayName
+        }
+
         // Header: icon + name + best price
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                bitmap = loadIngredientImageBitmapById(row.itemId),
-                contentDescription = row.displayName,
+                bitmap = if (potionInfo != null) {
+                    loadPotionImageBitmapFromDisplayName(
+                        displayName = potionInfo.displayName,
+                        tier = potionInfo.tier,
+                        enchant = potionInfo.enchant,
+                    )
+                } else {
+                    loadIngredientImageBitmapById(row.itemId)
+                },
+                contentDescription = cardDisplayName,
                 modifier = Modifier
                     .size(44.dp)
                     .clip(RoundedCornerShape(6.dp)),
@@ -257,7 +302,7 @@ private fun MarketItemCard(row: MarketPriceRow, highlightHighest: Boolean) {
             Spacer(Modifier.width(10.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = row.displayName,
+                    text = cardDisplayName,
                     color = AppColors.LightBeige,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -287,8 +332,9 @@ private fun MarketItemCard(row: MarketPriceRow, highlightHighest: Boolean) {
             HorizontalDivider(color = AppColors.Gray400, thickness = 1.dp)
             Spacer(Modifier.height(8.dp))
 
-            // City prices — 3 per row
-            val cityChunks = ALL_CITIES.chunked(3)
+            // City prices — only cities with actual prices, 3 per row
+            val citiesWithPrices = ALL_CITIES.filter { (row.pricesByCity[it] ?: 0) > 0 }
+            val cityChunks = citiesWithPrices.chunked(3)
             cityChunks.forEach { rowCities ->
                 Row(modifier = Modifier.fillMaxWidth()) {
                     rowCities.forEach { city ->
@@ -441,7 +487,8 @@ private fun AdvisorContent(
 @Composable
 private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
     val enchantSuffix = if (result.enchantment > 0) " (.${result.enchantment})" else ""
-    val profitColor = if (result.profitSilver >= 0) Color(0xFF4CAF50) else Color(0xFFF44336)
+    val profitColor = if (result.profitSilver > 0) Color(0xFF4CAF50) else if(result.profitSilver < 0) Color(0xFFF44336)
+    else AppColors.LightBeige
     val sign = if (result.profitSilver >= 0) "+" else ""
 
     Row(
