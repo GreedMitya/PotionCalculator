@@ -2,6 +2,7 @@ package com.greedmitya.albcalculator.storage
 
 import android.app.Activity
 import android.content.Context
+import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
@@ -25,6 +26,7 @@ import kotlin.coroutines.resume
  */
 class GooglePlayPremiumRepository(
     private val context: Context,
+    private val debugOverride: Boolean? = null,
 ) : AppPremiumRepository {
 
     companion object {
@@ -44,6 +46,14 @@ class GooglePlayPremiumRepository(
                     purchase.products.contains(PREMIUM_PRODUCT_ID) &&
                         purchase.purchaseState == Purchase.PurchaseState.PURCHASED
                 } ?: false
+                // Acknowledge unacknowledged purchases to prevent auto-refund
+                purchases?.filter { purchase ->
+                    purchase.products.contains(PREMIUM_PRODUCT_ID) &&
+                        purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
+                        !purchase.isAcknowledged
+                }?.forEach { purchase ->
+                    acknowledgePurchase(purchase)
+                }
                 callback?.invoke(
                     if (purchased) AppPurchaseResult.Success else AppPurchaseResult.Error("Purchase not completed"),
                 )
@@ -91,6 +101,11 @@ class GooglePlayPremiumRepository(
     }
 
     override suspend fun isPremiumUnlocked(): Boolean {
+        if (debugOverride != null) {
+            Napier.d("Debug override detected: Premium ${if (debugOverride) "unlocked" else "locked"}")
+            return debugOverride
+        }
+
         val isDebug = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
         if (isDebug) {
             Napier.d("DEBUG build detected: Premium unlocked automatically")
@@ -104,10 +119,15 @@ class GooglePlayPremiumRepository(
             .build()
 
         val result = billingClient.queryPurchasesAsync(params)
-        return result.purchasesList.any { purchase ->
+        val validPurchases = result.purchasesList.filter { purchase ->
             purchase.products.contains(PREMIUM_PRODUCT_ID) &&
                 purchase.purchaseState == Purchase.PurchaseState.PURCHASED
         }
+        // Acknowledge any unacknowledged purchases (recovery after reinstall/crash)
+        validPurchases.filter { !it.isAcknowledged }.forEach { purchase ->
+            acknowledgePurchase(purchase)
+        }
+        return validPurchases.isNotEmpty()
     }
 
     override suspend fun purchasePremium(activity: Any): AppPurchaseResult {
@@ -176,5 +196,30 @@ class GooglePlayPremiumRepository(
             Napier.d("Product $PREMIUM_PRODUCT_ID found: ${product.name}")
         }
         return product
+    }
+
+    /**
+     * Acknowledges a purchase so Google Play does not auto-refund it after 3 days.
+     * Required for all non-consumable in-app purchases.
+     */
+    private fun acknowledgePurchase(purchase: Purchase) {
+        val params = AcknowledgePurchaseParams.newBuilder()
+            .setPurchaseToken(purchase.purchaseToken)
+            .build()
+        billingClient.acknowledgePurchase(params) { result ->
+            if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                Napier.d("Purchase acknowledged successfully")
+            } else {
+                Napier.e("Failed to acknowledge purchase: ${result.responseCode} - ${result.debugMessage}")
+            }
+        }
+    }
+
+    /** Release billing connection when no longer needed. */
+    fun destroy() {
+        if (billingClient.isReady) {
+            billingClient.endConnection()
+            Napier.d("BillingClient connection ended")
+        }
     }
 }

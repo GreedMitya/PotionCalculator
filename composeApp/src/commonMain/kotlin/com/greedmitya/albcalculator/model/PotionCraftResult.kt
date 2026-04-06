@@ -32,7 +32,11 @@ data class PotionCraftResult(
     private fun formatWithSpaces(value: Double, decimals: Int = 0): String {
         val fixed = value.toFixed(decimals)
         val parts = fixed.split(".")
-        val intPart = parts[0].reversed().chunked(3).joinToString(" ").reversed()
+        val intRaw = parts[0]
+        val isNegative = intRaw.startsWith("-")
+        val digits = if (isNegative) intRaw.drop(1) else intRaw
+        val formatted = digits.reversed().chunked(3).joinToString(" ").reversed()
+        val intPart = if (isNegative) "-$formatted" else formatted
         return if (parts.size > 1) "$intPart.${parts[1]}" else intPart
     }
 

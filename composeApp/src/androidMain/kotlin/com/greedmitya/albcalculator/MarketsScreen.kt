@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,7 +46,6 @@ import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
-import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.domain.ALL_CITIES
 import com.greedmitya.albcalculator.domain.CITY_SHORT_NAMES
 import com.greedmitya.albcalculator.domain.MarketPriceRow
@@ -64,10 +64,40 @@ fun MarketsScreen(
 
     // Premium gate
     if (!craftViewModel.isAppPremiumUnlocked) {
-        PremiumUpgradeScreen(
-            onBuyClick = { activity?.let { craftViewModel.purchasePremium(it) } },
-            onRestoreClick = { craftViewModel.restorePurchases() },
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppColors.BackgroundDark)
+                .padding(horizontal = 20.dp, vertical = 60.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Potion Crafting",
+                    color = AppColors.PrimaryGold,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily.Serif,
+                )
+
+                Text(
+                    text = "Markets",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = FontFamily.Serif,
+                    color = AppColors.PrimaryGold
+                )
+            }
+            PremiumUpgradeScreen(
+                onBuyClick = { activity?.let { craftViewModel.purchasePremium(it) } },
+                onRestoreClick = { craftViewModel.restorePurchases() },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(top = 60.dp)
+            )
+        }
         return
     }
 
@@ -87,11 +117,19 @@ fun MarketsScreen(
         Spacer(Modifier.height(20.dp))
 
         Text(
-            text = "Markets",
+            text = "Potion Crafting",
             color = AppColors.PrimaryGold,
             fontSize = 20.sp,
-            fontFamily = EBGaramond,
             fontWeight = FontWeight.SemiBold,
+            fontFamily = FontFamily.Serif,
+        )
+
+        Text(
+            text = "Markets",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            fontFamily = FontFamily.Serif,
+            color = AppColors.PrimaryGold
         )
 
         Spacer(Modifier.height(16.dp))
