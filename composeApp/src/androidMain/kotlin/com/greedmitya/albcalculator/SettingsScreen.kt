@@ -21,6 +21,7 @@ import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
 import org.jetbrains.compose.resources.stringResource
 import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.settings_selector_language
 import potioncalculator.composeapp.generated.resources.settings_selector_server_region
 import potioncalculator.composeapp.generated.resources.settings_subtitle
 import potioncalculator.composeapp.generated.resources.title_potion_crafting
@@ -58,6 +59,14 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
             options = viewModel.serverDisplayNames.values.toList(),
             selectedOption = viewModel.selectedServer,
             onOptionSelected = { viewModel.updateServer(it) },
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        SelectorBlock(
+            title = stringResource(Res.string.settings_selector_language),
+            options = viewModel.languageDisplayNames.values.toList(),
+            selectedOption = viewModel.selectedLanguage,
+            onOptionSelected = { viewModel.updateLanguage(it) },
             modifier = Modifier.fillMaxWidth(),
         )
     }

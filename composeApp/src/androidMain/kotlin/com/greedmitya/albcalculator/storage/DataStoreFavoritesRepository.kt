@@ -23,4 +23,11 @@ class DataStoreFavoritesRepository(private val context: Context) : FavoritesRepo
     override suspend fun saveSelectedServer(server: String) {
         FavoritesStorage.saveSelectedServer(context, server)
     }
+
+    override suspend fun loadSelectedLanguage(): String =
+        FavoritesStorage.loadSelectedLanguage(context)
+
+    override suspend fun saveSelectedLanguage(language: String) {
+        FavoritesStorage.saveSelectedLanguage(context, language)
+    }
 }

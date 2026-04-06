@@ -63,6 +63,7 @@
     <!-- ==================== SETTINGS SCREEN ==================== -->
     <string name="settings_subtitle">Настройки</string>
     <string name="settings_selector_server_region">Регион сервера для API цен</string>
+    <string name="settings_selector_language">Язык интерфейса</string>
 
     <!-- ==================== SHARED COMPONENTS ==================== -->
     <string name="component_placeholder_enter">Ввести</string>

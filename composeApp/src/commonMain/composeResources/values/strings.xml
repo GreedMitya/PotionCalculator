@@ -63,6 +63,7 @@
     <!-- ==================== SETTINGS SCREEN ==================== -->
     <string name="settings_subtitle">Settings</string>
     <string name="settings_selector_server_region">Server Region for API prices</string>
+    <string name="settings_selector_language">Interface Language</string>
 
     <!-- ==================== SHARED COMPONENTS ==================== -->
     <!-- InputField / SmallInputField placeholders -->

@@ -9,6 +9,7 @@ import com.greedmitya.albcalculator.model.FavoriteRecipe
 class InMemoryFavoritesRepository : FavoritesRepository {
     private val favorites = mutableListOf<FavoriteRecipe>()
     private var selectedServer = "Europe"
+    private var selectedLanguage = "English"
 
     override suspend fun loadFavorites(): List<FavoriteRecipe> = favorites.toList()
 
@@ -21,5 +22,11 @@ class InMemoryFavoritesRepository : FavoritesRepository {
 
     override suspend fun saveSelectedServer(server: String) {
         selectedServer = server
+    }
+
+    override suspend fun loadSelectedLanguage(): String = selectedLanguage
+
+    override suspend fun saveSelectedLanguage(language: String) {
+        selectedLanguage = language
     }
 }

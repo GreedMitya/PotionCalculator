@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 
 private val Context.dataStore by preferencesDataStore(name = "favorites")
 private val SERVER_KEY = stringPreferencesKey("selected_server")
+private val LANGUAGE_KEY = stringPreferencesKey("selected_language")
 
 
 object FavoritesStorage {
@@ -40,6 +41,15 @@ object FavoritesStorage {
 
     suspend fun saveSelectedServer(context: Context, server: String) {
         context.dataStore.edit { it[SERVER_KEY] = server }
+    }
+
+    suspend fun loadSelectedLanguage(context: Context): String {
+        val prefs = context.dataStore.data.first()
+        return prefs[LANGUAGE_KEY] ?: "English"
+    }
+
+    suspend fun saveSelectedLanguage(context: Context, language: String) {
+        context.dataStore.edit { it[LANGUAGE_KEY] = language }
     }
 }
 

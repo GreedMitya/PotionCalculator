@@ -117,6 +117,13 @@ class CraftViewModel(
     var selectedServer by mutableStateOf("Europe")
         private set
 
+    val languageDisplayNames = mapOf(
+        "en" to "English",
+        "ru" to "Русский",
+    )
+    var selectedLanguage by mutableStateOf("English")
+        private set
+
     init {
         viewModelScope.launch {
             // Load recipe data first — everything else depends on it
@@ -132,6 +139,8 @@ class CraftViewModel(
             favorites.addAll(saved)
             val storedServer = favoritesRepository.loadSelectedServer()
             selectedServer = storedServer
+            val storedLanguage = favoritesRepository.loadSelectedLanguage()
+            selectedLanguage = storedLanguage
 
             // Check app premium status
             isAppPremiumUnlocked = appPremiumRepository.isPremiumUnlocked()
@@ -142,6 +151,13 @@ class CraftViewModel(
         selectedServer = newValue
         viewModelScope.launch {
             favoritesRepository.saveSelectedServer(newValue)
+        }
+    }
+
+    fun updateLanguage(newValue: String) {
+        selectedLanguage = newValue
+        viewModelScope.launch {
+            favoritesRepository.saveSelectedLanguage(newValue)
         }
     }
 

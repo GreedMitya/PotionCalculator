@@ -12,4 +12,6 @@ interface FavoritesRepository {
     suspend fun saveFavorites(favorites: List<FavoriteRecipe>)
     suspend fun loadSelectedServer(): String
     suspend fun saveSelectedServer(server: String)
+    suspend fun loadSelectedLanguage(): String
+    suspend fun saveSelectedLanguage(language: String)
 }
