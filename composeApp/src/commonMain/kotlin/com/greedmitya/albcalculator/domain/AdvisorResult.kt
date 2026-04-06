@@ -1,6 +1,7 @@
 package com.greedmitya.albcalculator.domain
 
 data class PotionAdvisorResult(
+    val potionBaseId: String,
     val potionDisplayName: String,
     val tier: String,
     val enchantment: Int,

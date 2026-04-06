@@ -129,6 +129,7 @@ class PotionAdvisorUseCase(private val repository: AlbionMarketRepository) {
 
                     results.add(
                         PotionAdvisorResult(
+                            potionBaseId = potion.baseId,
                             potionDisplayName = potion.displayName,
                             tier = tier,
                             enchantment = enchant,

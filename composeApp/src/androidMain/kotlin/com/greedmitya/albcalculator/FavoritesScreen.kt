@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.greedmitya.albcalculator.assets.getLocalizedPotionName
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.DeleteFromFavoritesDialog
@@ -56,6 +57,7 @@ fun FavoritesScreen(
 )
  {
     val favorites = viewModel.favorites
+    val potionNameToBaseId = viewModel.allPotions.associate { it.displayName to it.baseId }
 
      Column(
          modifier = Modifier
@@ -89,8 +91,11 @@ fun FavoritesScreen(
                 items = favorites,
                 key = { "${it.potionName}-${it.tier}-${it.enchantment}-${it.city}" },
             ) { recipe ->
+                val baseId = potionNameToBaseId[recipe.potionName] ?: ""
+                val localizedName = getLocalizedPotionName(baseId, recipe.potionName)
                 FavoriteRecipeItem(
                     recipe = recipe,
+                    localizedPotionName = localizedName,
                     onRemove = { viewModel.removeFromFavorites(recipe) },
                     onApply = {
                         viewModel.applyFavorite(recipe)
@@ -105,6 +110,7 @@ fun FavoritesScreen(
 @Composable
 fun FavoriteRecipeItem(
     recipe: FavoriteRecipe,
+    localizedPotionName: String = recipe.potionName,
     onRemove: () -> Unit,
     onApply: () -> Unit
 ) {
@@ -150,7 +156,7 @@ fun FavoriteRecipeItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = recipe.potionName,
+                    text = localizedPotionName,
                     color = AppColors.PrimaryGold,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,

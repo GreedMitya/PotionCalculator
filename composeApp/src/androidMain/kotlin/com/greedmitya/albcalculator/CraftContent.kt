@@ -34,6 +34,9 @@ import com.greedmitya.albcalculator.components.ResultItem
 import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.components.SmallInputField
 import com.greedmitya.albcalculator.components.ToggleOption
+import com.greedmitya.albcalculator.assets.enchantmentLabels_en
+import com.greedmitya.albcalculator.assets.getLocalizedPotionName
+import com.greedmitya.albcalculator.assets.localizedEnchantments
 import com.greedmitya.albcalculator.components.showTimedSnackbar
 import com.greedmitya.albcalculator.ui.components.IngredientItem
 import kotlinx.coroutines.CoroutineScope
@@ -74,6 +77,22 @@ fun CraftContent(
     // Capture localized strings at composition time — they cannot be read inside lambdas or coroutines
     val msgCopied = stringResource(Res.string.craft_snackbar_copied)
     val msgFill = stringResource(Res.string.craft_snackbar_fill_required)
+
+    // Localized potion & enchantment names.
+    // ViewModel stores English names internally (for recipe lookup, favorites, API calls).
+    // We translate to/from the user's locale only at the UI boundary.
+    val localizedPotionNames = viewModel.allPotions.map { getLocalizedPotionName(it.baseId, it.displayName) }
+    // en→localized: used to show the currently selected potion in the user's language
+    val englishToLocalized = viewModel.allPotions
+        .mapIndexed { i, p -> p.displayName to localizedPotionNames[i] }.toMap()
+    // localized→en: used to convert the user's selection back to English for the ViewModel
+    val localizedToEnglish = localizedPotionNames
+        .mapIndexed { i, name -> name to viewModel.allPotions[i].displayName }.toMap()
+
+    val localizedEnchants = localizedEnchantments()
+    // Same bidirectional mapping for enchantments
+    val enchantEnToLocalized = enchantmentLabels_en.zip(localizedEnchants).toMap()
+    val enchantLocalizedToEn = localizedEnchants.zip(enchantmentLabels_en).toMap()
 
     Column(
         modifier = Modifier
@@ -130,9 +149,9 @@ fun CraftContent(
 
         SelectorBlock(
             title = stringResource(Res.string.craft_selector_potion),
-            options = viewModel.potions,
-            selectedOption = viewModel.selectedPotion,
-            onOptionSelected = { viewModel.onPotionSelected(it) },
+            options = localizedPotionNames,
+            selectedOption = englishToLocalized[viewModel.selectedPotion],
+            onOptionSelected = { viewModel.onPotionSelected(localizedToEnglish[it] ?: it) },
             isError = viewModel.isPotionError,
             menuMaxHeight = 240.dp,
             modifier = Modifier.fillMaxWidth()
@@ -153,13 +172,15 @@ fun CraftContent(
                 modifier = Modifier.weight(1f)
             )
 
-            val enchantOptions = if (viewModel.selectedPotion != null) viewModel.availableEnchantments else emptyList()
+            val enchantOptions = if (viewModel.selectedPotion != null) {
+                viewModel.availableEnchantments.map { enchantEnToLocalized[it] ?: it }
+            } else emptyList()
 
             SelectorBlock(
                 title = stringResource(Res.string.craft_selector_enchantment),
                 options = enchantOptions,
-                selectedOption = viewModel.selectedEnchantment,
-                onOptionSelected = { viewModel.selectedEnchantment = it },
+                selectedOption = enchantEnToLocalized[viewModel.selectedEnchantment],
+                onOptionSelected = { viewModel.selectedEnchantment = enchantLocalizedToEn[it] ?: it },
                 isError = viewModel.isEnchantmentError,
                 modifier = Modifier.weight(1f)
             )
@@ -273,7 +294,7 @@ fun CraftContent(
             val result = viewModel.result
             if (viewModel.selectedPotion != null) {
                 ResultItem(
-                    potionDisplayName = viewModel.selectedPotion ?: "",
+                    potionDisplayName = englishToLocalized[viewModel.selectedPotion] ?: viewModel.selectedPotion ?: "",
                     tier = viewModel.selectedTier ?: "T4",
                     enchantment = viewModel.enchantments.indexOf(viewModel.selectedEnchantment ?: "Normal (.0)"),
                     pricePerItem = viewModel.potionSellPrice,

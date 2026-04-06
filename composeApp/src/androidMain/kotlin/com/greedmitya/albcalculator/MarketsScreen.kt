@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.greedmitya.albcalculator.assets.getLocalizedPotionName
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
 import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
@@ -351,7 +352,7 @@ private fun MarketPriceContent(
 }
 
 /** Parsed potion identity extracted from a raw item ID like "T4_POTION_HEAL@1". */
-private data class PotionRenderInfo(val displayName: String, val tier: String, val enchant: Int)
+private data class PotionRenderInfo(val baseId: String, val displayName: String, val tier: String, val enchant: Int)
 
 /** Returns non-null only if [itemId] matches a known potion base ID. */
 private fun resolvePotionInfo(itemId: String, allPotions: List<PotionInfo>): PotionRenderInfo? {
@@ -363,7 +364,7 @@ private fun resolvePotionInfo(itemId: String, allPotions: List<PotionInfo>): Pot
     val tier = withoutEnchant.substring(0, underscoreIndex)
     val baseId = withoutEnchant.substring(underscoreIndex + 1)
     val potion = allPotions.find { it.baseId == baseId } ?: return null
-    return PotionRenderInfo(displayName = potion.displayName, tier = tier, enchant = enchant)
+    return PotionRenderInfo(baseId = potion.baseId, displayName = potion.displayName, tier = tier, enchant = enchant)
 }
 
 @Composable
@@ -392,9 +393,10 @@ private fun MarketItemCard(
             .background(AppColors.Gray500, RoundedCornerShape(8.dp))
             .padding(12.dp),
     ) {
-        // Resolve display name: use parsed potion name (e.g. "T4 Healing Potion") or raw row name
-        val cardDisplayName = if (potionInfo != null) {
-            "${potionInfo.tier} ${potionInfo.displayName}" +
+        // Resolve display name: use parsed potion name (localized) or raw row name
+        val localizedPotionName = if (potionInfo != null) getLocalizedPotionName(potionInfo.baseId, potionInfo.displayName) else null
+        val cardDisplayName = if (potionInfo != null && localizedPotionName != null) {
+            "${potionInfo.tier} $localizedPotionName" +
                 if (potionInfo.enchant > 0) " (.${potionInfo.enchant})" else ""
         } else {
             row.displayName
@@ -711,6 +713,7 @@ private fun filterMarketPotions(
 
 @Composable
 private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
+    val localizedName = getLocalizedPotionName(result.potionBaseId, result.potionDisplayName)
     val enchantSuffix = if (result.enchantment > 0) " (.${result.enchantment})" else ""
     val profitColor = if (result.profitSilver > 0) Color(0xFF4CAF50) else if(result.profitSilver < 0) Color(0xFFF44336)
     else AppColors.LightBeige
@@ -733,7 +736,7 @@ private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "${result.tier} ${result.potionDisplayName}$enchantSuffix",
+                text = "${result.tier} $localizedName$enchantSuffix",
                 color = AppColors.LightBeige,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,

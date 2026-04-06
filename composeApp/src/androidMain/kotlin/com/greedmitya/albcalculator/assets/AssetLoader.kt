@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import java.io.IOException
 
@@ -70,7 +71,23 @@ fun loadIngredientImageBitmapById(
 
 @Composable
 fun getDisplayNameFromItemId(itemId: String): String {
-    return ingredientDisplayNames[itemId] ?: prettifyId(itemId)
+    val lang = LocalConfiguration.current.locales[0].language
+    val map = if (lang == "ru") ingredientDisplayNames_ru else ingredientDisplayNames
+    return map[itemId] ?: ingredientDisplayNames[itemId] ?: prettifyId(itemId)
+}
+
+/** Returns the localized display name for a potion by its baseId (e.g. "POTION_HEAL"). */
+@Composable
+fun getLocalizedPotionName(baseId: String, englishFallback: String): String {
+    val lang = LocalConfiguration.current.locales[0].language
+    return if (lang == "ru") potionDisplayNames_ru[baseId] ?: englishFallback else englishFallback
+}
+
+/** Returns the localized enchantment label list for the current locale. */
+@Composable
+fun localizedEnchantments(): List<String> {
+    val lang = LocalConfiguration.current.locales[0].language
+    return if (lang == "ru") enchantmentLabels_ru else enchantmentLabels_en
 }
 
 val ingredientDisplayNames = mapOf(
@@ -145,6 +162,100 @@ private fun prettifyId(id: String): String {
         .lowercase()
         .replaceFirstChar { it.uppercaseChar() }
 }
+
+// ── Enchantment labels ───────────────────────────────────────────────────────
+
+val enchantmentLabels_en = listOf("Normal (.0)", "Good (.1)", "Outstanding (.2)", "Excellent (.3)")
+
+val enchantmentLabels_ru = listOf("Обычное (.0)", "Хорошее (.1)", "Выдающееся (.2)", "Превосходное (.3)")
+
+// ── Potion display names ─────────────────────────────────────────────────────
+
+/** Russian potion names keyed by baseId (matches CraftViewModel.allPotions baseId field). */
+val potionDisplayNames_ru = mapOf(
+    "POTION_HEAL"       to "Эликсир здоровья",
+    "POTION_ENERGY"     to "Эликсир энергии",
+    "POTION_REVIVE"     to "Зелье гиганта",
+    "POTION_STONESKIN"  to "Эликсир защиты",
+    "POTION_COOLDOWN"   to "Эликсир яда",
+    "POTION_CLEANSE"    to "Эликсир невидимости",
+    "POTION_SLOWFIELD"  to "Вязкая настойка",
+    "ALCOHOL"           to "Алкоголь",
+    "POTION_ACID"       to "Кислотное зелье",
+    "POTION_BERSERK"    to "Зелье берсерка",
+    "POTION_MOB_RESET"  to "Успокаивающее зелье",
+    "POTION_CLEANSE2"   to "Очищающее зелье",
+    "POTION_LAVA"       to "Зелье адского пламени",
+    "POTION_GATHER"     to "Зелье добытчика",
+    "POTION_TORNADO"    to "Буря в стакане",
+)
+
+// ── Ingredient display names — Russian ───────────────────────────────────────
+
+val ingredientDisplayNames_ru = mapOf(
+    // Herbs & food
+    "T2_AGARIC"          to "Темногриб",
+    "T3_EGG"             to "Куриные яйца",
+    "T3_COMFREY"         to "Ярколист",
+    "T4_BURDOCK"         to "Зубчатый лопух",
+    "T4_BUTTER"          to "Козье масло",
+    "T4_MILK"            to "Козье молоко",
+    "T5_TEASEL"          to "Драконья ворсянка",
+    "T5_EGG"             to "Гусиные яйца",
+    "T6_FOXGLOVE"        to "Туманная наперстянка",
+    "T6_BUTTER"          to "Овечье масло",
+    "T6_MILK"            to "Овечье молоко",
+    "T6_POTATO"          to "Картофель",
+    "T6_ALCOHOL"         to "Картофельный самогон",
+    "T7_MULLEIN"         to "Царский огнецвет",
+    "T7_CORN"            to "Кукурузные початки",
+    "T7_ALCOHOL"         to "Кукурузный самогон",
+    "T8_YARROW"          to "Упырий тысячелистник",
+    "T8_BUTTER"          to "Коровье масло",
+    "T8_MILK"            to "Коровье молоко",
+    "T8_PUMPKIN"         to "Тыква",
+    "T8_ALCOHOL"         to "Тыквенный самогон",
+
+    // Arcane extracts
+    "T1_ALCHEMY_EXTRACT_LEVEL1" to "Базовый магический экстракт",
+    "T1_ALCHEMY_EXTRACT_LEVEL2" to "Очищенный магический экстракт",
+    "T1_ALCHEMY_EXTRACT_LEVEL3" to "Чистый магический экстракт",
+
+    // Rare mob drops — Werewolf
+    "T3_ALCHEMY_RARE_WEREWOLF" to "Прочные клыки вервольфа",
+    "T5_ALCHEMY_RARE_WEREWOLF" to "Отличные клыки вервольфа",
+    "T7_ALCHEMY_RARE_WEREWOLF" to "Превосходные клыки вервольфа",
+
+    // Rare mob drops — Imp
+    "T3_ALCHEMY_RARE_IMP"      to "Прочный рог чертенка",
+    "T5_ALCHEMY_RARE_IMP"      to "Отличный рог чертенка",
+    "T7_ALCHEMY_RARE_IMP"      to "Превосходный рог чертенка",
+
+    // Rare mob drops — Elemental
+    "T3_ALCHEMY_RARE_ELEMENTAL" to "Прочная зубчатая руна",
+    "T5_ALCHEMY_RARE_ELEMENTAL" to "Отличная зубчатая руна",
+    "T7_ALCHEMY_RARE_ELEMENTAL" to "Превосходная зубчатая руна",
+
+    // Rare mob drops — Panther
+    "T3_ALCHEMY_RARE_PANTHER"  to "Прочные теневые когти",
+    "T5_ALCHEMY_RARE_PANTHER"  to "Отличные теневые когти",
+    "T7_ALCHEMY_RARE_PANTHER"  to "Превосходные теневые когти",
+
+    // Rare mob drops — Ent
+    "T3_ALCHEMY_RARE_ENT"      to "Прочные корни хьерна",
+    "T5_ALCHEMY_RARE_ENT"      to "Отличные корни хьерна",
+    "T7_ALCHEMY_RARE_ENT"      to "Превосходные корни хьерна",
+
+    // Rare mob drops — Direbear
+    "T3_ALCHEMY_RARE_DIREBEAR" to "Прочные лапы духа медведя",
+    "T5_ALCHEMY_RARE_DIREBEAR" to "Отличные лапы духа медведя",
+    "T7_ALCHEMY_RARE_DIREBEAR" to "Превосходные лапы духа медведя",
+
+    // Rare mob drops — Eagle
+    "T3_ALCHEMY_RARE_EAGLE"    to "Прочное перо рассвета",
+    "T5_ALCHEMY_RARE_EAGLE"    to "Отличное перо рассвета",
+    "T7_ALCHEMY_RARE_EAGLE"    to "Превосходное перо рассвета",
+)
 
 
 
