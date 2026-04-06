@@ -56,18 +56,20 @@ fun BottomNavigationBar(
                     Icon(
                         painter = iconPainter,
                         contentDescription = item.label,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 2.dp),
                         tint = Color.Unspecified,
                     )
                     Text(
                         text = item.label,
                         color = if (isSelected) Color(0xFF2A2A2A) else Color(0xFFF2E9DC),
-                        fontSize = 11.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Medium,
                         fontFamily = EBGaramond,
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
-                            .padding(bottom = 4.dp),
+                            .padding(bottom = 6.dp),
                     )
                 }
             } else {
