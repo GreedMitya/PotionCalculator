@@ -53,6 +53,31 @@ import com.greedmitya.albcalculator.domain.PotionAdvisorResult
 import com.greedmitya.albcalculator.model.PotionInfo
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.util.formatSilver
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.craft_selector_city
+import potioncalculator.composeapp.generated.resources.markets_advisor_leveling_note
+import potioncalculator.composeapp.generated.resources.markets_advisor_potions_skipped
+import potioncalculator.composeapp.generated.resources.markets_advisor_show_less
+import potioncalculator.composeapp.generated.resources.markets_advisor_show_more
+import potioncalculator.composeapp.generated.resources.markets_advisor_top_leveling
+import potioncalculator.composeapp.generated.resources.markets_advisor_top_profitable
+import potioncalculator.composeapp.generated.resources.markets_button_analyze
+import potioncalculator.composeapp.generated.resources.markets_button_refresh
+import potioncalculator.composeapp.generated.resources.markets_empty_analyze
+import potioncalculator.composeapp.generated.resources.markets_empty_refresh
+import potioncalculator.composeapp.generated.resources.markets_filter_enchant
+import potioncalculator.composeapp.generated.resources.markets_filter_tier
+import potioncalculator.composeapp.generated.resources.markets_label_best_buy
+import potioncalculator.composeapp.generated.resources.markets_label_best_sell
+import potioncalculator.composeapp.generated.resources.markets_label_no_data
+import potioncalculator.composeapp.generated.resources.markets_label_server
+import potioncalculator.composeapp.generated.resources.markets_subtab_advisor
+import potioncalculator.composeapp.generated.resources.markets_subtab_components
+import potioncalculator.composeapp.generated.resources.markets_subtab_herbs
+import potioncalculator.composeapp.generated.resources.markets_subtab_potions
+import potioncalculator.composeapp.generated.resources.markets_subtitle
+import potioncalculator.composeapp.generated.resources.title_potion_crafting
 
 @Composable
 fun MarketsScreen(
@@ -75,7 +100,7 @@ fun MarketsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Potion Crafting",
+                    text = stringResource(Res.string.title_potion_crafting),
                     color = AppColors.PrimaryGold,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -83,7 +108,7 @@ fun MarketsScreen(
                 )
 
                 Text(
-                    text = "Markets",
+                    text = stringResource(Res.string.markets_subtitle),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = FontFamily.Serif,
@@ -102,7 +127,12 @@ fun MarketsScreen(
     }
 
     var subTab by rememberSaveable { mutableIntStateOf(0) }
-    val subTabLabels = listOf("Herbs", "Components", "Potions", "Advisor")
+    val subTabLabels = listOf(
+        stringResource(Res.string.markets_subtab_herbs),
+        stringResource(Res.string.markets_subtab_components),
+        stringResource(Res.string.markets_subtab_potions),
+        stringResource(Res.string.markets_subtab_advisor),
+    )
 
     val serverCode = craftViewModel.serverDisplayNames.entries
         .firstOrNull { it.value == craftViewModel.selectedServer }?.key ?: "europe"
@@ -117,7 +147,7 @@ fun MarketsScreen(
         Spacer(Modifier.height(20.dp))
 
         Text(
-            text = "Potion Crafting",
+            text = stringResource(Res.string.title_potion_crafting),
             color = AppColors.PrimaryGold,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
@@ -125,7 +155,7 @@ fun MarketsScreen(
         )
 
         Text(
-            text = "Markets",
+            text = stringResource(Res.string.markets_subtitle),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = FontFamily.Serif,
@@ -183,7 +213,7 @@ fun MarketsScreen(
                 // Tier filter — full width for a clean professional look
                 val componentTiers = listOf("All", "T1", "T3", "T4", "T5", "T6", "T7", "T8")
                 SelectorBlock(
-                    title = "Tier",
+                    title = stringResource(Res.string.markets_filter_tier),
                     options = componentTiers,
                     selectedOption = componentTierFilter,
                     onOptionSelected = { componentTierFilter = it },
@@ -216,14 +246,14 @@ fun MarketsScreen(
                     verticalAlignment = Alignment.Bottom,
                 ) {
                     SelectorBlock(
-                        title = "Tier",
+                        title = stringResource(Res.string.markets_filter_tier),
                         options = potionTiers,
                         selectedOption = potionTierFilter,
                         onOptionSelected = { potionTierFilter = it },
                         modifier = Modifier.weight(1f),
                     )
                     SelectorBlock(
-                        title = "Enchant",
+                        title = stringResource(Res.string.markets_filter_enchant),
                         options = potionEnchants,
                         selectedOption = potionEnchantFilter,
                         onOptionSelected = { potionEnchantFilter = it },
@@ -266,13 +296,13 @@ private fun MarketPriceContent(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "Server: $serverName",
+            text = stringResource(Res.string.markets_label_server, serverName),
             color = AppColors.Secondary_Beige,
             fontSize = 14.sp,
             modifier = Modifier.weight(1f),
         )
         ActionTextButton(
-            text = "Refresh",
+            text = stringResource(Res.string.markets_button_refresh),
             onClick = onRefresh,
             backgroundColor = AppColors.PrimaryGold,
             textColor = AppColors.BackgroundDark,
@@ -285,7 +315,7 @@ private fun MarketPriceContent(
     when (state) {
         is MarketsUiState.Idle -> {
             Text(
-                text = "Tap Refresh to load prices",
+                text = stringResource(Res.string.markets_empty_refresh),
                 color = AppColors.Gray300,
                 fontSize = 14.sp,
             )
@@ -400,7 +430,7 @@ private fun MarketItemCard(
                     fontFamily = EBGaramond,
                 )
                 if (bestPrice > 0 && bestCity != null) {
-                    val label = if (highlightHighest) "Best sell" else "Best buy"
+                    val label = if (highlightHighest) stringResource(Res.string.markets_label_best_sell) else stringResource(Res.string.markets_label_best_buy)
                     val shortCity = CITY_SHORT_NAMES[bestCity] ?: bestCity
                     Text(
                         text = "$label: ${formatSilver(bestPrice.toDouble())} · $shortCity",
@@ -410,7 +440,7 @@ private fun MarketItemCard(
                     )
                 } else {
                     Text(
-                        text = "No data",
+                        text = stringResource(Res.string.markets_label_no_data),
                         color = AppColors.Gray300,
                         fontSize = 12.sp,
                     )
@@ -474,14 +504,14 @@ private fun AdvisorContent(
         verticalAlignment = Alignment.Bottom,
     ) {
         SelectorBlock(
-            title = "City",
+            title = stringResource(Res.string.craft_selector_city),
             options = ALL_CITIES,
             selectedOption = selectedCity,
             onOptionSelected = { selectedCity = it },
             modifier = Modifier.weight(1f),
         )
         ActionTextButton(
-            text = "Analyze",
+            text = stringResource(Res.string.markets_button_analyze),
             onClick = {
                 selectedCity?.let { city ->
                     marketsViewModel.analyzeAdvisor(
@@ -504,7 +534,7 @@ private fun AdvisorContent(
     when (val state = marketsViewModel.advisorState) {
         is AdvisorUiState.Idle -> {
             Text(
-                text = "Select a city and tap Analyze",
+                text = stringResource(Res.string.markets_empty_analyze),
                 color = AppColors.Gray300,
                 fontSize = 14.sp,
             )
@@ -531,7 +561,7 @@ private fun AdvisorContent(
 
             if (output.topProfitable.isNotEmpty()) {
                 Text(
-                    text = "TOP ${output.topProfitable.size} — MOST PROFITABLE",
+                    text = stringResource(Res.string.markets_advisor_top_profitable, output.topProfitable.size),
                     color = AppColors.PrimaryGold,
                     fontFamily = EBGaramond,
                     fontWeight = FontWeight.Bold,
@@ -561,7 +591,7 @@ private fun AdvisorContent(
 
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = if (showAllProfitable) "Show less ▲" else "Show $extraCount more ▼",
+                        text = if (showAllProfitable) stringResource(Res.string.markets_advisor_show_less) else stringResource(Res.string.markets_advisor_show_more, extraCount),
                         color = AppColors.PrimaryGold,
                         fontFamily = EBGaramond,
                         fontWeight = FontWeight.SemiBold,
@@ -576,14 +606,14 @@ private fun AdvisorContent(
             if (output.topForLeveling.isNotEmpty()) {
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    text = "TOP ${output.topForLeveling.size} — FOR LEVELING",
+                    text = stringResource(Res.string.markets_advisor_top_leveling, output.topForLeveling.size),
                     color = AppColors.Secondary_Beige,
                     fontFamily = EBGaramond,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                 )
                 Text(
-                    text = "Small loss, high craft XP",
+                    text = stringResource(Res.string.markets_advisor_leveling_note),
                     color = AppColors.Gray300,
                     fontSize = 12.sp,
                 )
@@ -611,7 +641,7 @@ private fun AdvisorContent(
 
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = if (showAllLeveling) "Show less ▲" else "Show $extraLevelingCount more ▼",
+                        text = if (showAllLeveling) stringResource(Res.string.markets_advisor_show_less) else stringResource(Res.string.markets_advisor_show_more, extraLevelingCount),
                         color = AppColors.Secondary_Beige,
                         fontFamily = EBGaramond,
                         fontWeight = FontWeight.SemiBold,
@@ -626,7 +656,7 @@ private fun AdvisorContent(
             if (output.totalSkipped > 0) {
                 Spacer(Modifier.height(12.dp))
                 Text(
-                    text = "${output.totalSkipped} potions skipped — missing market data",
+                    text = stringResource(Res.string.markets_advisor_potions_skipped, output.totalSkipped),
                     color = AppColors.Gray300,
                     fontSize = 12.sp,
                 )

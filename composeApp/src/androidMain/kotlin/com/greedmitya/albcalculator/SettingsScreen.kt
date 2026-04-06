@@ -19,6 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.settings_selector_server_region
+import potioncalculator.composeapp.generated.resources.settings_subtitle
+import potioncalculator.composeapp.generated.resources.title_potion_crafting
 
 @Composable
 fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
@@ -31,14 +36,14 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = "Potion Crafting",
+                text = stringResource(Res.string.title_potion_crafting),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Serif,
                 color = AppColors.PrimaryGold
             )
             Text(
-                text = "Settings",
+                text = stringResource(Res.string.settings_subtitle),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.Serif,
@@ -49,7 +54,7 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
         Spacer(Modifier.height(24.dp))
 
         SelectorBlock(
-            title = "Server Region for API prices",
+            title = stringResource(Res.string.settings_selector_server_region),
             options = viewModel.serverDisplayNames.values.toList(),
             selectedOption = viewModel.selectedServer,
             onOptionSelected = { viewModel.updateServer(it) },

@@ -25,7 +25,14 @@ import com.greedmitya.albcalculator.R
 import com.greedmitya.albcalculator.SettingsScreen
 import com.greedmitya.albcalculator.components.*
 import com.greedmitya.albcalculator.model.BottomNavItemData
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.tab_craft
+import potioncalculator.composeapp.generated.resources.tab_favorites
+import potioncalculator.composeapp.generated.resources.tab_how_to_use
+import potioncalculator.composeapp.generated.resources.tab_markets
+import potioncalculator.composeapp.generated.resources.tab_settings
 
 @Composable
 fun CraftScreen(viewModel: CraftViewModel) {
@@ -40,28 +47,28 @@ fun CraftScreen(viewModel: CraftViewModel) {
 
     val navItems = listOf(
         BottomNavItemData(
-            label = "Craft",
+            label = stringResource(Res.string.tab_craft),
             iconResId = R.drawable.ic_craft,
             selectedIconResId = R.drawable.ic_craft_active,
         ),
         BottomNavItemData(
-            label = "Markets",
+            label = stringResource(Res.string.tab_markets),
             iconResId = R.drawable.ic_markets,
             selectedIconResId = R.drawable.ic_markets_active,
             showExternalLabel = true,
         ),
         BottomNavItemData(
-            label = "Favorites",
+            label = stringResource(Res.string.tab_favorites),
             iconResId = R.drawable.ic_favorites,
             selectedIconResId = R.drawable.ic_favorites_active,
         ),
         BottomNavItemData(
-            label = "How to use",
+            label = stringResource(Res.string.tab_how_to_use),
             iconResId = R.drawable.ic_how_to_use,
             selectedIconResId = R.drawable.ic_how_to_active,
         ),
         BottomNavItemData(
-            label = "Settings",
+            label = stringResource(Res.string.tab_settings),
             iconResId = R.drawable.ic_settings,
             selectedIconResId = R.drawable.ic_settings_active,
         ),

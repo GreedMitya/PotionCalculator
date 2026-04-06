@@ -23,6 +23,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.component_placeholder_enter
 
 @Composable
 fun InputField(
@@ -78,7 +81,7 @@ fun InputField(
                     ) {
                         if (value.isEmpty()) {
                             Text(
-                                text = "Enter",
+                                text = stringResource(Res.string.component_placeholder_enter),
                                 color = AppColors.LightBeige,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,

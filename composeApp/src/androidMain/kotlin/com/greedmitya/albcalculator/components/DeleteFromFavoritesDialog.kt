@@ -19,6 +19,12 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.dialog_cancel
+import potioncalculator.composeapp.generated.resources.dialog_delete_confirm
+import potioncalculator.composeapp.generated.resources.dialog_delete_message
+import potioncalculator.composeapp.generated.resources.dialog_delete_title
 
 @Composable
 fun DeleteFromFavoritesDialog(
@@ -41,7 +47,7 @@ fun DeleteFromFavoritesDialog(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
-                text = "Delete from Favorites",
+                text = stringResource(Res.string.dialog_delete_title),
                 fontSize = 24.sp,
                 fontFamily = EBGaramond,
                 fontWeight = FontWeight.Bold,
@@ -49,7 +55,7 @@ fun DeleteFromFavoritesDialog(
             )
 
             Text(
-                text = "Do you want to delete this potion from your favorites?",
+                text = stringResource(Res.string.dialog_delete_message),
                 fontSize = 16.sp,
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Normal,
@@ -73,7 +79,7 @@ fun DeleteFromFavoritesDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(Res.string.dialog_cancel),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = EBGaramond,
@@ -91,7 +97,7 @@ fun DeleteFromFavoritesDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Delete",
+                        text = stringResource(Res.string.dialog_delete_confirm),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = EBGaramond,

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ==================== APP GENERAL ==================== -->
+    <string name="app_name">Potion Calculator</string>
+    <string name="title_potion_crafting">Potion Crafting</string>
+
+    <!-- ==================== BOTTOM NAV TABS ==================== -->
+    <string name="tab_craft">Craft</string>
+    <string name="tab_markets">Markets</string>
+    <string name="tab_favorites">Favorites</string>
+    <string name="tab_how_to_use">How to Use</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- ==================== CRAFT SCREEN ==================== -->
+    <string name="craft_subtitle">Profit Calculator</string>
+    <string name="craft_selector_potion">Potion</string>
+    <string name="craft_selector_tier">Tier</string>
+    <string name="craft_selector_enchantment">Enchantment</string>
+    <string name="craft_selector_city">City</string>
+    <string name="craft_input_fee">Fee for 100 nutrition</string>
+    <string name="craft_toggle_premium">Premium</string>
+    <string name="craft_toggle_use_focus">Use focus</string>
+    <string name="craft_input_focus_basic">Basic</string>
+    <string name="craft_input_focus_mastery">Mastery</string>
+    <string name="craft_input_focus_total">Total</string>
+    <string name="craft_input_craft_runs">Craft Runs</string>
+    <string name="craft_button_calculate">Calculate</string>
+    <string name="craft_button_market">Market</string>
+    <string name="craft_snackbar_copied">Copied!</string>
+    <string name="craft_snackbar_fill_required">Fill!</string>
+
+    <!-- ==================== MARKETS SCREEN ==================== -->
+    <string name="markets_subtitle">Markets</string>
+    <string name="markets_subtab_herbs">Herbs</string>
+    <string name="markets_subtab_components">Components</string>
+    <string name="markets_subtab_potions">Potions</string>
+    <string name="markets_subtab_advisor">Advisor</string>
+    <!-- Note: "All" is kept hardcoded in code — it serves as both display text and filter sentinel -->
+    <string name="markets_filter_tier">Tier</string>
+    <string name="markets_filter_enchant">Enchant</string>
+    <string name="markets_button_refresh">Refresh</string>
+    <string name="markets_button_analyze">Analyze</string>
+    <string name="markets_empty_refresh">Tap Refresh to load prices</string>
+    <string name="markets_empty_analyze">Select a city and tap Analyze</string>
+    <string name="markets_label_server">Server: %1$s</string>
+    <string name="markets_label_best_sell">Best sell</string>
+    <string name="markets_label_best_buy">Best buy</string>
+    <string name="markets_label_no_data">No data</string>
+    <!-- Advisor section -->
+    <string name="markets_advisor_top_profitable">TOP %1$d — MOST PROFITABLE</string>
+    <string name="markets_advisor_top_leveling">TOP %1$d — FOR LEVELING</string>
+    <string name="markets_advisor_leveling_note">Small loss, high craft XP</string>
+    <string name="markets_advisor_show_less">Show less ▲</string>
+    <string name="markets_advisor_show_more">Show %1$d more ▼</string>
+    <string name="markets_advisor_potions_skipped">%1$d potions skipped — missing market data</string>
+
+    <!-- ==================== FAVORITES SCREEN ==================== -->
+    <string name="favorites_subtitle">Favorites</string>
+    <string name="favorites_action_remove">Remove</string>
+    <string name="favorites_action_apply">Apply</string>
+
+    <!-- ==================== SETTINGS SCREEN ==================== -->
+    <string name="settings_subtitle">Settings</string>
+    <string name="settings_selector_server_region">Server Region for API prices</string>
+
+    <!-- ==================== SHARED COMPONENTS ==================== -->
+    <!-- InputField / SmallInputField placeholders -->
+    <string name="component_placeholder_enter">Enter</string>
+    <!-- IngredientItem component -->
+    <string name="component_ingredient_price_label">Price per Item</string>
+    <string name="component_ingredient_quantity_label">Quantity</string>
+    <string name="component_ingredient_total_cost">Total cost</string>
+    <!-- ResultItem component -->
+    <string name="component_result_price_label">Price per Potion</string>
+    <string name="component_result_quantity_label">Quantity</string>
+    <string name="component_result_profit_label">Profit</string>
+    <string name="component_result_total_label">Total (%1$d runs)</string>
+    <!-- ActionTextButton menu items -->
+    <string name="component_menu_reset_prices">Reset all prices</string>
+    <string name="component_menu_save_favorites">Save to Favorites</string>
+    <!-- TitleSection component -->
+    <string name="component_title_profit_calculator">Profit Calculator</string>
+    <!-- SaveToFavoritesPopup -->
+    <string name="dialog_save_title">Save to Favorites</string>
+    <string name="dialog_save_message">Do you want to save this potion to your favorites?</string>
+    <string name="dialog_save_confirm">Save</string>
+    <string name="dialog_cancel">Cancel</string>
+    <!-- DeleteFromFavoritesDialog -->
+    <string name="dialog_delete_title">Delete from Favorites</string>
+    <string name="dialog_delete_message">Do you want to delete this potion from your favorites?</string>
+    <string name="dialog_delete_confirm">Delete</string>
+
+    <!-- ==================== HOW TO USE SCREEN ==================== -->
+    <string name="how_to_use_subtitle">How to Use</string>
+    <string name="how_to_use_step1">Select the potion you want to craft along with its tier and enchantment level.</string>
+    <string name="how_to_use_step2">Then choose the city where you\'ll craft and enter the fee per 100 nutrition.</string>
+    <string name="how_to_use_step3">Enable the Premium Account toggle if you have one, and activate Focus Points if you plan to use them.</string>
+    <string name="how_to_use_focus_basic">Basic = general crafting level</string>
+    <string name="how_to_use_focus_mastery">Mastery = specialization for this potion type</string>
+    <string name="how_to_use_focus_total">Total = total mastery for this branch</string>
+    <string name="how_to_use_step4">Enter the ingredient prices and the output potion price, then tap \"Calculate\" to view your profit.\nYou can also tap \"Market Prices\" to fetch in-game prices via API.</string>
+    <string name="how_to_use_api_note">Note: API prices may not reflect real-time market changes.</string>
+
+    <!-- ==================== PREMIUM SCREEN ==================== -->
+    <string name="premium_title">Unlock Premium Features</string>
+    <string name="premium_what_you_get">What you get:</string>
+    <string name="premium_feature_focus">Focus Crafting calculator</string>
+    <string name="premium_feature_batch">Batch quantity mode</string>
+    <string name="premium_feature_markets">City Price Monitor across all cities</string>
+    <string name="premium_feature_advisor">Potion Profit Advisor</string>
+    <string name="premium_button_buy">Buy Premium</string>
+    <string name="premium_button_restore">Restore Purchase</string>
+    <string name="premium_one_time_note">One-time purchase. No subscription.</string>
+
+</resources>

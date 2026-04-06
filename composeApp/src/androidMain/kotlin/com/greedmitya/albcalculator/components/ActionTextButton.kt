@@ -25,6 +25,10 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.component_menu_reset_prices
+import potioncalculator.composeapp.generated.resources.component_menu_save_favorites
 
 
 @Composable
@@ -129,7 +133,7 @@ fun ActionIconMenuButton(
                 ) {
                     DropdownMenuItemCustom(
                         icon = painterResource(R.drawable.ic_reset),
-                        text = "Reset all prices",
+                        text = stringResource(Res.string.component_menu_reset_prices),
                         onClick = {
                             expanded = false
                             onResetClick()
@@ -137,7 +141,7 @@ fun ActionIconMenuButton(
                     )
                     DropdownMenuItemCustom(
                         icon = painterResource(R.drawable.ic_bookmark),
-                        text = "Save to Favorites",
+                        text = stringResource(Res.string.component_menu_save_favorites),
                         onClick = {
                             expanded = false
                             showConfirmPopup = true

@@ -41,6 +41,12 @@ import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.DeleteFromFavoritesDialog
 import com.greedmitya.albcalculator.model.FavoriteRecipe
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.favorites_action_apply
+import potioncalculator.composeapp.generated.resources.favorites_action_remove
+import potioncalculator.composeapp.generated.resources.favorites_subtitle
+import potioncalculator.composeapp.generated.resources.title_potion_crafting
 
 @Composable
 fun FavoritesScreen(
@@ -62,14 +68,14 @@ fun FavoritesScreen(
              horizontalAlignment = Alignment.CenterHorizontally
          ) {
              Text(
-                 text = "Potion Crafting",
+                 text = stringResource(Res.string.title_potion_crafting),
                  fontSize = 20.sp,
                  fontWeight = FontWeight.SemiBold,
                  fontFamily = FontFamily.Serif,
                  color = AppColors.PrimaryGold
              )
              Text(
-                 text = "Favorites",
+                 text = stringResource(Res.string.favorites_subtitle),
                  fontSize = 16.sp,
                  fontWeight = FontWeight.Medium,
                  fontFamily = FontFamily.Serif,
@@ -185,7 +191,7 @@ fun FavoriteRecipeItem(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_remove),
-                    contentDescription = "Remove",
+                    contentDescription = stringResource(Res.string.favorites_action_remove),
                     tint = Color.Unspecified,
                     modifier = Modifier.size(46.dp)
                 )
@@ -202,7 +208,7 @@ fun FavoriteRecipeItem(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_button_pot),
-                    contentDescription = "Apply",
+                    contentDescription = stringResource(Res.string.favorites_action_apply),
                     tint = Color.Unspecified,
                     modifier = Modifier.size(46.dp)
                 )

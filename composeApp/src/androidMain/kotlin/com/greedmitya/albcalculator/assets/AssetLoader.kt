@@ -74,55 +74,68 @@ fun getDisplayNameFromItemId(itemId: String): String {
 }
 
 val ingredientDisplayNames = mapOf(
+    // Herbs & food
     "T2_AGARIC" to "Arcane Agaric",
     "T3_EGG" to "Hen Egg",
     "T3_COMFREY" to "Brightleaf Comfrey",
     "T4_BURDOCK" to "Crenellated Burdock",
+    "T4_BUTTER" to "Goat's Butter",
     "T4_MILK" to "Goat's Milk",
     "T5_TEASEL" to "Dragon Teasel",
     "T5_EGG" to "Goose Eggs",
-    "T5_MILK" to "Goat's Milk",
     "T6_FOXGLOVE" to "Elusive Foxglove",
+    "T6_BUTTER" to "Sheep's Butter",
     "T6_MILK" to "Sheep's Milk",
-    "T6_EGG" to "Goose Eggs",
+    "T6_POTATO" to "Potatoes",
     "T6_ALCOHOL" to "Potato Schnapps",
     "T7_MULLEIN" to "Firetouched Mullein",
+    "T7_CORN" to "Bundle of Corn",
     "T7_ALCOHOL" to "Corn Hooch",
     "T8_YARROW" to "Ghoul Yarrow",
+    "T8_BUTTER" to "Cow's Butter",
     "T8_MILK" to "Cow's Milk",
-    "T8_ALCOHOL" to "Aged Whiskey",
+    "T8_PUMPKIN" to "Pumpkin",
+    "T8_ALCOHOL" to "Pumpkin Moonshine",
 
+    // Arcane extracts
     "T1_ALCHEMY_EXTRACT_LEVEL1" to "Basic Arcane Extract",
     "T1_ALCHEMY_EXTRACT_LEVEL2" to "Refined Arcane Extract",
     "T1_ALCHEMY_EXTRACT_LEVEL3" to "Pure Arcane Extract",
 
+    // Rare mob drops — Werewolf
     "T3_ALCHEMY_RARE_WEREWOLF" to "Rugged Werewolf Fangs",
     "T5_ALCHEMY_RARE_WEREWOLF" to "Fine Werewolf Fangs",
     "T7_ALCHEMY_RARE_WEREWOLF" to "Excellent Werewolf Fangs",
 
+    // Rare mob drops — Imp
     "T3_ALCHEMY_RARE_IMP" to "Rugged Imp's Horn",
     "T5_ALCHEMY_RARE_IMP" to "Fine Imp's Horn",
     "T7_ALCHEMY_RARE_IMP" to "Excellent Imp's Horn",
 
+    // Rare mob drops — Elemental
     "T3_ALCHEMY_RARE_ELEMENTAL" to "Rugged Runestone Tooth",
     "T5_ALCHEMY_RARE_ELEMENTAL" to "Fine Runestone Tooth",
     "T7_ALCHEMY_RARE_ELEMENTAL" to "Excellent Runestone Tooth",
 
+    // Rare mob drops — Panther
     "T3_ALCHEMY_RARE_PANTHER" to "Rugged Shadow Claws",
     "T5_ALCHEMY_RARE_PANTHER" to "Fine Shadow Claws",
     "T7_ALCHEMY_RARE_PANTHER" to "Excellent Shadow Claws",
 
+    // Rare mob drops — Ent
     "T3_ALCHEMY_RARE_ENT" to "Rugged Sylvian Root",
     "T5_ALCHEMY_RARE_ENT" to "Fine Sylvian Root",
     "T7_ALCHEMY_RARE_ENT" to "Excellent Sylvian Root",
 
+    // Rare mob drops — Direbear
     "T3_ALCHEMY_RARE_DIREBEAR" to "Rugged Spirit Paws",
     "T5_ALCHEMY_RARE_DIREBEAR" to "Fine Spirit Paws",
     "T7_ALCHEMY_RARE_DIREBEAR" to "Excellent Spirit Paws",
 
+    // Rare mob drops — Eagle
+    "T3_ALCHEMY_RARE_EAGLE" to "Rugged Dawnfeather",
     "T5_ALCHEMY_RARE_EAGLE" to "Fine Dawnfeather",
-    "T7_ALCHEMY_RARE_EAGLE" to "Excellent Dawnfeather"
-
+    "T7_ALCHEMY_RARE_EAGLE" to "Excellent Dawnfeather",
 )
 
 private fun prettifyId(id: String): String {

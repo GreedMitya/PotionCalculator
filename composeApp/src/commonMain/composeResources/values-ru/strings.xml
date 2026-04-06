@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ==================== APP GENERAL ==================== -->
+    <string name="app_name">Калькулятор зелий</string>
+    <string name="title_potion_crafting">Крафт зелий</string>
+
+    <!-- ==================== BOTTOM NAV TABS ==================== -->
+    <string name="tab_craft">Крафт</string>
+    <string name="tab_markets">Рынки</string>
+    <string name="tab_favorites">Избранное</string>
+    <string name="tab_how_to_use">Как играть</string>
+    <string name="tab_settings">Настройки</string>
+
+    <!-- ==================== CRAFT SCREEN ==================== -->
+    <string name="craft_subtitle">Калькулятор прибыли</string>
+    <string name="craft_selector_potion">Зелье</string>
+    <string name="craft_selector_tier">Уровень</string>
+    <string name="craft_selector_enchantment">Зачарование</string>
+    <string name="craft_selector_city">Город</string>
+    <string name="craft_input_fee">Налог за 100 питания</string>
+    <string name="craft_toggle_premium">Премиум</string>
+    <string name="craft_toggle_use_focus">Фокус</string>
+    <string name="craft_input_focus_basic">Базовый</string>
+    <string name="craft_input_focus_mastery">Мастерство</string>
+    <string name="craft_input_focus_total">Итого</string>
+    <string name="craft_input_craft_runs">Количество крафтов</string>
+    <string name="craft_button_calculate">Рассчитать</string>
+    <string name="craft_button_market">Рынок</string>
+    <string name="craft_snackbar_copied">Скопировано!</string>
+    <string name="craft_snackbar_fill_required">Заполните поля!</string>
+
+    <!-- ==================== MARKETS SCREEN ==================== -->
+    <string name="markets_subtitle">Рынки</string>
+    <string name="markets_subtab_herbs">Травы</string>
+    <string name="markets_subtab_components">Компоненты</string>
+    <string name="markets_subtab_potions">Зелья</string>
+    <string name="markets_subtab_advisor">Советник</string>
+    <!-- Note: "All" is kept hardcoded — it serves as both display text and filter sentinel -->
+    <string name="markets_filter_tier">Уровень</string>
+    <string name="markets_filter_enchant">Зачарование</string>
+    <string name="markets_button_refresh">Обновить</string>
+    <string name="markets_button_analyze">Анализ</string>
+    <string name="markets_empty_refresh">Нажмите Обновить для загрузки цен</string>
+    <string name="markets_empty_analyze">Выберите город и нажмите Анализ</string>
+    <string name="markets_label_server">Сервер: %1$s</string>
+    <string name="markets_label_best_sell">Лучшая продажа</string>
+    <string name="markets_label_best_buy">Лучшая покупка</string>
+    <string name="markets_label_no_data">Нет данных</string>
+    <!-- Advisor section -->
+    <string name="markets_advisor_top_profitable">ТОП %1$d — САМЫЕ ПРИБЫЛЬНЫЕ</string>
+    <string name="markets_advisor_top_leveling">ТОП %1$d — ДЛЯ ПРОКАЧКИ</string>
+    <string name="markets_advisor_leveling_note">Небольшой убыток, высокий опыт крафта</string>
+    <string name="markets_advisor_show_less">Показать меньше ▲</string>
+    <string name="markets_advisor_show_more">Показать ещё %1$d ▼</string>
+    <string name="markets_advisor_potions_skipped">%1$d зелий пропущено — нет данных рынка</string>
+
+    <!-- ==================== FAVORITES SCREEN ==================== -->
+    <string name="favorites_subtitle">Избранное</string>
+    <string name="favorites_action_remove">Удалить</string>
+    <string name="favorites_action_apply">Применить</string>
+
+    <!-- ==================== SETTINGS SCREEN ==================== -->
+    <string name="settings_subtitle">Настройки</string>
+    <string name="settings_selector_server_region">Регион сервера для API цен</string>
+
+    <!-- ==================== SHARED COMPONENTS ==================== -->
+    <string name="component_placeholder_enter">Ввести</string>
+    <string name="component_ingredient_price_label">Цена за ед.</string>
+    <string name="component_ingredient_quantity_label">Количество</string>
+    <string name="component_ingredient_total_cost">Общая стоимость</string>
+    <string name="component_result_price_label">Цена за зелье</string>
+    <string name="component_result_quantity_label">Количество</string>
+    <string name="component_result_profit_label">Прибыль</string>
+    <string name="component_result_total_label">Итого (%1$d крафтов)</string>
+    <string name="component_menu_reset_prices">Сбросить цены</string>
+    <string name="component_menu_save_favorites">Сохранить в избранное</string>
+    <string name="component_title_profit_calculator">Калькулятор прибыли</string>
+    <string name="dialog_save_title">Сохранить в избранное</string>
+    <string name="dialog_save_message">Сохранить это зелье в избранное?</string>
+    <string name="dialog_save_confirm">Сохранить</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_delete_title">Удалить из избранного</string>
+    <string name="dialog_delete_message">Удалить это зелье из избранного?</string>
+    <string name="dialog_delete_confirm">Удалить</string>
+
+    <!-- ==================== HOW TO USE SCREEN ==================== -->
+    <string name="how_to_use_subtitle">Как играть</string>
+    <string name="how_to_use_step1">Выберите зелье, его уровень и степень зачарования.</string>
+    <string name="how_to_use_step2">Выберите город для крафта и введите налог за 100 питания.</string>
+    <string name="how_to_use_step3">Включите Премиум аккаунт, если есть, и Очки фокуса, если планируете использовать.</string>
+    <string name="how_to_use_focus_basic">Базовый = общий уровень крафта</string>
+    <string name="how_to_use_focus_mastery">Мастерство = специализация для данного типа зелья</string>
+    <string name="how_to_use_focus_total">Итого = суммарное мастерство в этой ветке</string>
+    <string name="how_to_use_step4">Введите цены ингредиентов и цену зелья, затем нажмите «Рассчитать» для расчёта прибыли.\nТакже можно нажать «Рынок» для получения актуальных цен через API.</string>
+    <string name="how_to_use_api_note">Примечание: цены через API могут не отражать реальные изменения рынка.</string>
+
+    <!-- ==================== PREMIUM SCREEN ==================== -->
+    <string name="premium_title">Разблокировать премиум</string>
+    <string name="premium_what_you_get">Что вы получаете:</string>
+    <string name="premium_feature_focus">Крафт с очками фокуса</string>
+    <string name="premium_feature_batch">Режим массового крафта</string>
+    <string name="premium_feature_markets">Мониторинг цен во всех городах</string>
+    <string name="premium_feature_advisor">Советник по прибыльным зельям</string>
+    <string name="premium_button_buy">Купить премиум</string>
+    <string name="premium_button_restore">Восстановить покупку</string>
+    <string name="premium_one_time_note">Единоразовая покупка. Без подписки.</string>
+
+</resources>

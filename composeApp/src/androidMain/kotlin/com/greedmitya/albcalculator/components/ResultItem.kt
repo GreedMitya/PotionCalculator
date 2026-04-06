@@ -32,6 +32,13 @@ import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.component_placeholder_enter
+import potioncalculator.composeapp.generated.resources.component_result_price_label
+import potioncalculator.composeapp.generated.resources.component_result_profit_label
+import potioncalculator.composeapp.generated.resources.component_result_quantity_label
+import potioncalculator.composeapp.generated.resources.component_result_total_label
 
 
 @Composable
@@ -124,7 +131,7 @@ fun ResultItem(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Price per Potion",
+                        text = stringResource(Res.string.component_result_price_label),
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -157,7 +164,7 @@ fun ResultItem(
                                 ) {
                                     if (pricePerItem.isEmpty()) {
                                         Text(
-                                            text = "Enter",
+                                            text = stringResource(Res.string.component_placeholder_enter),
                                             color = AppColors.LightBeige,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
@@ -179,7 +186,7 @@ fun ResultItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Quantity",
+                        text = stringResource(Res.string.component_result_quantity_label),
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -215,7 +222,7 @@ fun ResultItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Profit",
+                        text = stringResource(Res.string.component_result_profit_label),
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -256,7 +263,7 @@ fun ResultItem(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "Total ($craftQuantity runs)",
+                            text = stringResource(Res.string.component_result_total_label, craftQuantity),
                             color = AppColors.BackgroundDark,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium,

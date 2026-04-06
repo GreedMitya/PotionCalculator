@@ -38,6 +38,25 @@ import com.greedmitya.albcalculator.components.showTimedSnackbar
 import com.greedmitya.albcalculator.ui.components.IngredientItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.craft_button_calculate
+import potioncalculator.composeapp.generated.resources.craft_button_market
+import potioncalculator.composeapp.generated.resources.craft_input_craft_runs
+import potioncalculator.composeapp.generated.resources.craft_input_fee
+import potioncalculator.composeapp.generated.resources.craft_input_focus_basic
+import potioncalculator.composeapp.generated.resources.craft_input_focus_mastery
+import potioncalculator.composeapp.generated.resources.craft_input_focus_total
+import potioncalculator.composeapp.generated.resources.craft_selector_city
+import potioncalculator.composeapp.generated.resources.craft_selector_enchantment
+import potioncalculator.composeapp.generated.resources.craft_selector_potion
+import potioncalculator.composeapp.generated.resources.craft_selector_tier
+import potioncalculator.composeapp.generated.resources.craft_snackbar_copied
+import potioncalculator.composeapp.generated.resources.craft_snackbar_fill_required
+import potioncalculator.composeapp.generated.resources.craft_subtitle
+import potioncalculator.composeapp.generated.resources.craft_toggle_premium
+import potioncalculator.composeapp.generated.resources.craft_toggle_use_focus
+import potioncalculator.composeapp.generated.resources.title_potion_crafting
 
 @Composable
 fun CraftContent(
@@ -52,6 +71,9 @@ fun CraftContent(
     val useFocus = viewModel.useFocus
     var craftSubTab by rememberSaveable { mutableIntStateOf(0) }
     val activity = LocalContext.current as? Activity
+    // Capture localized strings at composition time — they cannot be read inside lambdas or coroutines
+    val msgCopied = stringResource(Res.string.craft_snackbar_copied)
+    val msgFill = stringResource(Res.string.craft_snackbar_fill_required)
 
     Column(
         modifier = Modifier
@@ -68,14 +90,14 @@ fun CraftContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Potion Crafting",
+                text = stringResource(Res.string.title_potion_crafting),
                 color = AppColors.PrimaryGold,
                 fontSize = 20.sp,
                 fontFamily = FontFamily.Serif,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Profit Calculator",
+                text = stringResource(Res.string.craft_subtitle),
                 color = AppColors.PrimaryGold,
                 fontSize = 16.sp,
                 fontFamily = FontFamily.Serif,
@@ -107,7 +129,7 @@ fun CraftContent(
         ) {
 
         SelectorBlock(
-            title = "Potion",
+            title = stringResource(Res.string.craft_selector_potion),
             options = viewModel.potions,
             selectedOption = viewModel.selectedPotion,
             onOptionSelected = { viewModel.onPotionSelected(it) },
@@ -123,7 +145,7 @@ fun CraftContent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             SelectorBlock(
-                title = "Tier",
+                title = stringResource(Res.string.craft_selector_tier),
                 options = viewModel.availableTiers,
                 selectedOption = viewModel.selectedTier,
                 onOptionSelected = { viewModel.selectedTier = it },
@@ -134,7 +156,7 @@ fun CraftContent(
             val enchantOptions = if (viewModel.selectedPotion != null) viewModel.availableEnchantments else emptyList()
 
             SelectorBlock(
-                title = "Enchantment",
+                title = stringResource(Res.string.craft_selector_enchantment),
                 options = enchantOptions,
                 selectedOption = viewModel.selectedEnchantment,
                 onOptionSelected = { viewModel.selectedEnchantment = it },
@@ -150,7 +172,7 @@ fun CraftContent(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             SelectorBlock(
-                title = "City",
+                title = stringResource(Res.string.craft_selector_city),
                 options = viewModel.cities,
                 selectedOption = viewModel.selectedCity,
                 onOptionSelected = { viewModel.selectedCity = it },
@@ -159,7 +181,7 @@ fun CraftContent(
             )
 
             InputField(
-                title = "Fee for 100 nutrition",
+                title = stringResource(Res.string.craft_input_fee),
                 value = viewModel.feePerNutritionInput,
                 onValueChange = { viewModel.feePerNutritionInput = it },
                 modifier = Modifier.weight(1f),
@@ -173,7 +195,7 @@ fun CraftContent(
         if (craftSubTab == 0) {
             // Free Craft tab: only Premium toggle, no focus
             ToggleOption(
-                label = "Premium",
+                label = stringResource(Res.string.craft_toggle_premium),
                 checked = isPremium,
                 onCheckedChange = { viewModel.isPremium = it },
                 modifier = Modifier.fillMaxWidth()
@@ -185,14 +207,14 @@ fun CraftContent(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 ToggleOption(
-                    label = "Premium",
+                    label = stringResource(Res.string.craft_toggle_premium),
                     checked = isPremium,
                     onCheckedChange = { viewModel.isPremium = it },
                     modifier = Modifier.weight(1f)
                 )
 
                 ToggleOption(
-                    label = "Use focus",
+                    label = stringResource(Res.string.craft_toggle_use_focus),
                     checked = useFocus,
                     onCheckedChange = { viewModel.useFocus = it },
                     modifier = Modifier.weight(1f)
@@ -205,20 +227,20 @@ fun CraftContent(
                     Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    SmallInputField("Basic", viewModel.focusBasic, { viewModel.focusBasic = it }, Modifier.weight(1f))
+                    SmallInputField(stringResource(Res.string.craft_input_focus_basic), viewModel.focusBasic, { viewModel.focusBasic = it }, Modifier.weight(1f))
                     SmallInputField(
-                        "Mastery",
+                        stringResource(Res.string.craft_input_focus_mastery),
                         viewModel.focusMastery,
                         { viewModel.focusMastery = it },
                         Modifier.weight(1f)
                     )
-                    SmallInputField("Total", viewModel.focusTotal, { viewModel.focusTotal = it }, Modifier.weight(1f))
+                    SmallInputField(stringResource(Res.string.craft_input_focus_total), viewModel.focusTotal, { viewModel.focusTotal = it }, Modifier.weight(1f))
                 }
             }
 
             Spacer(Modifier.height(12.dp))
             InputField(
-                title = "Craft Runs",
+                title = stringResource(Res.string.craft_input_craft_runs),
                 value = viewModel.craftQuantity,
                 onValueChange = { viewModel.craftQuantity = it },
                 modifier = Modifier.fillMaxWidth(),
@@ -242,7 +264,7 @@ fun CraftContent(
                     craftQuantity = if (craftSubTab == 1) viewModel.craftQuantityInt else 1,
                     showTotalCost = craftSubTab == 1,
                     onCopy = {
-                        coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)
+                        coroutineScope.showTimedSnackbar(snackbarHostState, msgCopied, 1200)
                     },
                 )
                 Spacer(Modifier.height(12.dp))
@@ -265,7 +287,7 @@ fun CraftContent(
                     craftQuantity = if (craftSubTab == 1) viewModel.craftQuantityInt else 1,
                     totalProfit = result?.totalProfitFormatted ?: "",
                     onCopy = {
-                        coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)
+                        coroutineScope.showTimedSnackbar(snackbarHostState, msgCopied, 1200)
                     },
                 )
             }
@@ -277,7 +299,7 @@ fun CraftContent(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 ActionTextButton(
-                    text = "Calculate",
+                    text = stringResource(Res.string.craft_button_calculate),
                     onClick = {
                         if (isReady) {
                             viewModel.calculateProfit()
@@ -285,7 +307,7 @@ fun CraftContent(
                             viewModel.triggerValidationForCalculate()
                             coroutineScope.launch {
                                 if (snackbarHostState.currentSnackbarData == null) {
-                                    coroutineScope.showTimedSnackbar(snackbarHostState, "Fill!", 1200)
+                                    coroutineScope.showTimedSnackbar(snackbarHostState, msgFill, 1200)
                                 }
                             }
                         }
@@ -298,7 +320,7 @@ fun CraftContent(
                 )
 
                 ActionTextButton(
-                    text = "Market",
+                    text = stringResource(Res.string.craft_button_market),
                     onClick = {
                         if (isMarketReady) {
                             viewModel.fetchPricesForCurrentRecipe()
@@ -306,7 +328,7 @@ fun CraftContent(
                             viewModel.triggerValidationForMarket()
                             coroutineScope.launch {
                                 if (snackbarHostState.currentSnackbarData == null) {
-                                    coroutineScope.showTimedSnackbar(snackbarHostState, "Fill!", 1200)
+                                    coroutineScope.showTimedSnackbar(snackbarHostState, msgFill, 1200)
                                 }
                             }
                         }

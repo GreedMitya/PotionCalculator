@@ -27,6 +27,17 @@ import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.Res
+import potioncalculator.composeapp.generated.resources.premium_button_buy
+import potioncalculator.composeapp.generated.resources.premium_button_restore
+import potioncalculator.composeapp.generated.resources.premium_feature_advisor
+import potioncalculator.composeapp.generated.resources.premium_feature_batch
+import potioncalculator.composeapp.generated.resources.premium_feature_focus
+import potioncalculator.composeapp.generated.resources.premium_feature_markets
+import potioncalculator.composeapp.generated.resources.premium_one_time_note
+import potioncalculator.composeapp.generated.resources.premium_title
+import potioncalculator.composeapp.generated.resources.premium_what_you_get
 
 @Composable
 fun PremiumUpgradeScreen(
@@ -59,7 +70,7 @@ fun PremiumUpgradeScreen(
         )
 
         Text(
-            text = "Unlock Premium Features",
+            text = stringResource(Res.string.premium_title),
             color = AppColors.Secondary_Beige,
             fontFamily = EBGaramond,
             fontWeight = FontWeight.Medium,
@@ -77,23 +88,23 @@ fun PremiumUpgradeScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Text(
-                text = "What you get:",
+                text = stringResource(Res.string.premium_what_you_get),
                 color = AppColors.PrimaryGold,
                 fontFamily = EBGaramond,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 18.sp,
             )
 
-            FeatureRow("Focus Crafting calculator")
-            FeatureRow("Batch quantity mode")
-            FeatureRow("City Price Monitor across all cities")
-            FeatureRow("Potion Profit Advisor")
+            FeatureRow(stringResource(Res.string.premium_feature_focus))
+            FeatureRow(stringResource(Res.string.premium_feature_batch))
+            FeatureRow(stringResource(Res.string.premium_feature_markets))
+            FeatureRow(stringResource(Res.string.premium_feature_advisor))
         }
 
         Spacer(Modifier.height(40.dp))
 
         ActionTextButton(
-            text = "Buy Premium",
+            text = stringResource(Res.string.premium_button_buy),
             onClick = onBuyClick,
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = AppColors.PrimaryGold,
@@ -104,7 +115,7 @@ fun PremiumUpgradeScreen(
         Spacer(Modifier.height(12.dp))
 
         ActionTextButton(
-            text = "Restore Purchase",
+            text = stringResource(Res.string.premium_button_restore),
             onClick = onRestoreClick,
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = AppColors.Gray500,
@@ -115,7 +126,7 @@ fun PremiumUpgradeScreen(
         Spacer(Modifier.height(24.dp))
 
         Text(
-            text = "One-time purchase. No subscription.",
+            text = stringResource(Res.string.premium_one_time_note),
             color = AppColors.Gray300,
             fontSize = 12.sp,
             textAlign = TextAlign.Center,
