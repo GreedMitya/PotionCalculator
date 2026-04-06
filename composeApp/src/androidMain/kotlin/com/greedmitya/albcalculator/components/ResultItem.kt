@@ -192,10 +192,15 @@ fun ResultItem(
                             .padding(start = 12.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
+                        val qtyText = if (craftQuantity > 1) {
+                            "${quantity * craftQuantity} (${quantity}x$craftQuantity)"
+                        } else {
+                            quantity.toString()
+                        }
                         Text(
-                            text = quantity.toString(),
+                            text = qtyText,
                             color = AppColors.LightBeige,
-                            fontSize = 16.sp,
+                            fontSize = if (craftQuantity > 1) 13.sp else 16.sp,
                             fontWeight = FontWeight.Medium,
                             fontFamily = EBGaramond,
                         )

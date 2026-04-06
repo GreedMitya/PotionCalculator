@@ -88,7 +88,6 @@ fun FavoritesScreen(
                     onRemove = { viewModel.removeFromFavorites(recipe) },
                     onApply = {
                         viewModel.applyFavorite(recipe)
-                        viewModel.resetPrices()
                         onNavigateToCraft()
                     }
                 )

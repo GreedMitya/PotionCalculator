@@ -5,6 +5,7 @@ data class PotionInfo(
     val baseId: String,
     val availableTiers: List<String>,
     val outputQuantity: Int = 5,
+    val hasEnchants: Boolean = true,
 ) {
     fun getFullItemId(tier: String, enchantIndex: Int): String {
         return if (enchantIndex == 0) "${tier}_$baseId"

@@ -61,7 +61,7 @@ class CraftViewModel(
         PotionInfo("Poison Potion", "POTION_COOLDOWN", listOf("T4", "T6", "T8")),
         PotionInfo("Invisibility Potion", "POTION_CLEANSE", listOf("T8")),
         PotionInfo("Sticky Potion", "POTION_SLOWFIELD", listOf("T3", "T5", "T7")),
-        PotionInfo("Alcohol", "ALCOHOL", listOf("T6", "T7", "T8"), outputQuantity = 1),
+        PotionInfo("Alcohol", "ALCOHOL", listOf("T6", "T7", "T8"), outputQuantity = 1, hasEnchants = false),
         PotionInfo("Acid Potion", "POTION_ACID", listOf("T3", "T5", "T7"), outputQuantity = 10),
         PotionInfo("Berserk Potion", "POTION_BERSERK", listOf("T4", "T6", "T8"), outputQuantity = 10),
         PotionInfo("Calming Potion", "POTION_MOB_RESET", listOf("T3", "T5", "T7"), outputQuantity = 10),
@@ -73,6 +73,10 @@ class CraftViewModel(
 
     val potions: List<String> get() = allPotions.map { it.displayName }
     val enchantments = listOf("Normal (.0)", "Good (.1)", "Outstanding (.2)", "Excellent (.3)")
+
+    /** Enchantment options filtered for the selected potion — Alcohol only has Normal (.0). */
+    val availableEnchantments: List<String>
+        get() = if (selectedPotionInfo?.hasEnchants == false) listOf("Normal (.0)") else enchantments
     val cities = listOf("Caerleon", "Bridgewatch", "Martlock", "Lymhurst", "Fort Sterling", "Thetford", "Brecilien")
 
     var selectedPotion by mutableStateOf<String?>(null)
@@ -324,11 +328,22 @@ class CraftViewModel(
             tier = selectedTier ?: return,
             city = selectedCity ?: return,
             enchantment = enchantments.indexOf(selectedEnchantment ?: "Normal (.0)"),
+            feePerNutrition = feePerNutritionInput,
+            ingredientPrices = ingredientPrices.toMap(),
         )
-        if (!favorites.contains(new)) {
-            favorites.add(new)
-            persistFavorites()
+        // Compare by identity (potion+tier+enchant+city) so updated prices can be re-saved
+        val existingIndex = favorites.indexOfFirst {
+            it.potionName == new.potionName &&
+                it.tier == new.tier &&
+                it.enchantment == new.enchantment &&
+                it.city == new.city
         }
+        if (existingIndex >= 0) {
+            favorites[existingIndex] = new  // update prices/fee in existing slot
+        } else {
+            favorites.add(new)
+        }
+        persistFavorites()
     }
 
     fun removeFromFavorites(recipe: FavoriteRecipe) {
@@ -341,6 +356,15 @@ class CraftViewModel(
         selectedTier = recipe.tier
         selectedEnchantment = enchantments.getOrNull(recipe.enchantment)
         selectedCity = recipe.city
+        feePerNutritionInput = recipe.feePerNutrition
+        // Restore saved prices; clear any leftover prices from a different recipe first
+        ingredientPrices.clear()
+        recipe.ingredientPrices.forEach { (id, price) ->
+            ingredientPrices[id] = price
+        }
+        // Clear stale result and sell price — user should recalculate
+        potionSellPrice = ""
+        resultInternal = null
     }
 
     private fun persistFavorites() {

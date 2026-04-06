@@ -58,8 +58,9 @@ class PotionAdvisorUseCase(private val repository: AlbionMarketRepository) {
         val potionIds = mutableSetOf<String>()
 
         allPotions.forEach { potion ->
+            val enchantRange = if (potion.hasEnchants) 0..3 else 0..0
             potion.availableTiers.forEach { tier ->
-                for (enchant in 0..3) {
+                for (enchant in enchantRange) {
                     potionIds.add(potion.getFullItemId(tier, enchant))
                     val ingredients = potionIngredientsByTierAndEnchant[potion.baseId]
                         ?.get(tier)?.get(enchant).orEmpty()
@@ -87,8 +88,9 @@ class PotionAdvisorUseCase(private val repository: AlbionMarketRepository) {
         var totalSkipped = 0
 
         allPotions.forEach { potion ->
+            val enchantRange = if (potion.hasEnchants) 0..3 else 0..0
             potion.availableTiers.forEach { tier ->
-                for (enchant in 0..3) {
+                for (enchant in enchantRange) {
                     val ingredients = potionIngredientsByTierAndEnchant[potion.baseId]
                         ?.get(tier)?.get(enchant).orEmpty()
 
@@ -139,19 +141,31 @@ class PotionAdvisorUseCase(private val repository: AlbionMarketRepository) {
             }
         }
 
-        val topProfitable = results
+        // Only crafts with a positive margin — loss crafts belong in leveling, not here
+        val sortedProfitable = results
+            .filter { it.profitPercent > 0 }
             .sortedByDescending { it.profitPercent }
-            .take(TOP_PROFITABLE_COUNT)
 
-        val topForLeveling = results
+        val topProfitable = sortedProfitable.take(TOP_PROFITABLE_COUNT)
+
+        // Full list — no cap; UI controls how many are shown via "Show more"
+        val allProfitable = sortedProfitable
+
+        val sortedLeveling = results
             .filter { it.profitPercent in MAX_LEVELING_LOSS_PERCENT..0.0 }
             .sortedByDescending { it.profitPercent }
-            .take(TOP_LEVELING_COUNT)
+
+        val topForLeveling = sortedLeveling.take(TOP_LEVELING_COUNT)
+
+        // Full leveling list — UI controls expansion
+        val allForLeveling = sortedLeveling
 
         return AdvisorOutput(
             topProfitable = topProfitable,
             topForLeveling = topForLeveling,
             totalSkipped = totalSkipped,
+            allProfitable = allProfitable,
+            allForLeveling = allForLeveling,
         )
     }
 }

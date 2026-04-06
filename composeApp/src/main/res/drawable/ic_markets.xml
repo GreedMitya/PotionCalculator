@@ -1,18 +1,15 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="82dp"
-    android:height="34dp"
+    android:height="57dp"
     android:viewportWidth="82"
-    android:viewportHeight="34">
-  <!-- Background: rounded top corners, flat bottom -->
+    android:viewportHeight="57">
   <path
-      android:pathData="M8.5,0L73.5,0A8,8 0,0 1,81.5 8L81.5,34L0.5,34L0.5,8A8,8 0,0 1,8.5 0z"
+      android:pathData="M8.5,0L73.5,0A8,8 0,0 1,81.5 8L81.5,49A8,8 0,0 1,73.5 57L8.5,57A8,8 0,0 1,0.5 49L0.5,8A8,8 0,0 1,8.5 0z"
       android:fillColor="#2A2A2A"/>
-  <!-- Bar chart -->
   <path
-      android:pathData="M30,26L30,11L35,11L35,26ZM38,26L38,16L43,16L43,26ZM46,26L46,21L51,21L51,26Z"
+      android:pathData="M28,26L28,11L35,11L35,26ZM37,26L37,15L44,15L44,26ZM46,26L46,19L53,19L53,26Z"
       android:fillColor="#F2E9DC"/>
-  <!-- Baseline -->
   <path
-      android:pathData="M28,28L54,28L54,30L28,30Z"
+      android:pathData="M26,28L55,28L55,30L26,30Z"
       android:fillColor="#F2E9DC"/>
 </vector>

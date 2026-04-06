@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.model.BottomNavItemData
+import com.greedmitya.albcalculator.ui.theme.EBGaramond
 
 @Composable
 fun BottomNavigationBar(
@@ -43,25 +44,45 @@ fun BottomNavigationBar(
             else
                 painterResource(id = item.iconResId)
 
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .clickable { onSelect(index) },
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Icon(
-                    painter = iconPainter,
-                    contentDescription = item.label,
-                    modifier = Modifier.fillMaxWidth(),
-                    tint = Color.Unspecified
-                )
-                if (item.showExternalLabel && showLabels) {
+            if (item.showExternalLabel && showLabels) {
+                // Box overlay: text sits inside the background shape (ic_markets.xml is 82×57dp)
+                // Active text = #2A2A2A on orange, Inactive = #F2E9DC on dark — mirrors other icon SVGs
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onSelect(index) },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        painter = iconPainter,
+                        contentDescription = item.label,
+                        modifier = Modifier.fillMaxWidth(),
+                        tint = Color.Unspecified,
+                    )
                     Text(
                         text = item.label,
-                        color = if (isSelected) Color(0xFFC47A30) else Color(0xFF999999),
-                        fontSize = 10.sp,
+                        color = if (isSelected) Color(0xFF2A2A2A) else Color(0xFFF2E9DC),
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Medium,
+                        fontFamily = EBGaramond,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 4.dp),
+                    )
+                }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onSelect(index) },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Icon(
+                        painter = iconPainter,
+                        contentDescription = item.label,
+                        modifier = Modifier.fillMaxWidth(),
+                        tint = Color.Unspecified,
                     )
                 }
             }

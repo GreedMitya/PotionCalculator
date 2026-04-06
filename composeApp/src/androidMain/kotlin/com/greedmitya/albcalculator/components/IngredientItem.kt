@@ -52,6 +52,7 @@ fun IngredientItem(
     isError: Boolean = false,
     modifier: Modifier = Modifier,
     craftQuantity: Int = 1,
+    showTotalCost: Boolean = false,
 ) {
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
@@ -228,7 +229,7 @@ fun IngredientItem(
                 }
 
                 val price = ingredient.price
-                if (price != null && price > 0) {
+                if (showTotalCost && price != null && price > 0) {
                     Spacer(Modifier.height(8.dp))
                     val totalQty = ingredient.quantity * craftQuantity
                     val totalCost = price * totalQty

@@ -1,6 +1,9 @@
 package com.greedmitya.albcalculator
 
 import android.app.Activity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -38,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
+import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
@@ -125,6 +129,11 @@ fun MarketsScreen(
 
         Spacer(Modifier.height(16.dp))
 
+        // Persistent filter state (survives sub-tab switches)
+        var componentTierFilter by rememberSaveable { mutableStateOf("All") }
+        var potionTierFilter by rememberSaveable { mutableStateOf("All") }
+        var potionEnchantFilter by rememberSaveable { mutableStateOf("All") }
+
         when (subTab) {
             0 -> MarketPriceContent(
                 state = marketsViewModel.herbsState,
@@ -132,20 +141,64 @@ fun MarketsScreen(
                 serverName = craftViewModel.selectedServer,
                 highlightHighest = false,
             )
-            1 -> MarketPriceContent(
-                state = marketsViewModel.componentsState,
-                onRefresh = { marketsViewModel.loadComponents(serverCode) },
-                serverName = craftViewModel.selectedServer,
-                highlightHighest = false,
-            )
+            1 -> {
+                // Tier filter — full width for a clean professional look
+                val componentTiers = listOf("All", "T1", "T3", "T4", "T5", "T6", "T7", "T8")
+                SelectorBlock(
+                    title = "Tier",
+                    options = componentTiers,
+                    selectedOption = componentTierFilter,
+                    onOptionSelected = { componentTierFilter = it },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(12.dp))
+                MarketPriceContent(
+                    state = filterMarketRowsByTier(marketsViewModel.componentsState, componentTierFilter),
+                    onRefresh = { marketsViewModel.loadComponents(serverCode) },
+                    serverName = craftViewModel.selectedServer,
+                    highlightHighest = false,
+                )
+            }
             2 -> {
+                // Include all enchant levels (0–3) so the enchant filter has data to work with
                 val potionItemIds = remember(craftViewModel.allPotions) {
                     craftViewModel.allPotions.flatMap { potion ->
-                        potion.availableTiers.map { tier -> potion.getFullItemId(tier, 0) }
+                        val enchantRange = if (potion.hasEnchants) listOf(0, 1, 2, 3) else listOf(0)
+                        potion.availableTiers.flatMap { tier ->
+                            enchantRange.map { enchant -> potion.getFullItemId(tier, enchant) }
+                        }
                     }
                 }
+                // Tier + Enchant filters
+                val potionTiers = listOf("All", "T2", "T3", "T4", "T5", "T6", "T7", "T8")
+                val potionEnchants = listOf("All", ".0", ".1", ".2", ".3")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Bottom,
+                ) {
+                    SelectorBlock(
+                        title = "Tier",
+                        options = potionTiers,
+                        selectedOption = potionTierFilter,
+                        onOptionSelected = { potionTierFilter = it },
+                        modifier = Modifier.weight(1f),
+                    )
+                    SelectorBlock(
+                        title = "Enchant",
+                        options = potionEnchants,
+                        selectedOption = potionEnchantFilter,
+                        onOptionSelected = { potionEnchantFilter = it },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+                Spacer(Modifier.height(12.dp))
                 MarketPriceContent(
-                    state = marketsViewModel.potionsState,
+                    state = filterMarketPotions(
+                        state = marketsViewModel.potionsState,
+                        tier = potionTierFilter,
+                        enchant = potionEnchantFilter,
+                    ),
                     onRefresh = { marketsViewModel.loadPotions(potionItemIds, serverCode) },
                     serverName = craftViewModel.selectedServer,
                     highlightHighest = true,
@@ -435,6 +488,8 @@ private fun AdvisorContent(
         }
         is AdvisorUiState.Success -> {
             val output = state.output
+            var showAllProfitable by remember { mutableStateOf(false) }
+            var showAllLeveling by remember { mutableStateOf(false) }
 
             if (output.topProfitable.isNotEmpty()) {
                 Text(
@@ -448,6 +503,35 @@ private fun AdvisorContent(
                 output.topProfitable.forEachIndexed { index, result ->
                     AdvisorResultRow(rank = index + 1, result = result)
                     Spacer(Modifier.height(6.dp))
+                }
+
+                // Show more / Show less toggle — only if there are extra results
+                val extraCount = output.allProfitable.size - output.topProfitable.size
+                if (extraCount > 0) {
+                    AnimatedVisibility(
+                        visible = showAllProfitable,
+                        enter = expandVertically(),
+                        exit = shrinkVertically(),
+                    ) {
+                        Column {
+                            output.allProfitable.drop(output.topProfitable.size).forEachIndexed { index, result ->
+                                AdvisorResultRow(rank = output.topProfitable.size + index + 1, result = result)
+                                Spacer(Modifier.height(6.dp))
+                            }
+                        }
+                    }
+
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = if (showAllProfitable) "Show less ▲" else "Show $extraCount more ▼",
+                        color = AppColors.PrimaryGold,
+                        fontFamily = EBGaramond,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .clickable { showAllProfitable = !showAllProfitable }
+                            .padding(vertical = 4.dp),
+                    )
                 }
             }
 
@@ -470,6 +554,35 @@ private fun AdvisorContent(
                     AdvisorResultRow(rank = index + 1, result = result)
                     Spacer(Modifier.height(6.dp))
                 }
+
+                // Show more / Show less toggle for leveling
+                val extraLevelingCount = output.allForLeveling.size - output.topForLeveling.size
+                if (extraLevelingCount > 0) {
+                    AnimatedVisibility(
+                        visible = showAllLeveling,
+                        enter = expandVertically(),
+                        exit = shrinkVertically(),
+                    ) {
+                        Column {
+                            output.allForLeveling.drop(output.topForLeveling.size).forEachIndexed { index, result ->
+                                AdvisorResultRow(rank = output.topForLeveling.size + index + 1, result = result)
+                                Spacer(Modifier.height(6.dp))
+                            }
+                        }
+                    }
+
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = if (showAllLeveling) "Show less ▲" else "Show $extraLevelingCount more ▼",
+                        color = AppColors.Secondary_Beige,
+                        fontFamily = EBGaramond,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .clickable { showAllLeveling = !showAllLeveling }
+                            .padding(vertical = 4.dp),
+                    )
+                }
             }
 
             if (output.totalSkipped > 0) {
@@ -483,6 +596,50 @@ private fun AdvisorContent(
         }
     }
 }
+
+// ── Market filter helpers ────────────────────────────────────────────────────
+
+/**
+ * Returns state with rows filtered to only the given tier prefix (e.g. "T4").
+ * Passes through Loading/Error/Idle unchanged. "All" means no filter.
+ */
+private fun filterMarketRowsByTier(state: MarketsUiState, tier: String): MarketsUiState {
+    if (tier == "All" || state !is MarketsUiState.Success) return state
+    val prefix = "${tier}_"
+    return MarketsUiState.Success(state.rows.filter { it.itemId.startsWith(prefix) })
+}
+
+/**
+ * Returns potion state filtered by tier and/or enchant level.
+ * "All" for either param means no filter on that dimension.
+ */
+private fun filterMarketPotions(
+    state: MarketsUiState,
+    tier: String,
+    enchant: String,
+): MarketsUiState {
+    if (state !is MarketsUiState.Success) return state
+    val tierPrefix = if (tier == "All") null else "${tier}_"
+    val enchantIndex: Int? = when (enchant) {
+        ".0" -> 0
+        ".1" -> 1
+        ".2" -> 2
+        ".3" -> 3
+        else -> null
+    }
+    return MarketsUiState.Success(
+        state.rows.filter { row ->
+            val tierOk = tierPrefix == null || row.itemId.startsWith(tierPrefix)
+            val rowEnchant = row.itemId.indexOf('@').let { idx ->
+                if (idx >= 0) row.itemId.substring(idx + 1).toIntOrNull() ?: 0 else 0
+            }
+            val enchantOk = enchantIndex == null || rowEnchant == enchantIndex
+            tierOk && enchantOk
+        }
+    )
+}
+
+// ── Advisor result row ───────────────────────────────────────────────────────
 
 @Composable
 private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {

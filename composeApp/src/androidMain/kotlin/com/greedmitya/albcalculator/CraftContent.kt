@@ -131,7 +131,7 @@ fun CraftContent(
                 modifier = Modifier.weight(1f)
             )
 
-            val enchantOptions = if (viewModel.selectedPotion != null) viewModel.enchantments else emptyList()
+            val enchantOptions = if (viewModel.selectedPotion != null) viewModel.availableEnchantments else emptyList()
 
             SelectorBlock(
                 title = "Enchantment",
@@ -240,6 +240,7 @@ fun CraftContent(
                         viewModel.ingredientPrices[ingredient.name] = newPrice
                     },
                     craftQuantity = if (craftSubTab == 1) viewModel.craftQuantityInt else 1,
+                    showTotalCost = craftSubTab == 1,
                     onCopy = {
                         coroutineScope.showTimedSnackbar(snackbarHostState, "Copied!", 1200)
                     },
