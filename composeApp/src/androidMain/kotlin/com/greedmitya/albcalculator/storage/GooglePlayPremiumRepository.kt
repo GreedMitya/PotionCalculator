@@ -79,7 +79,11 @@ class GooglePlayPremiumRepository(
 
     private val billingClient: BillingClient = BillingClient.newBuilder(context)
         .setListener(purchasesUpdatedListener)
-        .enablePendingPurchases()
+        .enablePendingPurchases(
+            com.android.billingclient.api.PendingPurchasesParams.newBuilder()
+                .enableOneTimeProducts()
+                .build(),
+        )
         .build()
 
     private suspend fun ensureConnected(): Boolean {

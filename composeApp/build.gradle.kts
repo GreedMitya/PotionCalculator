@@ -14,10 +14,9 @@ plugins {
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
@@ -86,8 +85,8 @@ android {
         applicationId = "com.greedmitya.albcalculator"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 6
-        versionName = "1.0.0"
+        versionCode = 7
+        versionName = "Public Beta v_7.0"
     }
     packaging {
         resources {
