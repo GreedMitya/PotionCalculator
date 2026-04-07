@@ -3,6 +3,7 @@ package com.greedmitya.albcalculator
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,8 @@ import com.greedmitya.albcalculator.ui.theme.EBGaramond
 fun PremiumUpgradeScreen(
     onBuyClick: () -> Unit,
     onRestoreClick: () -> Unit,
+    premiumPrice: String? = null,
+    isPurchasing: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -90,15 +93,23 @@ fun PremiumUpgradeScreen(
             FeatureRow("Potion Profit Advisor")
         }
 
-        Spacer(Modifier.height(40.dp))
+        Spacer(Modifier.height(32.dp))
+
+        if (premiumPrice != null) {
+            PriceBadge(price = premiumPrice)
+            Spacer(Modifier.height(16.dp))
+        } else {
+            Spacer(Modifier.height(48.dp))
+        }
 
         ActionTextButton(
-            text = "Buy Premium",
+            text = if (isPurchasing) "..." else "Buy Premium",
             onClick = onBuyClick,
+            enabled = !isPurchasing,
             modifier = Modifier.fillMaxWidth(),
-            backgroundColor = AppColors.PrimaryGold,
-            textColor = AppColors.BackgroundDark,
-            borderColor = AppColors.PrimaryGold,
+            backgroundColor = if (isPurchasing) AppColors.Gray500 else AppColors.PrimaryGold,
+            textColor = if (isPurchasing) AppColors.Gray300 else AppColors.BackgroundDark,
+            borderColor = if (isPurchasing) AppColors.Gray400 else AppColors.PrimaryGold,
         )
 
         Spacer(Modifier.height(12.dp))
@@ -106,10 +117,11 @@ fun PremiumUpgradeScreen(
         ActionTextButton(
             text = "Restore Purchase",
             onClick = onRestoreClick,
+            enabled = !isPurchasing,
             modifier = Modifier.fillMaxWidth(),
             backgroundColor = AppColors.Gray500,
-            textColor = AppColors.Secondary_Beige,
-            borderColor = AppColors.Secondary_Beige.copy(alpha = 0.5f),
+            textColor = if (isPurchasing) AppColors.Gray400 else AppColors.Secondary_Beige,
+            borderColor = if (isPurchasing) AppColors.Gray400 else AppColors.Secondary_Beige.copy(alpha = 0.5f),
         )
 
         Spacer(Modifier.height(24.dp))
@@ -119,6 +131,33 @@ fun PremiumUpgradeScreen(
             color = AppColors.Gray300,
             fontSize = 12.sp,
             textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
+private fun PriceBadge(price: String) {
+    Box(
+        modifier = Modifier
+            .background(
+                color = AppColors.PrimaryGold.copy(alpha = 0.12f),
+                shape = RoundedCornerShape(8.dp),
+            )
+            .border(
+                width = 1.dp,
+                color = AppColors.PrimaryGold.copy(alpha = 0.6f),
+                shape = RoundedCornerShape(8.dp),
+            )
+            .padding(horizontal = 24.dp, vertical = 10.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = price,
+            color = AppColors.PrimaryGold,
+            fontFamily = EBGaramond,
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp,
+            letterSpacing = 1.sp,
         )
     }
 }

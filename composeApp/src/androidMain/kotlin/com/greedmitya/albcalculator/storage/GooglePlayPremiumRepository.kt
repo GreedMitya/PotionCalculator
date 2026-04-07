@@ -16,8 +16,11 @@ import com.android.billingclient.api.queryProductDetails
 import com.android.billingclient.api.queryPurchasesAsync
 import com.greedmitya.albcalculator.domain.AppPremiumRepository
 import com.greedmitya.albcalculator.domain.AppPurchaseResult
+import com.greedmitya.albcalculator.BuildConfig
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeout
 import kotlin.coroutines.resume
 
 /**
@@ -26,11 +29,10 @@ import kotlin.coroutines.resume
  */
 class GooglePlayPremiumRepository(
     private val context: Context,
-    private val debugOverride: Boolean? = null,
 ) : AppPremiumRepository {
 
     companion object {
-        const val PREMIUM_PRODUCT_ID = "craft-plus-premium"
+        const val PREMIUM_PRODUCT_ID = "craft_plus_premium"
     }
 
     private var pendingPurchaseCallback: ((AppPurchaseResult) -> Unit)? = null
@@ -101,14 +103,8 @@ class GooglePlayPremiumRepository(
     }
 
     override suspend fun isPremiumUnlocked(): Boolean {
-        if (debugOverride != null) {
-            Napier.d("Debug override detected: Premium ${if (debugOverride) "unlocked" else "locked"}")
-            return debugOverride
-        }
-
-        val isDebug = (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0
-        if (isDebug) {
-            Napier.d("DEBUG build detected: Premium unlocked automatically")
+        if (BuildConfig.DEBUG) {
+            Napier.d("DEBUG build: premium auto-unlocked for testing")
             return true
         }
 
@@ -150,21 +146,29 @@ class GooglePlayPremiumRepository(
             .setProductDetailsParamsList(listOf(productDetailsParams))
             .build()
 
-        return suspendCancellableCoroutine { continuation ->
-            pendingPurchaseCallback = { result ->
-                if (continuation.isActive) {
-                    continuation.resume(result)
+        return try {
+            withTimeout(120_000) {
+                suspendCancellableCoroutine { continuation ->
+                    pendingPurchaseCallback = { result ->
+                        if (continuation.isActive) {
+                            continuation.resume(result)
+                        }
+                    }
+                    val launchResult = billingClient.launchBillingFlow(activity, billingFlowParams)
+                    if (launchResult.responseCode != BillingClient.BillingResponseCode.OK) {
+                        pendingPurchaseCallback = null
+                        if (continuation.isActive) {
+                            continuation.resume(
+                                AppPurchaseResult.Error("Failed to launch billing: ${launchResult.debugMessage}"),
+                            )
+                        }
+                    }
                 }
             }
-            val launchResult = billingClient.launchBillingFlow(activity, billingFlowParams)
-            if (launchResult.responseCode != BillingClient.BillingResponseCode.OK) {
-                pendingPurchaseCallback = null
-                if (continuation.isActive) {
-                    continuation.resume(
-                        AppPurchaseResult.Error("Failed to launch billing: ${launchResult.debugMessage}"),
-                    )
-                }
-            }
+        } catch (e: TimeoutCancellationException) {
+            pendingPurchaseCallback = null
+            Napier.e("Purchase flow timed out after 2 minutes")
+            AppPurchaseResult.Error("Purchase timed out — please try again")
         }
     }
 
@@ -174,6 +178,11 @@ class GooglePlayPremiumRepository(
         } else {
             AppPurchaseResult.Error("No previous purchase found")
         }
+    }
+
+    override suspend fun getFormattedPrice(): String? {
+        if (!ensureConnected()) return null
+        return queryProductDetails()?.oneTimePurchaseOfferDetails?.formattedPrice
     }
 
     private suspend fun queryProductDetails(): com.android.billingclient.api.ProductDetails? {

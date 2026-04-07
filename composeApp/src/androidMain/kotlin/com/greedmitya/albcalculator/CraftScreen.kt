@@ -138,6 +138,7 @@ fun CraftScreen(viewModel: CraftViewModel) {
                     craftViewModel = viewModel,
                     marketsViewModel = marketsViewModel,
                     scrollState = scrollState,
+                    snackbarHostState = snackbarHostState,
                 )
                 2 -> FavoritesScreen(
                     viewModel = viewModel,

@@ -22,6 +22,9 @@ interface AppPremiumRepository {
 
     /** Re-query past purchases to restore premium after reinstall. */
     suspend fun restorePurchases(): AppPurchaseResult
+
+    /** Returns the Play Store formatted price string (e.g. "$1.99", "€0,99"). Null if unavailable. */
+    suspend fun getFormattedPrice(): String?
 }
 
 /** Result of a premium purchase or restore attempt. */

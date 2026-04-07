@@ -48,6 +48,14 @@ class CraftViewModel(
     var isAppPremiumUnlocked by mutableStateOf(false)
         private set
 
+    /** Formatted price from Google Play (e.g. "$1.99", "€0,99"). Null while loading or unavailable. */
+    var premiumPrice by mutableStateOf<String?>(null)
+        private set
+
+    /** True while a purchase or restore call is in flight — disables buttons to prevent double-tap. */
+    var isPurchasing by mutableStateOf(false)
+        private set
+
     /** Batch craft quantity for Craft+ mode. */
     var craftQuantity by mutableStateOf("1")
     val craftQuantityInt: Int get() = craftQuantity.toIntOrNull()?.coerceAtLeast(1) ?: 1
@@ -133,8 +141,9 @@ class CraftViewModel(
             val storedServer = favoritesRepository.loadSelectedServer()
             selectedServer = storedServer
 
-            // Check app premium status
+            // Check app premium status and fetch regional price for the upgrade screen
             isAppPremiumUnlocked = appPremiumRepository.isPremiumUnlocked()
+            premiumPrice = appPremiumRepository.getFormattedPrice()
         }
     }
 
@@ -378,7 +387,9 @@ class CraftViewModel(
     // region App Premium (Craft+ purchase)
 
     fun purchasePremium(activity: Any) {
+        if (isPurchasing) return
         viewModelScope.launch {
+            isPurchasing = true
             when (val result = appPremiumRepository.purchasePremium(activity)) {
                 is AppPurchaseResult.Success,
                 is AppPurchaseResult.AlreadyOwned -> {
@@ -391,11 +402,14 @@ class CraftViewModel(
                     // No action needed
                 }
             }
+            isPurchasing = false
         }
     }
 
     fun restorePurchases() {
+        if (isPurchasing) return
         viewModelScope.launch {
+            isPurchasing = true
             when (val result = appPremiumRepository.restorePurchases()) {
                 is AppPurchaseResult.Success,
                 is AppPurchaseResult.AlreadyOwned -> {
@@ -408,8 +422,28 @@ class CraftViewModel(
                     // No action needed
                 }
             }
+            isPurchasing = false
         }
     }
 
     // endregion
+
+    fun clearNetworkError() {
+        networkError = null
+    }
+
+    /**
+     * FOR DEBUG ONLY — overrides premium state for local testing without a real purchase.
+     * The only call site is inside a BuildConfig.DEBUG guard in SettingsScreen, so this
+     * method is never reachable in release builds.
+     *
+     * When locking: if no real price was loaded from Play, injects a fake price so the
+     * PriceBadge is visible during UI testing.
+     */
+    fun debugOverridePremiumState(unlocked: Boolean) {
+        isAppPremiumUnlocked = unlocked
+        if (!unlocked && premiumPrice == null) {
+            premiumPrice = "$ 1.99"
+        }
+    }
 }

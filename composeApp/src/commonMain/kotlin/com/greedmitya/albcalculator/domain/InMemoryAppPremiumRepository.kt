@@ -13,4 +13,6 @@ class InMemoryAppPremiumRepository : AppPremiumRepository {
 
     override suspend fun restorePurchases(): AppPurchaseResult =
         AppPurchaseResult.Error("In-app purchases are not supported on this platform")
+
+    override suspend fun getFormattedPrice(): String? = null
 }

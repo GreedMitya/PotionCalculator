@@ -11,17 +11,6 @@ import org.koin.core.module.Module
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-/**
- * Debug override for Premium state — FOR DEVELOPMENT USE ONLY.
- *
- * • null  → Default behavior: auto-unlock in DEBUG builds, real Google Play check in RELEASE.
- * • true  → Force premium UNLOCKED (debug testing).
- * • false → Force premium LOCKED (debug testing).
- *
- * ⚠️ MUST be null for production releases, otherwise real purchases are bypassed!
- */
-private val debugPremiumOverride: Boolean? = null
-
 actual val platformModule: Module = module {
     single {
         HttpClient(CIO)
@@ -30,9 +19,6 @@ actual val platformModule: Module = module {
         DataStoreFavoritesRepository(context = get<Context>())
     } bind FavoritesRepository::class
     single {
-        GooglePlayPremiumRepository(
-            context = get<Context>(),
-            debugOverride = debugPremiumOverride
-        )
+        GooglePlayPremiumRepository(context = get<Context>())
     } bind AppPremiumRepository::class
 }

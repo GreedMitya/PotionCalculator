@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,6 +53,14 @@ fun CraftContent(
     val useFocus = viewModel.useFocus
     var craftSubTab by rememberSaveable { mutableIntStateOf(0) }
     val activity = LocalContext.current as? Activity
+
+    val networkError = viewModel.networkError
+    LaunchedEffect(networkError) {
+        networkError?.let {
+            snackbarHostState.showSnackbar(it)
+            viewModel.clearNetworkError()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -95,6 +104,8 @@ fun CraftContent(
             PremiumUpgradeScreen(
                 onBuyClick = { activity?.let { viewModel.purchasePremium(it) } },
                 onRestoreClick = { viewModel.restorePurchases() },
+                premiumPrice = viewModel.premiumPrice,
+                isPurchasing = viewModel.isPurchasing,
                 modifier = Modifier.weight(1f),
             )
             return

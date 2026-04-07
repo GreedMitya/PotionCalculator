@@ -26,6 +26,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -59,8 +61,17 @@ fun MarketsScreen(
     craftViewModel: CraftViewModel,
     marketsViewModel: MarketsViewModel,
     scrollState: ScrollState,
+    snackbarHostState: SnackbarHostState,
 ) {
     val activity = LocalContext.current as? Activity
+
+    val networkError = craftViewModel.networkError
+    LaunchedEffect(networkError) {
+        networkError?.let {
+            snackbarHostState.showSnackbar(it)
+            craftViewModel.clearNetworkError()
+        }
+    }
 
     // Premium gate
     if (!craftViewModel.isAppPremiumUnlocked) {
@@ -93,9 +104,11 @@ fun MarketsScreen(
             PremiumUpgradeScreen(
                 onBuyClick = { activity?.let { craftViewModel.purchasePremium(it) } },
                 onRestoreClick = { craftViewModel.restorePurchases() },
+                premiumPrice = craftViewModel.premiumPrice,
+                isPurchasing = craftViewModel.isPurchasing,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(top = 60.dp)
+                    .padding(top = 20.dp),
             )
         }
         return
