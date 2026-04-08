@@ -13,6 +13,8 @@ import com.greedmitya.albcalculator.domain.CalculateProfitUseCase
 import com.greedmitya.albcalculator.domain.FetchMarketDataUseCase
 import com.greedmitya.albcalculator.domain.FetchPricesUseCase
 import com.greedmitya.albcalculator.domain.PotionAdvisorUseCase
+import com.greedmitya.albcalculator.i18n.GameNameProvider
+import com.greedmitya.albcalculator.i18n.JsonGameNameProvider
 
 val appModule = module {
     includes(platformModule)
@@ -23,4 +25,5 @@ val appModule = module {
     factoryOf(::PotionAdvisorUseCase)
     viewModelOf(::CraftViewModel)
     viewModelOf(::MarketsViewModel)
+    singleOf(::JsonGameNameProvider) bind GameNameProvider::class
 }

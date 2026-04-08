@@ -54,7 +54,13 @@ import com.greedmitya.albcalculator.domain.MarketPriceRow
 import com.greedmitya.albcalculator.domain.PotionAdvisorResult
 import com.greedmitya.albcalculator.model.PotionInfo
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import com.greedmitya.albcalculator.constants.ALBION_COMPONENT_TIERS
+import com.greedmitya.albcalculator.constants.ALBION_ENCHANT_LEVELS
+import com.greedmitya.albcalculator.constants.ALBION_POTION_TIERS
+import com.greedmitya.albcalculator.constants.FILTER_ALL
 import com.greedmitya.albcalculator.util.formatSilver
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun MarketsScreen(
@@ -86,7 +92,7 @@ fun MarketsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Potion Crafting",
+                    text = stringResource(Res.string.app_title),
                     color = AppColors.PrimaryGold,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -94,7 +100,7 @@ fun MarketsScreen(
                 )
 
                 Text(
-                    text = "Markets",
+                    text = stringResource(Res.string.markets_title),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = FontFamily.Serif,
@@ -115,7 +121,12 @@ fun MarketsScreen(
     }
 
     var subTab by rememberSaveable { mutableIntStateOf(0) }
-    val subTabLabels = listOf("Herbs", "Components", "Potions", "Advisor")
+    val subTabLabels = listOf(
+        stringResource(Res.string.markets_tab_herbs),
+        stringResource(Res.string.markets_tab_components),
+        stringResource(Res.string.markets_tab_potions),
+        stringResource(Res.string.markets_tab_advisor),
+    )
 
     val serverCode = craftViewModel.serverDisplayNames.entries
         .firstOrNull { it.value == craftViewModel.selectedServer }?.key ?: "europe"
@@ -130,7 +141,7 @@ fun MarketsScreen(
         Spacer(Modifier.height(20.dp))
 
         Text(
-            text = "Potion Crafting",
+            text = stringResource(Res.string.app_title),
             color = AppColors.PrimaryGold,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
@@ -138,7 +149,7 @@ fun MarketsScreen(
         )
 
         Text(
-            text = "Markets",
+            text = stringResource(Res.string.markets_title),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = FontFamily.Serif,
@@ -180,10 +191,12 @@ fun MarketsScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        // Persistent filter state (survives sub-tab switches)
-        var componentTierFilter by rememberSaveable { mutableStateOf("All") }
-        var potionTierFilter by rememberSaveable { mutableStateOf("All") }
-        var potionEnchantFilter by rememberSaveable { mutableStateOf("All") }
+        // Persistent filter state — sentinel value is FILTER_ALL, not a localized string
+        var componentTierFilter by rememberSaveable { mutableStateOf(FILTER_ALL) }
+        var potionTierFilter by rememberSaveable { mutableStateOf(FILTER_ALL) }
+        var potionEnchantFilter by rememberSaveable { mutableStateOf(FILTER_ALL) }
+        // Captured here so displayTransform lambdas can reference it without calling stringResource inside a non-@Composable lambda
+        val allLabel = stringResource(Res.string.markets_filter_all)
 
         when (subTab) {
             0 -> MarketPriceContent(
@@ -194,12 +207,12 @@ fun MarketsScreen(
             )
             1 -> {
                 // Tier filter — full width for a clean professional look
-                val componentTiers = listOf("All", "T1", "T3", "T4", "T5", "T6", "T7", "T8")
                 SelectorBlock(
-                    title = "Tier",
-                    options = componentTiers,
+                    title = stringResource(Res.string.craft_selector_tier),
+                    options = ALBION_COMPONENT_TIERS,  // non-localized: Albion game notation
                     selectedOption = componentTierFilter,
                     onOptionSelected = { componentTierFilter = it },
+                    displayTransform = { if (it == FILTER_ALL) allLabel else it },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(12.dp))
@@ -221,25 +234,25 @@ fun MarketsScreen(
                     }
                 }
                 // Tier + Enchant filters
-                val potionTiers = listOf("All", "T2", "T3", "T4", "T5", "T6", "T7", "T8")
-                val potionEnchants = listOf("All", ".0", ".1", ".2", ".3")
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.Bottom,
                 ) {
                     SelectorBlock(
-                        title = "Tier",
-                        options = potionTiers,
+                        title = stringResource(Res.string.craft_selector_tier),
+                        options = ALBION_POTION_TIERS,  // non-localized: Albion game notation
                         selectedOption = potionTierFilter,
                         onOptionSelected = { potionTierFilter = it },
+                        displayTransform = { if (it == FILTER_ALL) allLabel else it },
                         modifier = Modifier.weight(1f),
                     )
                     SelectorBlock(
-                        title = "Enchant",
-                        options = potionEnchants,
+                        title = stringResource(Res.string.markets_filter_enchant),
+                        options = ALBION_ENCHANT_LEVELS,  // non-localized: Albion game notation
                         selectedOption = potionEnchantFilter,
                         onOptionSelected = { potionEnchantFilter = it },
+                        displayTransform = { if (it == FILTER_ALL) allLabel else it },
                         modifier = Modifier.weight(1f),
                     )
                 }
@@ -279,13 +292,13 @@ private fun MarketPriceContent(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = "Server: $serverName",
+            text = stringResource(Res.string.markets_server_label, serverName),
             color = AppColors.Secondary_Beige,
             fontSize = 14.sp,
             modifier = Modifier.weight(1f),
         )
         ActionTextButton(
-            text = "Refresh",
+            text = stringResource(Res.string.button_refresh),
             onClick = onRefresh,
             backgroundColor = AppColors.PrimaryGold,
             textColor = AppColors.BackgroundDark,
@@ -298,7 +311,7 @@ private fun MarketPriceContent(
     when (state) {
         is MarketsUiState.Idle -> {
             Text(
-                text = "Tap Refresh to load prices",
+                text = stringResource(Res.string.markets_empty_hint),
                 color = AppColors.Gray300,
                 fontSize = 14.sp,
             )
@@ -313,7 +326,7 @@ private fun MarketPriceContent(
         }
         is MarketsUiState.Error -> {
             Text(
-                text = "Error: ${state.message}",
+                text = stringResource(Res.string.markets_error, state.message),
                 color = Color(0xFFF44336),
                 fontSize = 14.sp,
             )
@@ -413,7 +426,7 @@ private fun MarketItemCard(
                     fontFamily = EBGaramond,
                 )
                 if (bestPrice > 0 && bestCity != null) {
-                    val label = if (highlightHighest) "Best sell" else "Best buy"
+                    val label = if (highlightHighest) stringResource(Res.string.markets_best_sell) else stringResource(Res.string.markets_best_buy)
                     val shortCity = CITY_SHORT_NAMES[bestCity] ?: bestCity
                     Text(
                         text = "$label: ${formatSilver(bestPrice.toDouble())} · $shortCity",
@@ -423,7 +436,7 @@ private fun MarketItemCard(
                     )
                 } else {
                     Text(
-                        text = "No data",
+                        text = stringResource(Res.string.markets_no_data),
                         color = AppColors.Gray300,
                         fontSize = 12.sp,
                     )
@@ -487,14 +500,14 @@ private fun AdvisorContent(
         verticalAlignment = Alignment.Bottom,
     ) {
         SelectorBlock(
-            title = "City",
+            title = stringResource(Res.string.craft_selector_city),
             options = ALL_CITIES,
             selectedOption = selectedCity,
             onOptionSelected = { selectedCity = it },
             modifier = Modifier.weight(1f),
         )
         ActionTextButton(
-            text = "Analyze",
+            text = stringResource(Res.string.markets_analyze),
             onClick = {
                 selectedCity?.let { city ->
                     marketsViewModel.analyzeAdvisor(
@@ -517,7 +530,7 @@ private fun AdvisorContent(
     when (val state = marketsViewModel.advisorState) {
         is AdvisorUiState.Idle -> {
             Text(
-                text = "Select a city and tap Analyze",
+                text = stringResource(Res.string.markets_advisor_idle),
                 color = AppColors.Gray300,
                 fontSize = 14.sp,
             )
@@ -532,7 +545,7 @@ private fun AdvisorContent(
         }
         is AdvisorUiState.Error -> {
             Text(
-                text = "Error: ${state.message}",
+                text = stringResource(Res.string.markets_error, state.message),
                 color = Color(0xFFF44336),
                 fontSize = 14.sp,
             )
@@ -544,7 +557,7 @@ private fun AdvisorContent(
 
             if (output.topProfitable.isNotEmpty()) {
                 Text(
-                    text = "TOP ${output.topProfitable.size} — MOST PROFITABLE",
+                    text = stringResource(Res.string.markets_top_profitable, output.topProfitable.size),
                     color = AppColors.PrimaryGold,
                     fontFamily = EBGaramond,
                     fontWeight = FontWeight.Bold,
@@ -574,7 +587,7 @@ private fun AdvisorContent(
 
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = if (showAllProfitable) "Show less ▲" else "Show $extraCount more ▼",
+                        text = if (showAllProfitable) stringResource(Res.string.markets_show_less) else stringResource(Res.string.markets_show_more, extraCount),
                         color = AppColors.PrimaryGold,
                         fontFamily = EBGaramond,
                         fontWeight = FontWeight.SemiBold,
@@ -589,14 +602,14 @@ private fun AdvisorContent(
             if (output.topForLeveling.isNotEmpty()) {
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    text = "TOP ${output.topForLeveling.size} — FOR LEVELING",
+                    text = stringResource(Res.string.markets_top_leveling, output.topForLeveling.size),
                     color = AppColors.Secondary_Beige,
                     fontFamily = EBGaramond,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                 )
                 Text(
-                    text = "Small loss, high craft XP",
+                    text = stringResource(Res.string.markets_leveling_subtitle),
                     color = AppColors.Gray300,
                     fontSize = 12.sp,
                 )
@@ -624,7 +637,7 @@ private fun AdvisorContent(
 
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = if (showAllLeveling) "Show less ▲" else "Show $extraLevelingCount more ▼",
+                        text = if (showAllLeveling) stringResource(Res.string.markets_show_less) else stringResource(Res.string.markets_show_more, extraLevelingCount),
                         color = AppColors.Secondary_Beige,
                         fontFamily = EBGaramond,
                         fontWeight = FontWeight.SemiBold,
@@ -639,7 +652,7 @@ private fun AdvisorContent(
             if (output.totalSkipped > 0) {
                 Spacer(Modifier.height(12.dp))
                 Text(
-                    text = "${output.totalSkipped} potions skipped — missing market data",
+                    text = stringResource(Res.string.markets_skipped, output.totalSkipped),
                     color = AppColors.Gray300,
                     fontSize = 12.sp,
                 )
@@ -655,7 +668,7 @@ private fun AdvisorContent(
  * Passes through Loading/Error/Idle unchanged. "All" means no filter.
  */
 private fun filterMarketRowsByTier(state: MarketsUiState, tier: String): MarketsUiState {
-    if (tier == "All" || state !is MarketsUiState.Success) return state
+    if (tier == FILTER_ALL || state !is MarketsUiState.Success) return state
     val prefix = "${tier}_"
     return MarketsUiState.Success(state.rows.filter { it.itemId.startsWith(prefix) })
 }
@@ -670,13 +683,13 @@ private fun filterMarketPotions(
     enchant: String,
 ): MarketsUiState {
     if (state !is MarketsUiState.Success) return state
-    val tierPrefix = if (tier == "All") null else "${tier}_"
+    val tierPrefix = if (tier == FILTER_ALL) null else "${tier}_"
     val enchantIndex: Int? = when (enchant) {
-        ".0" -> 0
+        ".0" -> 0  // non-localized: Albion enchant notation
         ".1" -> 1
         ".2" -> 2
         ".3" -> 3
-        else -> null
+        else -> null  // includes FILTER_ALL — no enchant filter
     }
     return MarketsUiState.Success(
         state.rows.filter { row ->

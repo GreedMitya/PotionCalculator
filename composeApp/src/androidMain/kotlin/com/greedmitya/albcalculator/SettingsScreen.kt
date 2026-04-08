@@ -1,5 +1,6 @@
 package com.greedmitya.albcalculator
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,17 +17,26 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
 import com.greedmitya.albcalculator.BuildConfig
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
 import com.greedmitya.albcalculator.components.SelectorBlock
+import com.greedmitya.albcalculator.i18n.AppLanguage
+import com.greedmitya.albcalculator.i18n.LocalGameNameProvider
+import kotlinx.coroutines.launch
+import org.koin.compose.koinInject
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 // Debug colors — defined locally, only compiled into debug builds via the BuildConfig guard
 private val DebugRed = Color(0xFFFF4444)
@@ -37,6 +47,12 @@ private val DebugPanelBg = Color(0xFF1A0000)
 
 @Composable
 fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
+    val gameNameProvider = LocalGameNameProvider.current
+    val languageRepo = koinInject<com.greedmitya.albcalculator.domain.LanguagePreferenceRepository>()
+    val scope = rememberCoroutineScope()
+
+    val languageOptions = AppLanguage.entries.map { it.code }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,14 +66,14 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
-                text = "Potion Crafting",
+                text = stringResource(Res.string.app_title),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Serif,
                 color = AppColors.PrimaryGold,
             )
             Text(
-                text = "Settings",
+                text = stringResource(Res.string.settings_title),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.Serif,
@@ -68,10 +84,33 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
         Spacer(Modifier.height(24.dp))
 
         SelectorBlock(
-            title = "Server Region for API prices",
+            title = stringResource(Res.string.settings_server_region),
             options = viewModel.serverDisplayNames.values.toList(),
             selectedOption = viewModel.selectedServer,
             onOptionSelected = { viewModel.updateServer(it) },
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        Spacer(Modifier.height(4.dp))
+
+        SelectorBlock(
+            title = stringResource(Res.string.settings_language),
+            options = languageOptions,
+            selectedOption = gameNameProvider.currentLanguage.code,
+            onOptionSelected = { selectedCode ->
+                val language = AppLanguage.fromCode(selectedCode)
+                scope.launch {
+                    languageRepo.saveLanguage(language)
+                    gameNameProvider.loadForLanguage(language)
+                    // Update the Android system locale so stringResource() resolves correctly
+                    AppCompatDelegate.setApplicationLocales(
+                        LocaleListCompat.forLanguageTags(language.bcp47Tag)
+                    )
+                }
+            },
+            displayTransform = { code ->
+                AppLanguage.fromCode(code).displayName
+            },
             modifier = Modifier.fillMaxWidth(),
         )
 

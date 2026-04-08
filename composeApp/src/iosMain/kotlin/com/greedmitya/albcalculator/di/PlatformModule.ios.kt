@@ -4,6 +4,8 @@ import com.greedmitya.albcalculator.domain.AppPremiumRepository
 import com.greedmitya.albcalculator.domain.FavoritesRepository
 import com.greedmitya.albcalculator.domain.InMemoryAppPremiumRepository
 import com.greedmitya.albcalculator.domain.InMemoryFavoritesRepository
+import com.greedmitya.albcalculator.domain.InMemoryLanguageRepository
+import com.greedmitya.albcalculator.domain.LanguagePreferenceRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import org.koin.core.module.Module
@@ -14,4 +16,5 @@ actual val platformModule: Module = module {
     single { HttpClient(CIO) }
     single { InMemoryFavoritesRepository() } bind FavoritesRepository::class
     single { InMemoryAppPremiumRepository() } bind AppPremiumRepository::class
+    single { InMemoryLanguageRepository() } bind LanguagePreferenceRepository::class
 }

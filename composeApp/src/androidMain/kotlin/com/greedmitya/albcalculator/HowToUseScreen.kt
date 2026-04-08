@@ -19,6 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun HowToUseScreen(scrollState: ScrollState) {
@@ -33,14 +35,14 @@ fun HowToUseScreen(scrollState: ScrollState) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Potion Crafting",
+                text = stringResource(Res.string.app_title),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Serif,
                 color = AppColors.PrimaryGold
             )
             Text(
-                text ="How to Use",
+                text = stringResource(Res.string.how_to_use_title),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.Serif,
@@ -50,34 +52,34 @@ fun HowToUseScreen(scrollState: ScrollState) {
 
         InstructionStep(
             number = 1,
-            text = "Select the potion you want to craft along with its tier and enchantment level."
+            text = stringResource(Res.string.how_to_use_step1),
         )
 
         InstructionStep(
             number = 2,
-            text = "Then choose the city where you’ll craft and enter the fee per 100 nutrition.",
-            imageResId = R.drawable.howto_step1
+            text = stringResource(Res.string.how_to_use_step2),
+            imageResId = R.drawable.howto_step1,
         )
 
         InstructionStep(
             number = 3,
-            text = "Enable the Premium Account toggle if you have one, and activate Focus Points if you plan to use them."
+            text = stringResource(Res.string.how_to_use_step3),
         )
 
-        CenteredExplanation("Basic = general crafting level")
+        CenteredExplanation(stringResource(Res.string.how_to_use_basic_explanation))
         InstructionImage(R.drawable.howto_step2)
-        CenteredExplanation("Mastery = specialization for this potion type")
+        CenteredExplanation(stringResource(Res.string.how_to_use_mastery_explanation))
         InstructionImage(R.drawable.howto_step3)
-        CenteredExplanation("Total = total mastery for this branch")
+        CenteredExplanation(stringResource(Res.string.how_to_use_total_explanation))
         InstructionImage(R.drawable.howto_step4)
 
         InstructionStep(
             number = 4,
-            text = "Enter the ingredient prices and the output potion price, then tap \"Calculate\" to view your profit.\nYou can also tap \"Market Prices\" to fetch in-game prices via API."
+            text = stringResource(Res.string.how_to_use_step4),
         )
 
         Text(
-            text = "Note: API prices may not reflect real-time market changes.",
+            text = stringResource(Res.string.how_to_use_note),
             color = Color.White,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,

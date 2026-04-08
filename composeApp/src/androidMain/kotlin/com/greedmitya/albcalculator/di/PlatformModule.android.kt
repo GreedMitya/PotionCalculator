@@ -3,7 +3,9 @@ package com.greedmitya.albcalculator.di
 import android.content.Context
 import com.greedmitya.albcalculator.domain.AppPremiumRepository
 import com.greedmitya.albcalculator.domain.FavoritesRepository
+import com.greedmitya.albcalculator.domain.LanguagePreferenceRepository
 import com.greedmitya.albcalculator.storage.DataStoreFavoritesRepository
+import com.greedmitya.albcalculator.storage.DataStoreLanguageRepository
 import com.greedmitya.albcalculator.storage.GooglePlayPremiumRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -21,4 +23,7 @@ actual val platformModule: Module = module {
     single {
         GooglePlayPremiumRepository(context = get<Context>())
     } bind AppPremiumRepository::class
+    single {
+        DataStoreLanguageRepository(context = get<Context>())
+    } bind LanguagePreferenceRepository::class
 }

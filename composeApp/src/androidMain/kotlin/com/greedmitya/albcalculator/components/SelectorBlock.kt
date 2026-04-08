@@ -19,7 +19,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.*
 import com.greedmitya.albcalculator.R
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
+/**
+ * @param displayTransform Optional mapping from internal option value to display string.
+ *   Useful for localization: the ViewModel stores English keys; the UI shows translated names.
+ *   [onOptionSelected] always receives the original (untransformed) value.
+ *   Defaults to identity — no behaviour change for existing callers.
+ */
 @Composable
 fun SelectorBlock(
     title: String,
@@ -28,7 +36,8 @@ fun SelectorBlock(
     onOptionSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
-    menuMaxHeight: Dp? = null
+    menuMaxHeight: Dp? = null,
+    displayTransform: (String) -> String = { it },
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectorWidth by remember { mutableStateOf(0.dp) }
@@ -83,13 +92,13 @@ fun SelectorBlock(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = selectedOption ?: "Choose",
+                    text = selectedOption?.let { displayTransform(it) } ?: stringResource(Res.string.placeholder_choose),
                     color = AppColors.White,
                     fontSize = 16.sp
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.chevron_down),
-                    contentDescription = "Expand dropdown",
+                    contentDescription = null,
                     modifier = Modifier.size(16.dp),
                     tint = AppColors.White
                 )
@@ -110,13 +119,13 @@ fun SelectorBlock(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            option,
+                            displayTransform(option),
                             fontSize = 16.sp,
                             color = Color(0xFF333333)
                         )
                     },
                     onClick = {
-                        onOptionSelected(option)
+                        onOptionSelected(option)  // always pass the original value
                         expanded = false
                     }
                 )

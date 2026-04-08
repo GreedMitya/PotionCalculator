@@ -43,6 +43,8 @@ import com.greedmitya.albcalculator.components.rememberBlinkingError
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.util.formatSilver
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun IngredientItem(
@@ -84,7 +86,7 @@ fun IngredientItem(
 
             Image(
                 painter = painterResource(R.drawable.clone),
-                contentDescription = "Copy Ingredient Name",
+                contentDescription = stringResource(Res.string.cd_copy_ingredient_name),
                 modifier = Modifier
                     .size(16.dp)
                     .clickable {
@@ -132,7 +134,7 @@ fun IngredientItem(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Price per Item",
+                        text = stringResource(Res.string.label_price_per_item),
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -177,7 +179,7 @@ fun IngredientItem(
                                 ) {
                                     if (priceText.isEmpty()) {
                                         Text(
-                                            text = "Enter",
+                                            text = stringResource(Res.string.placeholder_enter),
                                             color = AppColors.LightBeige,
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.Medium,
@@ -199,7 +201,7 @@ fun IngredientItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Quantity",
+                        text = stringResource(Res.string.label_quantity),
                         color = AppColors.BackgroundDark,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -238,7 +240,7 @@ fun IngredientItem(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = "Total cost",
+                            text = stringResource(Res.string.label_total_cost),
                             color = AppColors.BackgroundDark,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,

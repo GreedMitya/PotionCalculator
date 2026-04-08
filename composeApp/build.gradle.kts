@@ -37,6 +37,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.appcompat)
             implementation(libs.google.material)
             implementation(libs.androidx.splashscreen)
             implementation(libs.androidx.lifecycle.viewmodel.compose)

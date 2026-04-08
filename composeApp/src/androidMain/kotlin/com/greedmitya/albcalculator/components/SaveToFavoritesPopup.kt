@@ -26,6 +26,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun SaveToFavoritesPopup(
@@ -48,7 +50,7 @@ fun SaveToFavoritesPopup(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             Text(
-                text = "Save to Favorites",
+                text = stringResource(Res.string.dialog_save_title),
                 fontSize = 24.sp,
                 fontFamily = EBGaramond,
                 fontWeight = FontWeight.Bold,
@@ -56,7 +58,7 @@ fun SaveToFavoritesPopup(
             )
 
             Text(
-                text = "Do you want to save this potion to your favorites?",
+                text = stringResource(Res.string.dialog_save_message),
                 fontSize = 16.sp,
                 fontFamily = FontFamily.SansSerif,
                 fontWeight = FontWeight.Normal,
@@ -80,7 +82,7 @@ fun SaveToFavoritesPopup(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(Res.string.button_cancel),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = EBGaramond,
@@ -98,7 +100,7 @@ fun SaveToFavoritesPopup(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Save",
+                        text = stringResource(Res.string.button_save),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = EBGaramond,

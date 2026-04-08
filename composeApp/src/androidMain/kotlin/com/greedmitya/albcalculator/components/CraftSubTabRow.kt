@@ -21,7 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.R
+import com.greedmitya.albcalculator.constants.BRAND_CRAFT_PLUS
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun CraftSubTabRow(
@@ -39,13 +42,13 @@ fun CraftSubTabRow(
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         CraftSubTab(
-            label = "Craft",
+            label = stringResource(Res.string.craft_tab_free),
             isSelected = selectedIndex == 0,
             onClick = { onTabSelected(0) },
             modifier = Modifier.weight(1f),
         )
         CraftSubTab(
-            label = "Craft+",
+            label = BRAND_CRAFT_PLUS,  // non-localized: brand name, same globally
             isSelected = selectedIndex == 1,
             onClick = { onTabSelected(1) },
             showLock = !isPremiumUnlocked,
@@ -87,7 +90,7 @@ private fun CraftSubTab(
             if (showLock) {
                 Icon(
                     painter = painterResource(R.drawable.ic_lock),
-                    contentDescription = "Locked",
+                    contentDescription = null,
                     tint = textColor,
                     modifier = Modifier.size(14.dp),
                 )

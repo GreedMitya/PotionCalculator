@@ -10,6 +10,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
+import org.jetbrains.compose.resources.stringResource
+import potioncalculator.composeapp.generated.resources.*
 
 @Composable
 fun TitleSection(modifier: Modifier = Modifier) {
@@ -18,13 +20,13 @@ fun TitleSection(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Potion Crafting",
+            text = stringResource(Res.string.app_title),
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color(0xFFC47A30)
         )
         Text(
-            text = "Profit Calculator",
+            text = stringResource(Res.string.craft_subtitle),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             color = Color(0xFFC47A30)
