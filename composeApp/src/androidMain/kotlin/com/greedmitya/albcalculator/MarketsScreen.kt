@@ -58,6 +58,7 @@ import com.greedmitya.albcalculator.constants.ALBION_COMPONENT_TIERS
 import com.greedmitya.albcalculator.constants.ALBION_ENCHANT_LEVELS
 import com.greedmitya.albcalculator.constants.ALBION_POTION_TIERS
 import com.greedmitya.albcalculator.constants.FILTER_ALL
+import com.greedmitya.albcalculator.i18n.LocalGameNameProvider
 import com.greedmitya.albcalculator.util.formatSilver
 import org.jetbrains.compose.resources.stringResource
 import potioncalculator.composeapp.generated.resources.*
@@ -388,12 +389,13 @@ private fun MarketItemCard(
             .background(AppColors.Gray500, RoundedCornerShape(8.dp))
             .padding(12.dp),
     ) {
-        // Resolve display name: use parsed potion name (e.g. "T4 Healing Potion") or raw row name
+        // Resolve display name — localized for display; image loading keeps English potionInfo.displayName
+        val gameNameProvider = LocalGameNameProvider.current
         val cardDisplayName = if (potionInfo != null) {
-            "${potionInfo.tier} ${potionInfo.displayName}" +
+            "${potionInfo.tier} ${gameNameProvider.getPotionDisplayName(potionInfo.displayName)}" +
                 if (potionInfo.enchant > 0) " (.${potionInfo.enchant})" else ""
         } else {
-            row.displayName
+            gameNameProvider.getIngredientName(row.itemId)
         }
 
         // Header: icon + name + best price
@@ -708,6 +710,7 @@ private fun filterMarketPotions(
 @Composable
 private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
     val enchantSuffix = if (result.enchantment > 0) " (.${result.enchantment})" else ""
+    val localizedPotionName = LocalGameNameProvider.current.getPotionDisplayName(result.potionDisplayName)
     val profitColor = if (result.profitSilver > 0) Color(0xFF4CAF50) else if(result.profitSilver < 0) Color(0xFFF44336)
     else AppColors.LightBeige
     val sign = if (result.profitSilver >= 0) "+" else ""
@@ -729,7 +732,7 @@ private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "${result.tier} ${result.potionDisplayName}$enchantSuffix",
+                text = "${result.tier} $localizedPotionName$enchantSuffix",
                 color = AppColors.LightBeige,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,

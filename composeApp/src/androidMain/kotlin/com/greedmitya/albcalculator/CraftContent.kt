@@ -36,6 +36,7 @@ import com.greedmitya.albcalculator.components.SelectorBlock
 import com.greedmitya.albcalculator.components.SmallInputField
 import com.greedmitya.albcalculator.components.ToggleOption
 import com.greedmitya.albcalculator.components.showTimedSnackbar
+import com.greedmitya.albcalculator.i18n.LocalGameNameProvider
 import com.greedmitya.albcalculator.ui.components.IngredientItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -56,6 +57,7 @@ fun CraftContent(
     val useFocus = viewModel.useFocus
     var craftSubTab by rememberSaveable { mutableIntStateOf(0) }
     val activity = LocalContext.current as? Activity
+    val gameNameProvider = LocalGameNameProvider.current
 
     val copiedText = stringResource(Res.string.snackbar_copied)
     val fillText = stringResource(Res.string.snackbar_fill)
@@ -129,7 +131,8 @@ fun CraftContent(
             onOptionSelected = { viewModel.onPotionSelected(it) },
             isError = viewModel.isPotionError,
             menuMaxHeight = 240.dp,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            displayTransform = { gameNameProvider.getPotionDisplayName(it) },
         )
 
         Spacer(Modifier.height(12.dp))
@@ -267,7 +270,8 @@ fun CraftContent(
             val result = viewModel.result
             if (viewModel.selectedPotion != null) {
                 ResultItem(
-                    potionDisplayName = viewModel.selectedPotion ?: "",
+                    potionDisplayName = gameNameProvider.getPotionDisplayName(viewModel.selectedPotion ?: ""),
+                    potionEnglishName = viewModel.selectedPotion ?: "",
                     tier = viewModel.selectedTier ?: "T4",
                     enchantment = viewModel.enchantments.indexOf(viewModel.selectedEnchantment ?: "Normal (.0)"),
                     pricePerItem = viewModel.potionSellPrice,

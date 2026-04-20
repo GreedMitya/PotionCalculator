@@ -39,6 +39,7 @@ import potioncalculator.composeapp.generated.resources.*
 @Composable
 fun ResultItem(
     potionDisplayName: String,
+    potionEnglishName: String = potionDisplayName,
     tier: String,
     enchantment: Int,
     pricePerItem: String,
@@ -109,7 +110,7 @@ fun ResultItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                bitmap = loadPotionImageBitmapFromDisplayName(potionDisplayName, tier, enchantment),
+                bitmap = loadPotionImageBitmapFromDisplayName(potionEnglishName, tier, enchantment),
                 contentDescription = potionDisplayName,
                 modifier = Modifier
                     .size(90.dp)

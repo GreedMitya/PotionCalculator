@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.assets.loadPotionImageBitmapFromDisplayName
 import com.greedmitya.albcalculator.components.AppColors
+import com.greedmitya.albcalculator.i18n.LocalGameNameProvider
 import com.greedmitya.albcalculator.components.DeleteFromFavoritesDialog
 import com.greedmitya.albcalculator.model.FavoriteRecipe
 import org.jetbrains.compose.resources.stringResource
@@ -146,7 +147,7 @@ fun FavoriteRecipeItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = recipe.potionName,
+                    text = LocalGameNameProvider.current.getPotionDisplayName(recipe.potionName),
                     color = AppColors.PrimaryGold,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
