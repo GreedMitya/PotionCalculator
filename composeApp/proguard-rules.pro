@@ -1,5 +1,8 @@
 # General
 -keepattributes *Annotation*, Signature, InnerClasses, EnclosingMethod
+# Preserve file names and line numbers in crash stack traces (Play Console / Firebase)
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile
 
 # Ktor & Kotlinx Serialization
 -dontwarn io.ktor.**

@@ -1,0 +1,6 @@
+Public Beta v8.0
+
+- Added 8 new UI language translations: Spanish, German, French, Portuguese, Polish, Chinese, Korean, Japanese
+- Fixed edge-to-edge display compatibility for Android 15+ (SDK 35/36)
+- Resolved unsupported system bar API warnings flagged by Google Play
+- General stability improvements
