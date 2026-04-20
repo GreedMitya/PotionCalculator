@@ -2,14 +2,14 @@
 <resources>
 
     <!-- ── Bottom navigation ─────────────────────────────────────────── -->
-    <string name="nav_craft">Крафт</string>
-    <string name="nav_markets">Рынки</string>
-    <string name="nav_favorites">Избранное</string>
-    <string name="nav_how_to_use">Как использовать</string>
-    <string name="nav_settings">Настройки</string>
+    <string name="nav_craft">Craft</string>
+    <string name="nav_markets">Markets</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_how_to_use">How to use</string>
+    <string name="nav_settings">Settings</string>
 
     <!-- ── Shared ───────────────────────────────────────────────────── -->
-    <string name="app_title">Зельеварение</string>
+    <string name="app_title">Potion Crafting</string>
     <string name="button_cancel">Отмена</string>
     <string name="button_delete">Удалить</string>
     <string name="button_save">Сохранить</string>
@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Калькулятор прибыли</string>
-    <string name="craft_tab_free">Крафт</string>
+    <string name="craft_tab_free">Craft</string>
     <!-- craft_tab_premium intentionally absent — brand name, see NonLocalizedStrings.kt -->
     <string name="craft_selector_potion">Зелье</string>
     <string name="craft_selector_tier">Уровень</string>
