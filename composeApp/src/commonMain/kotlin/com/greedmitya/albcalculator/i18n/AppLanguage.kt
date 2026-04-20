@@ -4,11 +4,12 @@ enum class AppLanguage(
     val code: String,
     val displayName: String,
     val bcp47Tag: String,
+    val isAvailable: Boolean = false,
 ) {
-    ENGLISH("en", "English", "en"),
+    ENGLISH("en", "English", "en", isAvailable = true),
+    RUSSIAN("ru", "Русский", "ru", isAvailable = true),
     SPANISH("es", "Español", "es"),
     PORTUGUESE("pt", "Português", "pt-BR"),
-    RUSSIAN("ru", "Русский", "ru"),
     GERMAN("de", "Deutsch", "de"),
     FRENCH("fr", "Français", "fr"),
     CHINESE("zh", "中文", "zh-Hans"),
@@ -18,6 +19,7 @@ enum class AppLanguage(
 
     companion object {
         val DEFAULT = ENGLISH
+        val available get() = entries.filter { it.isAvailable }
 
         fun fromCode(code: String): AppLanguage =
             entries.find { it.code == code } ?: DEFAULT
