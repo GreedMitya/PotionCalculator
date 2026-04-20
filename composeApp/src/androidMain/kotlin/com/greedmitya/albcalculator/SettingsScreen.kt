@@ -51,7 +51,7 @@ fun SettingsScreen(viewModel: CraftViewModel, scrollState: ScrollState) {
     val languageRepo = koinInject<com.greedmitya.albcalculator.domain.LanguagePreferenceRepository>()
     val scope = rememberCoroutineScope()
 
-    val languageOptions = AppLanguage.entries.map { it.code }
+    val languageOptions = AppLanguage.available.map { it.code }
 
     Column(
         modifier = Modifier
