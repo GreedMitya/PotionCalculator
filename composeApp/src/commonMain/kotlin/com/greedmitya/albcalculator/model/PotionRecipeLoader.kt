@@ -16,10 +16,10 @@ object PotionRecipeLoader {
 
     private val json = Json { ignoreUnknownKeys = true }
 
-    @Volatile
+    @kotlin.concurrent.Volatile
     private var _ingredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ingredient>>>> = emptyMap()
 
-    @Volatile
+    @kotlin.concurrent.Volatile
     private var _itemValues: Map<String, Map<String, Int>> = emptyMap()
 
     val ingredientsByTierAndEnchant: Map<String, Map<String, Map<Int, List<Ingredient>>>>

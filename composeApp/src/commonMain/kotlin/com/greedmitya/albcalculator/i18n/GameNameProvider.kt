@@ -1,5 +1,7 @@
 package com.greedmitya.albcalculator.i18n
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * Resolves Albion Online game item names in the active language.
  *
@@ -22,4 +24,10 @@ interface GameNameProvider {
 
     /** The language currently loaded. */
     val currentLanguage: AppLanguage
+
+    /**
+     * Emits the active language every time [loadForLanguage] completes.
+     * Observe this in the UI to trigger recomposition after a language change.
+     */
+    val languageChanges: StateFlow<AppLanguage>
 }

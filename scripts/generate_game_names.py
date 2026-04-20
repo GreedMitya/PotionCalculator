@@ -135,25 +135,23 @@ INGREDIENT_FALLBACKS = {
 # They are omitted here → JsonGameNameProvider falls back to English for them.
 # ---------------------------------------------------------------------------
 POTION_ID_MAP = {
-    "Healing Potion":      "T4_POTION_HEAL",
-    "Energy Potion":       "T4_POTION_ENERGY",
-    "Gigantify Potion":    "T5_POTION_REVIVE",
-    "Resistance Potion":   "T5_POTION_STONESKIN",
-    "Sticky Potion":       "T5_POTION_SLOWFIELD",
-    "Poison Potion":       "T6_POTION_COOLDOWN",
-    "Invisibility Potion": "T8_POTION_CLEANSE",
-    "Cleanse Potion":      "T5_POTION_CLEANSE2",
-    "Stoneskin Potion":    "T5_POTION_STONESKIN",
-    "Berserk Potion":      "T6_POTION_BERSERK",
-    "Pork Omelette":       "T7_MEAL_OMELETTE",
-    "Beef Stew":           "T8_MEAL_STEW",
-    "Goose Pie":           "T5_MEAL_PIE",
-    "Roast Pork":          "T7_MEAL_ROAST",
-    "Alcohol":             "T6_ALCOHOL",
-    "Tornado in a Bottle": "T6_POTION_TORNADO",
-    # Intentionally omitted (not found in dump):
-    #   "Revive Potion"   — will fall back to English in app
-    #   "Gravitas Potion" — will fall back to English in app
+    "Healing Potion":       "T4_POTION_HEAL",
+    "Energy Potion":        "T4_POTION_ENERGY",
+    "Gigantify Potion":     "T5_POTION_REVIVE",      # internal ID = REVIVE
+    "Resistance Potion":    "T5_POTION_STONESKIN",   # internal ID = STONESKIN
+    "Sticky Potion":        "T5_POTION_SLOWFIELD",
+    "Poison Potion":        "T6_POTION_COOLDOWN",
+    "Invisibility Potion":  "T8_POTION_CLEANSE",
+    "Berserk Potion":       "T6_POTION_BERSERK",
+    "Cleansing Potion":     "T5_POTION_CLEANSE2",    # key fixed (was "Cleanse Potion")
+    "Acid Potion":          "T5_POTION_ACID",
+    "Calming Potion":       "T5_POTION_MOB_RESET",
+    "Hellfire Potion":      "T6_POTION_LAVA",
+    "Gathering Potion":     "T6_POTION_GATHER",
+    "Tornado in a Bottle":  "T6_POTION_TORNADO",
+    "Alcohol":              "T4_ALCOHOL",            # generic label for dropdown
+    # Removed stale entries not in CraftViewModel.allPotions:
+    #   "Stoneskin Potion", "Pork Omelette", "Beef Stew", "Goose Pie", "Roast Pork"
 }
 
 # Cities are proper nouns in Albion Online — never translated.

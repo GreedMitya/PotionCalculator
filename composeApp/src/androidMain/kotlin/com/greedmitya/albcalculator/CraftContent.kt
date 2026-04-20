@@ -1,6 +1,6 @@
 package com.greedmitya.albcalculator
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -56,7 +55,7 @@ fun CraftContent(
     val isPremium = viewModel.isPremium
     val useFocus = viewModel.useFocus
     var craftSubTab by rememberSaveable { mutableIntStateOf(0) }
-    val activity = LocalContext.current as? Activity
+    val activity = LocalActivity.current
     val gameNameProvider = LocalGameNameProvider.current
 
     val copiedText = stringResource(Res.string.snackbar_copied)
@@ -270,7 +269,14 @@ fun CraftContent(
             val result = viewModel.result
             if (viewModel.selectedPotion != null) {
                 ResultItem(
-                    potionDisplayName = gameNameProvider.getPotionDisplayName(viewModel.selectedPotion ?: ""),
+                    potionDisplayName = run {
+                        val potion = viewModel.selectedPotion ?: ""
+                        if (potion == "Alcohol") {
+                            gameNameProvider.getIngredientName("${viewModel.selectedTier ?: "T6"}_ALCOHOL")
+                        } else {
+                            gameNameProvider.getPotionDisplayName(potion)
+                        }
+                    },
                     potionEnglishName = viewModel.selectedPotion ?: "",
                     tier = viewModel.selectedTier ?: "T4",
                     enchantment = viewModel.enchantments.indexOf(viewModel.selectedEnchantment ?: "Normal (.0)"),

@@ -1,6 +1,6 @@
 package com.greedmitya.albcalculator
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -38,7 +38,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -70,7 +69,7 @@ fun MarketsScreen(
     scrollState: ScrollState,
     snackbarHostState: SnackbarHostState,
 ) {
-    val activity = LocalContext.current as? Activity
+    val activity = LocalActivity.current
 
     val networkError = craftViewModel.networkError
     LaunchedEffect(networkError) {
@@ -392,8 +391,12 @@ private fun MarketItemCard(
         // Resolve display name — localized for display; image loading keeps English potionInfo.displayName
         val gameNameProvider = LocalGameNameProvider.current
         val cardDisplayName = if (potionInfo != null) {
-            "${potionInfo.tier} ${gameNameProvider.getPotionDisplayName(potionInfo.displayName)}" +
-                if (potionInfo.enchant > 0) " (.${potionInfo.enchant})" else ""
+            val localizedName = if (potionInfo.displayName == "Alcohol") {
+                gameNameProvider.getIngredientName("${potionInfo.tier}_ALCOHOL")
+            } else {
+                gameNameProvider.getPotionDisplayName(potionInfo.displayName)
+            }
+            "${potionInfo.tier} $localizedName${if (potionInfo.enchant > 0) " (.${potionInfo.enchant})" else ""}"
         } else {
             gameNameProvider.getIngredientName(row.itemId)
         }
@@ -710,7 +713,13 @@ private fun filterMarketPotions(
 @Composable
 private fun AdvisorResultRow(rank: Int, result: PotionAdvisorResult) {
     val enchantSuffix = if (result.enchantment > 0) " (.${result.enchantment})" else ""
-    val localizedPotionName = LocalGameNameProvider.current.getPotionDisplayName(result.potionDisplayName)
+    val localizedPotionName = LocalGameNameProvider.current.let { provider ->
+        if (result.potionDisplayName == "Alcohol") {
+            provider.getIngredientName("${result.tier}_ALCOHOL")
+        } else {
+            provider.getPotionDisplayName(result.potionDisplayName)
+        }
+    }
     val profitColor = if (result.profitSilver > 0) Color(0xFF4CAF50) else if(result.profitSilver < 0) Color(0xFFF44336)
     else AppColors.LightBeige
     val sign = if (result.profitSilver >= 0) "+" else ""

@@ -1,6 +1,9 @@
 package com.greedmitya.albcalculator.i18n
 
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import potioncalculator.composeapp.generated.resources.Res
@@ -23,6 +26,9 @@ class JsonGameNameProvider : GameNameProvider {
     override var currentLanguage: AppLanguage = AppLanguage.DEFAULT
         private set
 
+    private val _languageChanges = MutableStateFlow(AppLanguage.DEFAULT)
+    override val languageChanges: StateFlow<AppLanguage> = _languageChanges.asStateFlow()
+
     @OptIn(ExperimentalResourceApi::class)
     override suspend fun loadForLanguage(language: AppLanguage) {
         // Always ensure English is loaded as fallback
@@ -41,6 +47,7 @@ class JsonGameNameProvider : GameNameProvider {
 
         activeData = data
         currentLanguage = language
+        _languageChanges.value = language
     }
 
     @OptIn(ExperimentalResourceApi::class)

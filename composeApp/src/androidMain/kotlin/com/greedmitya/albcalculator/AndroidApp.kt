@@ -5,6 +5,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.core.os.LocaleListCompat
 import com.greedmitya.albcalculator.domain.LanguagePreferenceRepository
 import com.greedmitya.albcalculator.i18n.GameNameProvider
@@ -27,7 +30,13 @@ fun AndroidApp() {
         )
     }
 
-    CompositionLocalProvider(LocalGameNameProvider provides gameNameProvider) {
+    // Each time loadForLanguage() completes, languageChanges emits a new value.
+    // remember(currentLanguage) creates a new wrapper object — its changed reference
+    // tells CompositionLocalProvider to recompose all consumers instantly.
+    val currentLanguage by gameNameProvider.languageChanges.collectAsState()
+    val activeProvider = remember(currentLanguage) { object : GameNameProvider by gameNameProvider {} }
+
+    CompositionLocalProvider(LocalGameNameProvider provides activeProvider) {
         MaterialTheme {
             AppNavigation(viewModel)
         }

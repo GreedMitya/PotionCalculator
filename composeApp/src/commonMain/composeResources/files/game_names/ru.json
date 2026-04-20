@@ -56,14 +56,12 @@
     "Sticky Potion": "Вязкая настойка",
     "Poison Potion": "Эликсир яда",
     "Invisibility Potion": "Эликсир невидимости",
-    "Calming Potion": "Успокаивающее зелье",
+    "Berserk Potion": "Зелье берсерка",
     "Cleansing Potion": "Очищающее зелье",
     "Acid Potion": "Кислотное зелье",
-    "Stoneskin Potion": "Эликсир защиты",
-    "Berserk Potion": "Зелье берсерка",
+    "Calming Potion": "Успокаивающее зелье",
     "Hellfire Potion": "Зелье адского пламени",
     "Gathering Potion": "Зелье собирателя",
-    "Alcohol": "Алкоголь",
     "Tornado in a Bottle": "Буря в стакане"
   },
   "cities": {
