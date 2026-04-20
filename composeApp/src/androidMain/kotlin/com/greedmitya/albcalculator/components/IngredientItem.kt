@@ -37,8 +37,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.greedmitya.albcalculator.components.AppColors
-import com.greedmitya.albcalculator.assets.getDisplayNameFromItemId
 import com.greedmitya.albcalculator.assets.loadIngredientImageBitmapById
+import com.greedmitya.albcalculator.i18n.LocalGameNameProvider
 import com.greedmitya.albcalculator.components.rememberBlinkingError
 import com.greedmitya.albcalculator.ui.theme.EBGaramond
 import com.greedmitya.albcalculator.util.formatSilver
@@ -58,7 +58,7 @@ fun IngredientItem(
 ) {
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
-    val displayName = getDisplayNameFromItemId(ingredient.name)
+    val displayName = LocalGameNameProvider.current.getIngredientName(ingredient.name)
 
 
     Column(
