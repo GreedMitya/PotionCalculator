@@ -8,14 +8,14 @@ enum class AppLanguage(
 ) {
     ENGLISH("en", "English", "en", isAvailable = true),
     RUSSIAN("ru", "Русский", "ru", isAvailable = true),
-    SPANISH("es", "Español", "es"),
-    PORTUGUESE("pt", "Português", "pt-BR"),
-    GERMAN("de", "Deutsch", "de"),
-    FRENCH("fr", "Français", "fr"),
-    CHINESE("zh", "中文", "zh-Hans"),
-    KOREAN("ko", "한국어", "ko"),
-    JAPANESE("ja", "日本語", "ja"),
-    POLISH("pl", "Polski", "pl");
+    SPANISH("es", "Español", "es", isAvailable = true),
+    PORTUGUESE("pt", "Português", "pt-BR", isAvailable = true),
+    GERMAN("de", "Deutsch", "de", isAvailable = true),
+    FRENCH("fr", "Français", "fr", isAvailable = true),
+    CHINESE("zh", "中文", "zh-Hans", isAvailable = true),
+    KOREAN("ko", "한국어", "ko", isAvailable = true),
+    JAPANESE("ja", "日本語", "ja", isAvailable = true),
+    POLISH("pl", "Polski", "pl", isAvailable = true);
 
     companion object {
         val DEFAULT = ENGLISH

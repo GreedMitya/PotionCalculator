@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── Bottom navigation ─────────────────────────────────────────── -->
+    <string name="nav_craft">Rzemiosło</string>
+    <string name="nav_markets">Rynki</string>
+    <string name="nav_favorites">Ulubione</string>
+    <string name="nav_how_to_use">Jak używać</string>
+    <string name="nav_settings">Ustawienia</string>
+
+    <!-- ── Shared ───────────────────────────────────────────────────── -->
+    <string name="app_title">Wytwarzanie mikstur</string>
+    <string name="button_cancel">Anuluj</string>
+    <string name="button_delete">Usuń</string>
+    <string name="button_save">Zapisz</string>
+    <string name="placeholder_enter">Wprowadź</string>
+    <string name="placeholder_choose">Wybierz</string>
+    <string name="snackbar_copied">Skopiowano!</string>
+    <string name="snackbar_fill">Wypełnij!</string>
+
+    <!-- ── Craft screen ──────────────────────────────────────────────── -->
+    <string name="craft_subtitle">Kalkulator zysku</string>
+    <string name="craft_tab_free">Rzemiosło</string>
+    <string name="craft_selector_potion">Mikstura</string>
+    <string name="craft_selector_tier">Poziom</string>
+    <string name="craft_selector_enchantment">Zaklęcie</string>
+    <string name="craft_selector_city">Miasto</string>
+    <string name="craft_fee_label">Opłata za 100 pożywienia</string>
+    <string name="craft_toggle_premium">Premium</string>
+    <string name="craft_toggle_focus">Skupienie</string>
+    <string name="craft_focus_basic">Podstawowy</string>
+    <string name="craft_focus_mastery">Mistrzostwo</string>
+    <string name="craft_focus_total">Łącznie</string>
+    <string name="craft_runs_label">Liczba wytworzonych</string>
+    <string name="button_calculate">Oblicz</string>
+    <string name="button_market">Rynek</string>
+    <string name="button_reset_prices">Resetuj ceny</string>
+    <string name="button_save_favorites">Zapisz do ulubionych</string>
+
+    <!-- ── Ingredient / Result items ────────────────────────────────── -->
+    <string name="label_price_per_item">Cena za przedmiot</string>
+    <string name="label_price_per_potion">Cena za miksturę</string>
+    <string name="label_quantity">Ilość</string>
+    <string name="label_total_cost">Koszt całkowity</string>
+    <string name="label_profit">Zysk</string>
+    <string name="label_total_runs">Łącznie (%1$d wytworzeń)</string>
+
+    <!-- ── Settings screen ───────────────────────────────────────────── -->
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_server_region">Region serwera dla cen API</string>
+    <string name="settings_language">Język</string>
+
+    <!-- ── Favorites screen ──────────────────────────────────────────── -->
+    <string name="favorites_title">Ulubione</string>
+
+    <!-- ── How to Use screen ─────────────────────────────────────────── -->
+    <string name="how_to_use_title">Jak używać</string>
+    <string name="how_to_use_note">Uwaga: ceny API mogą nie odzwierciedlać zmian rynkowych w czasie rzeczywistym.</string>
+
+    <!-- ── Markets screen ───────────────────────────────────────────── -->
+    <string name="markets_title">Rynki</string>
+    <string name="markets_tab_herbs">Zioła</string>
+    <string name="markets_tab_components">Komponenty</string>
+    <string name="markets_tab_potions">Mikstury</string>
+    <string name="markets_tab_advisor">Doradca</string>
+    <string name="markets_filter_all">Wszystkie</string>
+    <string name="button_refresh">Odśwież</string>
+    <string name="markets_empty_hint">Naciśnij Odśwież, aby załadować ceny</string>
+    <string name="markets_server_label">Serwer: %1$s</string>
+    <string name="markets_error">Błąd: %1$s</string>
+
+    <!-- ── Premium upgrade screen ────────────────────────────────────── -->
+    <string name="premium_badge">CRAFT+</string>
+    <string name="premium_title">Odblokuj Premium</string>
+    <string name="premium_features_header">Co otrzymujesz:</string>
+    <string name="premium_feature_focus">Kalkulator rzemiosła ze skupieniem</string>
+    <string name="premium_feature_batch">Tryb wsadowy</string>
+    <string name="premium_feature_monitor">Monitor cen we wszystkich miastach</string>
+    <string name="premium_feature_advisor">Doradca zysku z mikstur</string>
+    <string name="button_buy_premium">Kup Premium</string>
+    <string name="button_restore">Przywróć zakup</string>
+    <string name="premium_disclaimer">Jednorazowy zakup. Bez subskrypcji.</string>
+
+    <!-- ── Dialogs ───────────────────────────────────────────────────── -->
+    <string name="dialog_delete_title">Usuń z ulubionych</string>
+    <string name="dialog_delete_message">Usunąć tę miksturę z ulubionych?</string>
+    <string name="dialog_save_title">Zapisz do ulubionych</string>
+    <string name="dialog_save_message">Zapisać tę miksturę do ulubionych?</string>
+
+    <!-- ── Content descriptions (accessibility) ─────────────────────── -->
+    <string name="cd_copy_ingredient_name">Skopiuj nazwę składnika</string>
+    <string name="cd_copy_potion_name">Skopiuj nazwę mikstury</string>
+    <string name="cd_remove">Usuń</string>
+    <string name="cd_apply">Zastosuj</string>
+
+    <!-- ── How to Use screen — instructions ──────────────────────────── -->
+    <string name="how_to_use_step1">Wybierz miksturę, jej poziom i stopień zaklęcia.</string>
+    <string name="how_to_use_step2">Wybierz miasto do wytwarzania i wpisz opłatę za 100 pożywienia.</string>
+    <string name="how_to_use_step3">Włącz przełącznik Konta Premium jeśli je posiadasz, i Skupienia jeśli planujesz go używać.</string>
+    <string name="how_to_use_step4">Wpisz ceny składników i mikstury, następnie naciśnij «Oblicz».\nMożesz też nacisnąć «Ceny rynkowe», aby pobrać ceny przez API.</string>
+    <string name="how_to_use_basic_explanation">Podstawowy = ogólny poziom rzemiosła</string>
+    <string name="how_to_use_mastery_explanation">Mistrzostwo = specjalizacja dla tego rodzaju mikstury</string>
+    <string name="how_to_use_total_explanation">Łącznie = całkowite mistrzostwo tej gałęzi</string>
+
+    <!-- ── Markets screen — additional ───────────────────────────────── -->
+    <string name="markets_best_sell">Najlepsza sprzedaż</string>
+    <string name="markets_best_buy">Najlepszy zakup</string>
+    <string name="markets_no_data">Brak danych</string>
+    <string name="markets_filter_enchant">Zaklęcie</string>
+    <string name="markets_analyze">Analizuj</string>
+    <string name="markets_advisor_idle">Wybierz miasto i naciśnij Analizuj</string>
+    <string name="markets_top_profitable">TOP %1$d — NAJBARDZIEJ OPŁACALNE</string>
+    <string name="markets_top_leveling">TOP %1$d — DO LEVELOWANIA</string>
+    <string name="markets_leveling_subtitle">Mała strata, dużo XP rzemiosła</string>
+    <string name="markets_show_less">Pokaż mniej ▲</string>
+    <string name="markets_show_more">Pokaż %1$d więcej ▼</string>
+    <string name="markets_skipped">%1$d mikstur pominięto — brak danych rynkowych</string>
+
+    <!-- ── Premium screen — purchasing state ──────────────────────────── -->
+    <string name="premium_purchasing">…</string>
+
+</resources>

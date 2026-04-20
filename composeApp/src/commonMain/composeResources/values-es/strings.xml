@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ── Bottom navigation ─────────────────────────────────────────── -->
+    <string name="nav_craft">Elaborar</string>
+    <string name="nav_markets">Mercados</string>
+    <string name="nav_favorites">Favoritos</string>
+    <string name="nav_how_to_use">Cómo usar</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- ── Shared ───────────────────────────────────────────────────── -->
+    <string name="app_title">Elaboración de pociones</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="button_delete">Eliminar</string>
+    <string name="button_save">Guardar</string>
+    <string name="placeholder_enter">Introducir</string>
+    <string name="placeholder_choose">Elegir</string>
+    <string name="snackbar_copied">¡Copiado!</string>
+    <string name="snackbar_fill">¡Rellena!</string>
+
+    <!-- ── Craft screen ──────────────────────────────────────────────── -->
+    <string name="craft_subtitle">Calculadora de beneficios</string>
+    <string name="craft_tab_free">Elaborar</string>
+    <string name="craft_selector_potion">Poción</string>
+    <string name="craft_selector_tier">Nivel</string>
+    <string name="craft_selector_enchantment">Encantamiento</string>
+    <string name="craft_selector_city">Ciudad</string>
+    <string name="craft_fee_label">Tarifa por 100 de nutrición</string>
+    <string name="craft_toggle_premium">Premium</string>
+    <string name="craft_toggle_focus">Foco</string>
+    <string name="craft_focus_basic">Básico</string>
+    <string name="craft_focus_mastery">Maestría</string>
+    <string name="craft_focus_total">Total</string>
+    <string name="craft_runs_label">Elaboraciones</string>
+    <string name="button_calculate">Calcular</string>
+    <string name="button_market">Mercado</string>
+    <string name="button_reset_prices">Restablecer precios</string>
+    <string name="button_save_favorites">Guardar en favoritos</string>
+
+    <!-- ── Ingredient / Result items ────────────────────────────────── -->
+    <string name="label_price_per_item">Precio por ítem</string>
+    <string name="label_price_per_potion">Precio por poción</string>
+    <string name="label_quantity">Cantidad</string>
+    <string name="label_total_cost">Coste total</string>
+    <string name="label_profit">Beneficio</string>
+    <string name="label_total_runs">Total (%1$d elaboraciones)</string>
+
+    <!-- ── Settings screen ───────────────────────────────────────────── -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_server_region">Región del servidor para precios API</string>
+    <string name="settings_language">Idioma</string>
+
+    <!-- ── Favorites screen ──────────────────────────────────────────── -->
+    <string name="favorites_title">Favoritos</string>
+
+    <!-- ── How to Use screen ─────────────────────────────────────────── -->
+    <string name="how_to_use_title">Cómo usar</string>
+    <string name="how_to_use_note">Nota: los precios API pueden no reflejar cambios en tiempo real.</string>
+
+    <!-- ── Markets screen ───────────────────────────────────────────── -->
+    <string name="markets_title">Mercados</string>
+    <string name="markets_tab_herbs">Hierbas</string>
+    <string name="markets_tab_components">Componentes</string>
+    <string name="markets_tab_potions">Pociones</string>
+    <string name="markets_tab_advisor">Asesor</string>
+    <string name="markets_filter_all">Todos</string>
+    <string name="button_refresh">Actualizar</string>
+    <string name="markets_empty_hint">Pulsa Actualizar para cargar precios</string>
+    <string name="markets_server_label">Servidor: %1$s</string>
+    <string name="markets_error">Error: %1$s</string>
+
+    <!-- ── Premium upgrade screen ────────────────────────────────────── -->
+    <string name="premium_badge">CRAFT+</string>
+    <string name="premium_title">Desbloquear Premium</string>
+    <string name="premium_features_header">Qué obtienes:</string>
+    <string name="premium_feature_focus">Calculadora de elaboración con foco</string>
+    <string name="premium_feature_batch">Modo de elaboración en lote</string>
+    <string name="premium_feature_monitor">Monitor de precios en todas las ciudades</string>
+    <string name="premium_feature_advisor">Asesor de beneficios de pociones</string>
+    <string name="button_buy_premium">Comprar Premium</string>
+    <string name="button_restore">Restaurar compra</string>
+    <string name="premium_disclaimer">Compra única. Sin suscripción.</string>
+
+    <!-- ── Dialogs ───────────────────────────────────────────────────── -->
+    <string name="dialog_delete_title">Eliminar de favoritos</string>
+    <string name="dialog_delete_message">¿Eliminar esta poción de tus favoritos?</string>
+    <string name="dialog_save_title">Guardar en favoritos</string>
+    <string name="dialog_save_message">¿Guardar esta poción en favoritos?</string>
+
+    <!-- ── Content descriptions (accessibility) ─────────────────────── -->
+    <string name="cd_copy_ingredient_name">Copiar nombre del ingrediente</string>
+    <string name="cd_copy_potion_name">Copiar nombre de la poción</string>
+    <string name="cd_remove">Eliminar</string>
+    <string name="cd_apply">Aplicar</string>
+
+    <!-- ── How to Use screen — instructions ──────────────────────────── -->
+    <string name="how_to_use_step1">Selecciona la poción que quieres elaborar, su nivel y grado de encantamiento.</string>
+    <string name="how_to_use_step2">Elige la ciudad donde elaborarás e introduce la tarifa por 100 de nutrición.</string>
+    <string name="how_to_use_step3">Activa el interruptor de cuenta Premium si la tienes y el de Foco si planeas usarlo.</string>
+    <string name="how_to_use_step4">Introduce los precios de los ingredientes y la poción resultante, luego pulsa «Calcular».\nTambién puedes pulsar «Precios de mercado» para obtener precios vía API.</string>
+    <string name="how_to_use_basic_explanation">Básico = nivel general de elaboración</string>
+    <string name="how_to_use_mastery_explanation">Maestría = especialización para este tipo de poción</string>
+    <string name="how_to_use_total_explanation">Total = maestría total de esta rama</string>
+
+    <!-- ── Markets screen — additional ───────────────────────────────── -->
+    <string name="markets_best_sell">Mejor venta</string>
+    <string name="markets_best_buy">Mejor compra</string>
+    <string name="markets_no_data">Sin datos</string>
+    <string name="markets_filter_enchant">Encantamiento</string>
+    <string name="markets_analyze">Analizar</string>
+    <string name="markets_advisor_idle">Selecciona una ciudad y pulsa Analizar</string>
+    <string name="markets_top_profitable">TOP %1$d — MÁS RENTABLES</string>
+    <string name="markets_top_leveling">TOP %1$d — PARA SUBIR NIVEL</string>
+    <string name="markets_leveling_subtitle">Pequeña pérdida, mucha XP de elaboración</string>
+    <string name="markets_show_less">Mostrar menos ▲</string>
+    <string name="markets_show_more">Mostrar %1$d más ▼</string>
+    <string name="markets_skipped">%1$d pociones omitidas — faltan datos de mercado</string>
+
+    <!-- ── Premium screen — purchasing state ──────────────────────────── -->
+    <string name="premium_purchasing">…</string>
+
+</resources>
