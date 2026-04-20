@@ -28,7 +28,7 @@
     <string name="craft_selector_city">Город</string>
     <string name="craft_fee_label">Сбор за 100 питания</string>
     <string name="craft_toggle_premium">Премиум</string>
-    <string name="craft_toggle_focus">Использовать фокус</string>
+    <string name="craft_toggle_focus">Фокус</string>
     <string name="craft_focus_basic">Базовый</string>
     <string name="craft_focus_mastery">Мастерство</string>
     <string name="craft_focus_total">Итого</string>

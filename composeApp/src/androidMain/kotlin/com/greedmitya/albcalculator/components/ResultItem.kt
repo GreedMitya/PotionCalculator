@@ -65,7 +65,7 @@ fun ResultItem(
 
     Column(
         modifier = modifier
-            .width(350.dp)
+            .fillMaxWidth()
             .background(AppColors.Gray400, RoundedCornerShape(8.dp))
             .padding(bottom = 12.dp)
     ) {
@@ -123,7 +123,6 @@ fun ResultItem(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = stringResource(Res.string.label_price_per_potion),
@@ -131,8 +130,9 @@ fun ResultItem(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         fontFamily = EBGaramond,
-                        modifier = Modifier.fillMaxWidth(0.4f)
+                        modifier = Modifier.weight(1f),
                     )
+                    Spacer(Modifier.width(8.dp))
                     Box(
                         modifier = Modifier
                             .width(120.dp)
