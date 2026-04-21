@@ -111,7 +111,7 @@
     <string name="markets_best_buy">Лучшая покупка</string>
     <string name="markets_no_data">Нет данных</string>
     <string name="markets_filter_enchant">Зачарование</string>
-    <string name="markets_analyze">Анализировать</string>
+    <string name="markets_analyze">Анализ</string>
     <string name="markets_advisor_idle">Выберите город и нажмите «Анализировать»</string>
     <string name="markets_top_profitable">ТОП %1$d — САМЫЕ ПРИБЫЛЬНЫЕ</string>
     <string name="markets_top_leveling">ТОП %1$d — ДЛЯ ПРОКАЧКИ</string>
