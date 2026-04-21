@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Gewinnrechner</string>
-    <string name="craft_tab_free">Handwerk</string>
+    <string name="craft_tab_free">Craft</string>
     <string name="craft_selector_potion">Trank</string>
     <string name="craft_selector_tier">Stufe</string>
     <string name="craft_selector_enchantment">Verzauberung</string>

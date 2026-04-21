@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Calculadora de beneficios</string>
-    <string name="craft_tab_free">Elaborar</string>
+    <string name="craft_tab_free">Craft</string>
     <string name="craft_selector_potion">Poción</string>
     <string name="craft_selector_tier">Nivel</string>
     <string name="craft_selector_enchantment">Encantamiento</string>

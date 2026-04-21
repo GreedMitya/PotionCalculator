@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Calculadora de Lucro</string>
-    <string name="craft_tab_free">Artesanato</string>
+    <string name="craft_tab_free">Craft</string>
     <string name="craft_selector_potion">Poção</string>
     <string name="craft_selector_tier">Nível</string>
     <string name="craft_selector_enchantment">Encantamento</string>

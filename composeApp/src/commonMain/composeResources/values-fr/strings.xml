@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Calculateur de profit</string>
-    <string name="craft_tab_free">Artisanat</string>
+    <string name="craft_tab_free">Craft</string>
     <string name="craft_selector_potion">Potion</string>
     <string name="craft_selector_tier">Niveau</string>
     <string name="craft_selector_enchantment">Enchantement</string>

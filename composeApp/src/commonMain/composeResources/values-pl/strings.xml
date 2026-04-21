@@ -20,7 +20,7 @@
 
     <!-- ── Craft screen ──────────────────────────────────────────────── -->
     <string name="craft_subtitle">Kalkulator zysku</string>
-    <string name="craft_tab_free">Rzemiosło</string>
+    <string name="craft_tab_free">Craft</string>
     <string name="craft_selector_potion">Mikstura</string>
     <string name="craft_selector_tier">Poziom</string>
     <string name="craft_selector_enchantment">Zaklęcie</string>

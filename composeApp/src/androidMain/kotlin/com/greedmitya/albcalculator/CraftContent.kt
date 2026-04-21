@@ -101,7 +101,10 @@ fun CraftContent(
         CraftSubTabRow(
             selectedIndex = craftSubTab,
             isPremiumUnlocked = viewModel.isAppPremiumUnlocked,
-            onTabSelected = { craftSubTab = it },
+            onTabSelected = {
+                craftSubTab = it
+                if (it == 0) viewModel.useFocus = false
+            },
         )
 
         Spacer(Modifier.height(16.dp))
@@ -303,7 +306,7 @@ fun CraftContent(
                 )
 
                 val focusResult = result
-                if (useFocus && focusResult != null && focusResult.focusCostPerBatch > 0) {
+                if (craftSubTab == 1 && useFocus && focusResult != null && focusResult.focusCostPerBatch > 0) {
                     Spacer(Modifier.height(8.dp))
                     val craftQty = if (craftSubTab == 1) viewModel.craftQuantityInt else 1
                     val returnPct = "%.1f".format(focusResult.effectiveReturnRate * 100)
