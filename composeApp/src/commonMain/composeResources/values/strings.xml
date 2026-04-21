@@ -29,9 +29,12 @@
     <string name="craft_fee_label">Fee for 100 nutrition</string>
     <string name="craft_toggle_premium">Premium</string>
     <string name="craft_toggle_focus">Use focus</string>
+    <string name="craft_focus_basic">Basic Spec Level</string>
+    <string name="craft_focus_mastery">Mastery Level</string>
     <string name="craft_focus_available">Available Focus</string>
     <string name="focus_batches_info">Focus batches: %1$d / %2$d</string>
     <string name="focus_return_rate_info">Return rate: %1$s%%</string>
+    <string name="focus_cost_info">Focus cost: %1$d pts/batch</string>
     <string name="craft_runs_label">Craft Runs</string>
     <string name="button_calculate">Calculate</string>
     <string name="button_market">Market</string>

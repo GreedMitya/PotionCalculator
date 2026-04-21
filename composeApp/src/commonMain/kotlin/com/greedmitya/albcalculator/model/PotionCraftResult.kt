@@ -12,6 +12,7 @@ data class PotionCraftResult(
     val craftQuantity: Int = 1,
     val batchesWithFocus: Int = 0,
     val focusCostPerBatch: Int = 0,
+    val reducedFocusCostPerBatch: Int = 0,
     val effectiveReturnRate: Double = 0.0,
 ) {
     val profitPercent: Double?

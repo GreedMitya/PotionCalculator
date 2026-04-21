@@ -2,6 +2,8 @@ package com.greedmitya.albcalculator.logic
 
 import com.greedmitya.albcalculator.model.Ingredient
 import com.greedmitya.albcalculator.model.PotionCraftResult
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 /**
  * Pure calculation engine for potion crafting profit.
@@ -29,11 +31,25 @@ object PotionCraftCalculator {
     internal val DEFAULT_FOCUS_RETURN_RATE =
         (DEFAULT_CITY_BONUS + FOCUS_CRAFTING_BONUS) / (1 + DEFAULT_CITY_BONUS + FOCUS_CRAFTING_BONUS)
 
+    // Each point of efficiency halves the focus cost at 10,000 pts (community-verified formula).
+    private const val FOCUS_REDUCTION_HALF_LIFE = 10_000.0
+
     private const val CRAFTING_TAX_MULTIPLIER = 0.001125
     private const val PREMIUM_MARKET_TAX_RATE = 0.065
     private const val STANDARD_MARKET_TAX_RATE = 0.105
 
     private const val RARE_INGREDIENT_MARKER = "RARE"
+
+    /**
+     * General crafting spec: +30 efficiency pts/level.
+     * Potion mastery: +280 efficiency pts/level.
+     * reducedCost = baseCost × 0.5^(totalPts / 10000)
+     */
+    internal fun reduceFocusCost(baseCost: Int, basicSpecLevel: Double, masteryLevel: Double): Int {
+        if (baseCost <= 0) return 0
+        val efficiencyPts = basicSpecLevel * 30.0 + masteryLevel * 280.0
+        return (baseCost * 0.5.pow(efficiencyPts / FOCUS_REDUCTION_HALF_LIFE)).roundToInt()
+    }
 
     fun calculate(
         ingredients: List<Ingredient>,
@@ -47,6 +63,8 @@ object PotionCraftCalculator {
         sellPrice: Double?,
         outputQuantity: Int,
         craftQuantity: Int = 1,
+        basicSpecLevel: Double = 0.0,
+        masteryLevel: Double = 0.0,
     ): PotionCraftResult {
         val rareIngredients = ingredients.filter {
             it.name.contains(RARE_INGREDIENT_MARKER, ignoreCase = true)
@@ -55,11 +73,13 @@ object PotionCraftCalculator {
         val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
         val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
 
+        val effectiveFocusCost = reduceFocusCost(focusCostPerBatch, basicSpecLevel, masteryLevel)
+
         val (returnRate, batchesWithFocus) = resolveReturnRate(
             city = city,
             useFocus = useFocus,
             availableFocus = availableFocus,
-            focusCostPerBatch = focusCostPerBatch,
+            focusCostPerBatch = effectiveFocusCost,
             craftQuantity = craftQuantity,
         )
 
@@ -81,6 +101,7 @@ object PotionCraftCalculator {
             craftQuantity = craftQuantity,
             batchesWithFocus = batchesWithFocus,
             focusCostPerBatch = focusCostPerBatch,
+            reducedFocusCostPerBatch = effectiveFocusCost,
             effectiveReturnRate = returnRate,
         )
     }

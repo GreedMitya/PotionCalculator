@@ -97,6 +97,8 @@ class CraftViewModel(
     var isPremium by mutableStateOf(false)
     var useFocus by mutableStateOf(false)
     var availableFocus by mutableStateOf("")
+    var focusBasic by mutableStateOf("")
+    var focusMastery by mutableStateOf("")
 
     var blinkingErrorFields by mutableStateOf(setOf<String>())
         private set
@@ -248,6 +250,8 @@ class CraftViewModel(
             useFocus = useFocus,
             isPremium = isPremium,
             availableFocus = availableFocus,
+            basicSpecLevel = focusBasic,
+            masteryLevel = focusMastery,
             selectedCity = selectedCity,
             potionSellPrice = potionSellPrice,
             outputQuantity = outputQuantity,

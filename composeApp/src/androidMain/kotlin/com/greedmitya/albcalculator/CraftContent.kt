@@ -220,6 +220,20 @@ fun CraftContent(
             if (useFocus) {
                 Spacer(Modifier.height(12.dp))
                 SmallInputField(
+                    title = stringResource(Res.string.craft_focus_basic),
+                    value = viewModel.focusBasic,
+                    onValueChange = { viewModel.focusBasic = it },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                SmallInputField(
+                    title = stringResource(Res.string.craft_focus_mastery),
+                    value = viewModel.focusMastery,
+                    onValueChange = { viewModel.focusMastery = it },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                SmallInputField(
                     title = stringResource(Res.string.craft_focus_available),
                     value = viewModel.availableFocus,
                     onValueChange = { viewModel.availableFocus = it },
@@ -304,6 +318,14 @@ fun CraftContent(
                         )
                         Text(
                             text = stringResource(Res.string.focus_return_rate_info, returnPct),
+                            color = AppColors.LightBeige.copy(alpha = 0.7f),
+                            fontSize = 12.sp,
+                        )
+                    }
+                    if (focusResult.reducedFocusCostPerBatch != focusResult.focusCostPerBatch) {
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            text = stringResource(Res.string.focus_cost_info, focusResult.reducedFocusCostPerBatch),
                             color = AppColors.LightBeige.copy(alpha = 0.7f),
                             fontSize = 12.sp,
                         )
