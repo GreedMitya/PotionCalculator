@@ -15,9 +15,10 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 // Edit this list before every release — displayed in the update dialog
 val WHATS_NEW = listOf(
-    "Improved UI across all languages",
-    "Focus calculator refinements",
-    "Bug fixes and performance improvements",
+    "How to Use guide fully expanded — Premium & Focus explained",
+    "Auto-update notifications when a new version is available",
+    "UI polishing across all 10 supported languages",
+    "Bug fixes and stability improvements",
 )
 
 private suspend fun <T> Task<T>.await(): T = suspendCancellableCoroutine { cont ->

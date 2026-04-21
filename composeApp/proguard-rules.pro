@@ -38,6 +38,11 @@
 # Google Play Billing
 -keep class com.android.billingclient.** { *; }
 
+# Google Play In-App Update
+-keep class com.google.android.play.core.** { *; }
+-dontwarn com.google.android.play.core.**
+-keep class com.google.android.gms.tasks.** { *; }
+
 # Napier Logging
 -keep class io.github.aakira.napier.** { *; }
 -dontwarn io.github.aakira.napier.**
