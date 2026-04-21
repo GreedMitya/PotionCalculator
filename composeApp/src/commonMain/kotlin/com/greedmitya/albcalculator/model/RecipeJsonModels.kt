@@ -15,6 +15,7 @@ internal data class RecipeDatabase(
 @Serializable
 internal data class PotionData(
     val itemValues: Map<String, Int>,
+    val focusCosts: Map<String, Map<String, Int>> = emptyMap(),
     val recipes: Map<String, Map<String, List<IngredientDto>>>,
 )
 

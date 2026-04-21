@@ -219,19 +219,12 @@ fun CraftContent(
 
             if (useFocus) {
                 Spacer(Modifier.height(12.dp))
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    SmallInputField(stringResource(Res.string.craft_focus_basic), viewModel.focusBasic, { viewModel.focusBasic = it }, Modifier.weight(1f))
-                    SmallInputField(
-                        stringResource(Res.string.craft_focus_mastery),
-                        viewModel.focusMastery,
-                        { viewModel.focusMastery = it },
-                        Modifier.weight(1f)
-                    )
-                    SmallInputField(stringResource(Res.string.craft_focus_total), viewModel.focusTotal, { viewModel.focusTotal = it }, Modifier.weight(1f))
-                }
+                SmallInputField(
+                    title = stringResource(Res.string.craft_focus_available),
+                    value = viewModel.availableFocus,
+                    onValueChange = { viewModel.availableFocus = it },
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
 
             Spacer(Modifier.height(12.dp))
@@ -294,6 +287,28 @@ fun CraftContent(
                         coroutineScope.showTimedSnackbar(snackbarHostState, copiedText, 1200)
                     },
                 )
+
+                val focusResult = result
+                if (useFocus && focusResult != null && focusResult.focusCostPerBatch > 0) {
+                    Spacer(Modifier.height(8.dp))
+                    val craftQty = if (craftSubTab == 1) viewModel.craftQuantityInt else 1
+                    val returnPct = "%.1f".format(focusResult.effectiveReturnRate * 100)
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.focus_batches_info, focusResult.batchesWithFocus, craftQty),
+                            color = AppColors.LightBeige.copy(alpha = 0.7f),
+                            fontSize = 12.sp,
+                        )
+                        Text(
+                            text = stringResource(Res.string.focus_return_rate_info, returnPct),
+                            color = AppColors.LightBeige.copy(alpha = 0.7f),
+                            fontSize = 12.sp,
+                        )
+                    }
+                }
             }
 
             Spacer(Modifier.height(40.dp))

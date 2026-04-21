@@ -10,8 +10,9 @@ class PotionCraftCalculatorTest {
 
     // ── Helper constants matching PotionCraftCalculator internals ──
     private companion object {
-        const val BRECILIEN_RETURN_RATE = 0.248
-        const val DEFAULT_RETURN_RATE = 0.152
+        // Reference the calculator's own internal constants to avoid precision drift.
+        val BRECILIEN_RETURN_RATE = PotionCraftCalculator.BRECILIEN_RETURN_RATE
+        val DEFAULT_RETURN_RATE = PotionCraftCalculator.DEFAULT_RETURN_RATE
         const val CRAFTING_TAX_MULTIPLIER = 0.001125
         const val PREMIUM_TAX_RATE = 0.065
         const val STANDARD_TAX_RATE = 0.105
@@ -32,9 +33,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 50.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 24,
             city = "Martlock",
             sellPrice = 600.0,
@@ -56,9 +57,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -81,9 +82,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Brecilien",
             sellPrice = null,
@@ -100,9 +101,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -124,9 +125,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Brecilien",
             sellPrice = null,
@@ -150,9 +151,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -180,9 +181,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -207,9 +208,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = true,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = 1000.0,
@@ -221,9 +222,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = 1000.0,
@@ -253,9 +254,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 100.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 48,
             city = "Martlock",
             sellPrice = null,
@@ -282,9 +283,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 50.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 24,
             city = "Martlock",
             sellPrice = 200.0,
@@ -296,9 +297,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 50.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 24,
             city = "Martlock",
             sellPrice = 200.0,
@@ -322,9 +323,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = 0.0,
@@ -347,9 +348,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = 100.0,
@@ -370,9 +371,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -394,9 +395,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = null,
             sellPrice = null,
@@ -408,9 +409,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = null,
@@ -428,9 +429,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 50.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 24,
             city = "Martlock",
             sellPrice = 500.0,
@@ -456,9 +457,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = false,
             isPremium = false,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 0,
             city = "Martlock",
             sellPrice = 100.0,
@@ -483,9 +484,9 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 80.0,
             useFocus = false,
             isPremium = true,
-            focusBasic = null,
-            focusMastery = null,
-            focusTotal = null,
+            availableFocus = null,
+
+            focusCostPerBatch = 0,
             itemValue = 36,
             city = "Brecilien",
             sellPrice = 950.0,
@@ -495,20 +496,128 @@ class PotionCraftCalculatorTest {
         // Step-by-step verification:
         // rareCost = 300.0
         // regularRawCost = 200.0
-        // returnRate = 0.248 (Brecilien)
-        // regularAfterReturn = 200.0 * (1 - 0.248) = 200.0 * 0.752 = 150.4
-        // totalCostAfterReturn = 300.0 + 150.4 = 450.4
+        // returnRate = 0.33/1.33 ≈ 0.24812 (Brecilien)
+        // regularAfterReturn = 200.0 * (1 - 0.24812) ≈ 150.376
+        // totalCostAfterReturn ≈ 300.0 + 150.376 = 450.376
         // craftingTax = 80.0 * 36 * 0.001125 = 3.24
         // craftingTaxPerItem = 3.24 / 5 = 0.648
-        // costPerItem = (450.4 / 5) + 0.648 = 90.08 + 0.648 = 90.728
+        // costPerItem ≈ (450.376 / 5) + 0.648 ≈ 90.723
         // taxRate = 0.065 (premium)
-        // netSell = 950.0 * (1 - 0.065) = 950.0 * 0.935 = 888.25
-        // profitSilver = 888.25 - 90.728 = 797.522
+        // netSell = 950.0 * 0.935 = 888.25
+        // profitSilver ≈ 888.25 - 90.723 ≈ 797.527
+        val expectedWithFee = 200.0 * (1 - BRECILIEN_RETURN_RATE) + 300.0
+        val expectedCostPerItem = expectedWithFee / 5 + (80.0 * 36 * CRAFTING_TAX_MULTIPLIER / 5)
+        val expectedProfit = 950.0 * (1 - PREMIUM_TAX_RATE) - expectedCostPerItem
 
         assertEquals(500.0, result.totalResources, DELTA)
-        assertEquals(450.4, result.withPlacementFee, DELTA)
-        assertEquals(90.728, result.finalCost, DELTA)
+        assertEquals(expectedWithFee, result.withPlacementFee, DELTA)
+        assertEquals(expectedCostPerItem, result.finalCost, DELTA)
         assertEquals(950.0, result.estimatedSellPrice)
-        assertEquals(797.522, result.profitSilver, DELTA)
+        assertEquals(expectedProfit, result.profitSilver, DELTA)
+    }
+
+    // ── Focus Return Rate Tests ──
+
+    @Test
+    fun calculate_noFocus_brecilien_appliesBaseReturnRate() {
+        val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
+        val result = PotionCraftCalculator.calculate(
+            ingredients = ingredients,
+            feePerNutrition = 0.0,
+            useFocus = false,
+            isPremium = false,
+            availableFocus = null,
+            focusCostPerBatch = 0,
+            itemValue = 0,
+            city = "Brecilien",
+            sellPrice = null,
+            outputQuantity = 5,
+        )
+        // regularRawCost = 1000, returnRate = 24.8%, afterReturn = 752.0
+        assertEquals(PotionCraftCalculator.BRECILIEN_RETURN_RATE, result.effectiveReturnRate, DELTA)
+        assertEquals(0, result.batchesWithFocus)
+    }
+
+    @Test
+    fun calculate_withFocus_brecilien_enoughFocus_applies47_4PercentReturn() {
+        val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
+        val result = PotionCraftCalculator.calculate(
+            ingredients = ingredients,
+            feePerNutrition = 0.0,
+            useFocus = true,
+            isPremium = false,
+            availableFocus = 1000.0,
+            focusCostPerBatch = 210,
+            itemValue = 0,
+            city = "Brecilien",
+            sellPrice = null,
+            outputQuantity = 5,
+            craftQuantity = 4,
+        )
+        // 1000 / 210 = 4 batches with focus — covers all 4
+        assertEquals(PotionCraftCalculator.BRECILIEN_FOCUS_RETURN_RATE, result.effectiveReturnRate, DELTA)
+        assertEquals(4, result.batchesWithFocus)
+    }
+
+    @Test
+    fun calculate_withFocus_defaultCity_enoughFocus_applies42_9PercentReturn() {
+        val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
+        val result = PotionCraftCalculator.calculate(
+            ingredients = ingredients,
+            feePerNutrition = 0.0,
+            useFocus = true,
+            isPremium = false,
+            availableFocus = 10000.0,
+            focusCostPerBatch = 210,
+            itemValue = 0,
+            city = "Martlock",
+            sellPrice = null,
+            outputQuantity = 5,
+        )
+        assertEquals(PotionCraftCalculator.DEFAULT_FOCUS_RETURN_RATE, result.effectiveReturnRate, DELTA)
+    }
+
+    @Test
+    fun calculate_withFocus_focusRunsOutHalfway_returnsBlendedRate() {
+        val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
+        // 2 batches planned, focus for exactly 1 batch
+        val result = PotionCraftCalculator.calculate(
+            ingredients = ingredients,
+            feePerNutrition = 0.0,
+            useFocus = true,
+            isPremium = false,
+            availableFocus = 210.0,
+            focusCostPerBatch = 210,
+            itemValue = 0,
+            city = "Brecilien",
+            sellPrice = null,
+            outputQuantity = 5,
+            craftQuantity = 2,
+        )
+        // blended = (1 * 0.474 + 1 * 0.248) / 2 = 0.361
+        val expected = (PotionCraftCalculator.BRECILIEN_FOCUS_RETURN_RATE + PotionCraftCalculator.BRECILIEN_RETURN_RATE) / 2
+        assertEquals(expected, result.effectiveReturnRate, DELTA)
+        assertEquals(1, result.batchesWithFocus)
+    }
+
+    @Test
+    fun calculate_withFocus_noAvailableFocus_treatsAllBatchesAsFocused() {
+        val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
+        val result = PotionCraftCalculator.calculate(
+            ingredients = ingredients,
+            feePerNutrition = 0.0,
+            useFocus = true,
+            isPremium = false,
+            availableFocus = null,
+            focusCostPerBatch = 210,
+            itemValue = 0,
+            city = "Brecilien",
+            sellPrice = null,
+            outputQuantity = 5,
+            craftQuantity = 3,
+        )
+        // null availableFocus = user didn't specify = assume all batches get focus
+        assertEquals(PotionCraftCalculator.BRECILIEN_FOCUS_RETURN_RATE, result.effectiveReturnRate, DELTA)
+        assertEquals(3, result.batchesWithFocus)
     }
 }

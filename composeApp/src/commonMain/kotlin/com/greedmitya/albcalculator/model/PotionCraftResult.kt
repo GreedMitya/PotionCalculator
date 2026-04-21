@@ -10,6 +10,9 @@ data class PotionCraftResult(
     val estimatedSellPrice: Double? = null,
     val profitSilver: Double,
     val craftQuantity: Int = 1,
+    val batchesWithFocus: Int = 0,
+    val focusCostPerBatch: Int = 0,
+    val effectiveReturnRate: Double = 0.0,
 ) {
     val profitPercent: Double?
         get() = if (finalCost != 0.0) (profitSilver / finalCost) * 100 else null

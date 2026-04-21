@@ -96,9 +96,7 @@ class CraftViewModel(
     var potionSellPrice by mutableStateOf("")
     var isPremium by mutableStateOf(false)
     var useFocus by mutableStateOf(false)
-    var focusBasic by mutableStateOf("")
-    var focusMastery by mutableStateOf("")
-    var focusTotal by mutableStateOf("")
+    var availableFocus by mutableStateOf("")
 
     var blinkingErrorFields by mutableStateOf(setOf<String>())
         private set
@@ -239,17 +237,17 @@ class CraftViewModel(
     }
 
     fun calculateProfit() {
+        val enchantLevel = enchantments.indexOf(selectedEnchantment ?: "Normal (.0)").coerceAtLeast(0)
         resultInternal = calculateProfitUseCase.execute(
             ingredients = getRecipeForSelected(),
             ingredientPrices = ingredientPrices,
             baseId = selectedPotionInfo?.baseId,
             selectedTier = selectedTier,
+            enchantLevel = enchantLevel,
             feePerNutritionInput = feePerNutritionInput,
             useFocus = useFocus,
             isPremium = isPremium,
-            focusBasic = focusBasic,
-            focusMastery = focusMastery,
-            focusTotal = focusTotal,
+            availableFocus = availableFocus,
             selectedCity = selectedCity,
             potionSellPrice = potionSellPrice,
             outputQuantity = outputQuantity,

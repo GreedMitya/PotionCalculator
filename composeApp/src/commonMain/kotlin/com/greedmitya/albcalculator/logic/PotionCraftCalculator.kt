@@ -10,26 +10,38 @@ import com.greedmitya.albcalculator.model.PotionCraftResult
  */
 object PotionCraftCalculator {
 
-    private const val BRECILIEN_RETURN_RATE = 0.248
-    private const val DEFAULT_RETURN_RATE = 0.152
+    // Raw crafting bonus per location (from craftingmodifiers.xml in ao-bin-dumps).
+    // returnRate = bonus / (1 + bonus).
+    private const val BRECILIEN_CITY_BONUS = 0.33   // 18% base + 15% potion specialty
+    private const val DEFAULT_CITY_BONUS = 0.18     // 18% base for all other cities
+
+    // Focus adds this to the city bonus when crafting with focus.
+    // Derived by back-solving from the known Brecilien+focus maximum:
+    //   (0.33 + FOCUS_BONUS) / (1 + 0.33 + FOCUS_BONUS) = 0.474
+    //   → FOCUS_BONUS ≈ 0.571
+    private const val FOCUS_CRAFTING_BONUS = 0.571
+
+    // Precomputed return rates exposed for tests (derived from the formula, not hardcoded).
+    internal val BRECILIEN_RETURN_RATE = BRECILIEN_CITY_BONUS / (1 + BRECILIEN_CITY_BONUS)
+    internal val DEFAULT_RETURN_RATE = DEFAULT_CITY_BONUS / (1 + DEFAULT_CITY_BONUS)
+    internal val BRECILIEN_FOCUS_RETURN_RATE =
+        (BRECILIEN_CITY_BONUS + FOCUS_CRAFTING_BONUS) / (1 + BRECILIEN_CITY_BONUS + FOCUS_CRAFTING_BONUS)
+    internal val DEFAULT_FOCUS_RETURN_RATE =
+        (DEFAULT_CITY_BONUS + FOCUS_CRAFTING_BONUS) / (1 + DEFAULT_CITY_BONUS + FOCUS_CRAFTING_BONUS)
+
     private const val CRAFTING_TAX_MULTIPLIER = 0.001125
     private const val PREMIUM_MARKET_TAX_RATE = 0.065
     private const val STANDARD_MARKET_TAX_RATE = 0.105
 
     private const val RARE_INGREDIENT_MARKER = "RARE"
 
-    /** Upper bound for return rate with max focus specialization. */
-    @Suppress("unused")
-    private const val MAX_FOCUS_RETURN_RATE = 0.474
-
     fun calculate(
         ingredients: List<Ingredient>,
         feePerNutrition: Double,
         useFocus: Boolean,
         isPremium: Boolean,
-        focusBasic: Double?,
-        focusMastery: Double?,
-        focusTotal: Double?,
+        availableFocus: Double?,
+        focusCostPerBatch: Int,
         itemValue: Int,
         city: String?,
         sellPrice: Double?,
@@ -43,12 +55,12 @@ object PotionCraftCalculator {
         val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
         val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
 
-        val returnRate = resolveReturnRate(
+        val (returnRate, batchesWithFocus) = resolveReturnRate(
             city = city,
             useFocus = useFocus,
-            focusBasic = focusBasic,
-            focusMastery = focusMastery,
-            focusTotal = focusTotal,
+            availableFocus = availableFocus,
+            focusCostPerBatch = focusCostPerBatch,
+            craftQuantity = craftQuantity,
         )
 
         val regularAfterReturn = regularRawCost * (1 - returnRate)
@@ -67,31 +79,45 @@ object PotionCraftCalculator {
             estimatedSellPrice = sellPrice,
             profitSilver = profitSilver,
             craftQuantity = craftQuantity,
+            batchesWithFocus = batchesWithFocus,
+            focusCostPerBatch = focusCostPerBatch,
+            effectiveReturnRate = returnRate,
         )
     }
 
     /**
-     * Resolves the resource return rate based on city and focus state.
+     * Returns (effectiveReturnRate, batchesWithFocus).
      *
-     * TODO: Implement actual Albion Online focus crafting formula when confirmed.
-     * focusBasic/focusMastery/focusTotal are the 3 specialization fields from Craft+ UI.
-     * At max specialization (100) + Brecilien, max return is ~47.4%.
-     * Currently returns base rate unchanged until formula is researched.
+     * Without focus: pure city bonus rate.
+     * With focus + enough available focus: full focus rate for all batches.
+     * With focus + partial focus: blended average of focus-rate and base-rate batches,
+     *   so profit reflects the realistic average across the planned session.
      */
     private fun resolveReturnRate(
         city: String?,
         useFocus: Boolean,
-        focusBasic: Double?,
-        focusMastery: Double?,
-        focusTotal: Double?,
-    ): Double {
-        val baseRate = when (city) {
-            "Brecilien" -> BRECILIEN_RETURN_RATE
-            else -> DEFAULT_RETURN_RATE
+        availableFocus: Double?,
+        focusCostPerBatch: Int,
+        craftQuantity: Int,
+    ): Pair<Double, Int> {
+        val cityBonus = if (city == "Brecilien") BRECILIEN_CITY_BONUS else DEFAULT_CITY_BONUS
+        val baseRate = cityBonus / (1 + cityBonus)
+
+        if (!useFocus) return baseRate to 0
+
+        val focusRate = (cityBonus + FOCUS_CRAFTING_BONUS) / (1 + cityBonus + FOCUS_CRAFTING_BONUS)
+
+        val batchesWithFocus = when {
+            availableFocus == null || focusCostPerBatch <= 0 -> craftQuantity
+            else -> minOf((availableFocus / focusCostPerBatch).toInt(), craftQuantity)
         }
-        if (!useFocus) return baseRate
-        // Placeholder: returns base rate until focus formula is implemented.
-        return baseRate
+        val batchesWithout = craftQuantity - batchesWithFocus
+
+        val blended = if (craftQuantity > 0)
+            (batchesWithFocus * focusRate + batchesWithout * baseRate) / craftQuantity
+        else
+            focusRate
+
+        return blended to batchesWithFocus
     }
 }
-

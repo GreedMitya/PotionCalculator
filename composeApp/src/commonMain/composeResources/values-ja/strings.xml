@@ -28,9 +28,9 @@
     <string name="craft_fee_label">栄養100あたりの手数料</string>
     <string name="craft_toggle_premium">プレミアム</string>
     <string name="craft_toggle_focus">フォーカス</string>
-    <string name="craft_focus_basic">基礎</string>
-    <string name="craft_focus_mastery">熟練</string>
-    <string name="craft_focus_total">合計</string>
+    <string name="craft_focus_available">利用可能なフォーカス</string>
+    <string name="focus_batches_info">フォーカスバッチ: %1$d / %2$d</string>
+    <string name="focus_return_rate_info">返還率: %1$s%%</string>
     <string name="craft_runs_label">クラフト回数</string>
     <string name="button_calculate">計算</string>
     <string name="button_market">市場</string>
