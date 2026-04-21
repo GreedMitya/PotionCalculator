@@ -122,4 +122,14 @@
     <!-- ── Premium screen — purchasing state ──────────────────────────── -->
     <string name="premium_purchasing">…</string>
 
+    <!-- ── How to Use — extended sections ────────────────────────────── -->
+    <string name="how_to_use_section_premium">Czym jest Craft+?</string>
+    <string name="how_to_use_premium_body">Craft+ to jednorazowy zakup — bez subskrypcji ani opłat cyklicznych. Po zakupie otrzymujesz cztery dodatkowe narzędzia:\n\n• Kalkulator Skupienia — sprawdź ile partii możesz wykonać z Punktami Skupienia i przy jakim zwrocie\n• Tryb ilości partii — zaplanuj dowolną liczbę cykli wytwarzania w jednym obliczeniu\n• Monitor cen miast — aktualne ceny rynkowe ziół, składników i eliksirów we wszystkich miastach\n• Doradca zysków — automatycznie rankuje wszystkie eliksiry według zyskowności\n\nUwaga: Craft+ to zakup w aplikacji dla tego kalkulatora. To NIE jest to samo co subskrypcja Albion Online Premium.</string>
+
+    <string name="how_to_use_section_focus">Jak działa Skupienie (tylko Craft+)</string>
+    <string name="how_to_use_focus_body">Punkty Skupienia w Albion Online dają dodatkowe zasoby podczas wytwarzania. Po odblokowaniu Craft+:\n\n1. Przejdź na zakładkę Craft+\n2. Włącz „Użyj skupienia"\n3. Wprowadź trzy wartości:\n   • Poziom podstawowej specjalizacji — ogólna specjalizacja wytwarzania\n   • Poziom mistrzostwa — specjalizacja dla tego typu eliksiru\n   • Dostępne skupienie — twoje aktualne punkty skupienia\n\nKalkulator pokaże:\n• Ile partii możesz wykonać ze skupieniem\n• Twój efektywny wskaźnik zwrotu\n• Koszt skupienia na partię\n\nWyższa specjalizacja i mistrzostwo = mniej skupienia na partię.</string>
+
+    <string name="how_to_use_section_support">Słowo od twórcy</string>
+    <string name="how_to_use_support_body">Hej, rzemieślniku! Stworzyłem to narzędzie jako gracz Albion Online zmęczony liczeniem w arkuszach kalkulacyjnych przed każdą sesją wytwarzania. Mam nadzieję, że zaoszczędzi ci czas i srebro.\n\nJeśli okazało się przydatne, najlepsze sposoby wsparcia projektu:\n• Odblokuj Craft+ — finansuje dalszy rozwój\n• Zostaw recenzję w Google Play — pomaga innym rzemieślnikom znaleźć aplikację\n• Podziel się opinią — każda sugestia ulepsza aplikację\n\nDziękuję za korzystanie z Potion Crafting Calculator! Niech twoje zioła będą tanie, a eliksiry drogo się sprzedają!</string>
+
 </resources>

@@ -122,4 +122,14 @@
     <!-- ── Premium screen — purchasing state ──────────────────────────── -->
     <string name="premium_purchasing">…</string>
 
+    <!-- ── How to Use — extended sections ────────────────────────────── -->
+    <string name="how_to_use_section_premium">Was ist Craft+?</string>
+    <string name="how_to_use_premium_body">Craft+ ist ein einmaliger Kauf — kein Abo, keine Folgekosten. Nach dem Kauf erhältst du vier zusätzliche Werkzeuge:\n\n• Fokus-Rechner — sieh, wie viele Stapel du mit Fokuspunkten craften kannst und zu welchem Rückgabesatz\n• Stapelmengen-Modus — plane beliebig viele Crafting-Durchläufe in einer Berechnung\n• Stadtpreis-Monitor — Live-Marktpreise für Kräuter, Komponenten und Tränke in allen Städten\n• Trank-Profit-Berater — rankt automatisch alle Tränke nach Gewinn\n\nHinweis: Craft+ ist ein In-App-Kauf für diesen Rechner. Es ist NICHT dasselbe wie ein Albion Online Premium-Abonnement.</string>
+
+    <string name="how_to_use_section_focus">Wie Fokus funktioniert (nur Craft+)</string>
+    <string name="how_to_use_focus_body">Fokuspunkte in Albion Online geben beim Crafting einen Bonus auf zurückerhaltene Ressourcen. Nach dem Freischalten von Craft+:\n\n1. Wechsle zum Craft+-Tab\n2. Schalte \"Fokus verwenden\" EIN\n3. Gib drei Werte ein:\n   • Basis-Spezialisierungsstufe — allgemeine Crafting-Spezialisierung\n   • Meisterschaftsstufe — Spezialisierung für diesen Tränketyp\n   • Verfügbarer Fokus — deine aktuellen Fokuspunkte\n\nDer Rechner zeigt:\n• Wie viele Stapel du mit Fokus craften kannst\n• Deinen effektiven Rückgabesatz\n• Fokuskosten pro Stapel\n\nHöhere Spezialisierung und Meisterschaft = weniger Fokus pro Stapel.</string>
+
+    <string name="how_to_use_section_support">Ein Wort vom Entwickler</string>
+    <string name="how_to_use_support_body">Hey, Crafter! Ich habe dieses Tool als Albion Online-Spieler entwickelt, der es satt hatte, vor jeder Crafting-Session Tabellenkalkulation zu machen. Ich hoffe, es spart dir Zeit und Silber.\n\nWenn es nützlich war, sind die besten Wege, das Projekt zu unterstützen:\n• Craft+ freischalten — es finanziert die Weiterentwicklung\n• Eine Bewertung bei Google Play hinterlassen — es hilft anderen Craftern, die App zu finden\n• Feedback teilen — jeder Vorschlag verbessert die App\n\nDanke, dass du den Potion Crafting Calculator nutzt. Mögen deine Kräuter günstig und deine Tränke teuer sein!</string>
+
 </resources>

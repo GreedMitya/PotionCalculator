@@ -122,4 +122,14 @@
     <!-- ── Premium screen — purchasing state ──────────────────────────── -->
     <string name="premium_purchasing">…</string>
 
+    <!-- ── How to Use — extended sections ────────────────────────────── -->
+    <string name="how_to_use_section_premium">¿Qué es Craft+?</string>
+    <string name="how_to_use_premium_body">Craft+ es una compra única — sin suscripción ni cargos recurrentes. Tras la compra obtienes cuatro herramientas adicionales:\n\n• Calculadora de Foco — ve cuántos lotes puedes fabricar con Puntos de Foco y a qué tasa de retorno\n• Modo cantidad por lote — planifica cualquier número de ciclos de fabricación en un solo cálculo\n• Monitor de precios por ciudad — precios de mercado en vivo para hierbas, componentes y pociones en todas las ciudades\n• Asesor de ganancias — clasifica automáticamente todas las pociones por rentabilidad\n\nNota: Craft+ es una compra dentro de la aplicación. NO es lo mismo que una suscripción Albion Online Premium.</string>
+
+    <string name="how_to_use_section_focus">Cómo funciona el Foco (solo Craft+)</string>
+    <string name="how_to_use_focus_body">Los Puntos de Foco en Albion Online otorgan recursos adicionales al fabricar. Tras desbloquear Craft+:\n\n1. Ve a la pestaña Craft+\n2. Activa \"Usar Foco\"\n3. Introduce tres valores:\n   • Nivel de esp. básica — especialización general de fabricación\n   • Nivel de maestría — especialización para este tipo de poción\n   • Foco disponible — tus puntos de foco actuales\n\nLa calculadora muestra:\n• Cuántos lotes puedes fabricar con Foco\n• Tu tasa de retorno efectiva\n• Coste de Foco por lote\n\nMás especialización y maestría = menos foco gastado por lote.</string>
+
+    <string name="how_to_use_section_support">Una palabra del creador</string>
+    <string name="how_to_use_support_body">¡Hola, artesano! Creé esta herramienta como jugador de Albion Online cansado de hacer cálculos en hojas de cálculo antes de cada sesión. Espero que te ahorre tiempo y plata.\n\nSi te ha resultado útil, las mejores formas de apoyar el proyecto:\n• Desbloquear Craft+ — financia el desarrollo continuo\n• Dejar una reseña en Google Play — ayuda a otros artesanos a encontrar la app\n• Compartir comentarios — cada sugerencia mejora la aplicación\n\n¡Gracias por usar Potion Crafting Calculator! ¡Que tus hierbas sean baratas y tus pociones se vendan caro!</string>
+
 </resources>

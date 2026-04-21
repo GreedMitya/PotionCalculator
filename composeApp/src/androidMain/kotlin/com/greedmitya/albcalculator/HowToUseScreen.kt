@@ -86,7 +86,41 @@ fun HowToUseScreen(scrollState: ScrollState) {
             fontFamily = FontFamily.SansSerif,
             lineHeight = 30.sp
         )
+
+        SectionTitle(stringResource(Res.string.how_to_use_section_premium))
+        BodyText(stringResource(Res.string.how_to_use_premium_body))
+
+        SectionTitle(stringResource(Res.string.how_to_use_section_focus))
+        BodyText(stringResource(Res.string.how_to_use_focus_body))
+
+        SectionTitle(stringResource(Res.string.how_to_use_section_support))
+        BodyText(stringResource(Res.string.how_to_use_support_body))
     }
+}
+
+@Composable
+private fun SectionTitle(text: String) {
+    Text(
+        text = text,
+        modifier = Modifier.fillMaxWidth(),
+        color = AppColors.PrimaryGold,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontFamily = FontFamily.Serif,
+        lineHeight = 28.sp,
+    )
+}
+
+@Composable
+private fun BodyText(text: String) {
+    Text(
+        text = text,
+        color = Color.White,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = FontFamily.SansSerif,
+        lineHeight = 30.sp,
+    )
 }
 
 @Composable

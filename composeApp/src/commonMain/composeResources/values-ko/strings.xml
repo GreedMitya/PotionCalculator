@@ -122,4 +122,14 @@
     <!-- ── Premium screen — purchasing state ──────────────────────────── -->
     <string name="premium_purchasing">…</string>
 
+    <!-- ── How to Use — extended sections ────────────────────────────── -->
+    <string name="how_to_use_section_premium">Craft+란 무엇인가요?</string>
+    <string name="how_to_use_premium_body">Craft+는 구독이나 추가 요금 없는 1회성 구매입니다. 구매 후 네 가지 추가 도구를 사용할 수 있습니다:\n\n• 집중력 계산기 — 집중 포인트로 몇 배치를 제작할 수 있는지와 반환율 확인\n• 배치 수량 모드 — 한 번의 계산으로 원하는 만큼 제작 횟수 계획\n• 도시 가격 모니터 — 모든 도시의 허브, 재료, 포션 실시간 시장 가격\n• 이익 어드바이저 — 모든 포션을 수익성 순으로 자동 정렬\n\n참고: Craft+는 이 앱의 인앱 구매로, Albion Online Premium 구독과 다릅니다.</string>
+
+    <string name="how_to_use_section_focus">집중력 작동 방식 (Craft+ 전용)</string>
+    <string name="how_to_use_focus_body">Albion Online의 집중 포인트는 제작 시 추가 자원을 반환합니다. Craft+ 해제 후:\n\n1. Craft+ 탭으로 전환\n2. \"집중력 사용\" 활성화\n3. 세 가지 값 입력:\n   • 기본 전문화 레벨 — 일반 제작 전문화\n   • 숙련도 레벨 — 이 포션 유형의 전문화\n   • 사용 가능한 집중 — 현재 보유한 집중 포인트\n\n계산기가 표시하는 항목:\n• 집중력으로 제작 가능한 배치 수\n• 유효 반환율\n• 배치당 집중 비용\n\n전문화와 숙련도가 높을수록 배치당 집중 소비가 줄어듭니다.</string>
+
+    <string name="how_to_use_section_support">제작자의 한마디</string>
+    <string name="how_to_use_support_body">안녕하세요, 제작자님! 저는 매 제작 세션 전에 스프레드시트 계산에 지친 Albion Online 플레이어로서 이 도구를 만들었습니다. 시간과 실버를 절약하는 데 도움이 되기를 바랍니다.\n\n유용하셨다면, 프로젝트를 지원하는 최선의 방법:\n• Craft+ 해제 — 지속적인 개발을 지원합니다\n• Google Play에 리뷰 남기기 — 다른 제작자들이 앱을 찾는 데 도움이 됩니다\n• 피드백 공유 — 모든 제안이 앱을 개선합니다\n\nPotion Crafting Calculator를 사용해 주셔서 감사합니다! 허브는 저렴하고 포션은 비싸게 팔리기를!</string>
+
 </resources>

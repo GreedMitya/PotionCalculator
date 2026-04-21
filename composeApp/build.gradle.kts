@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.datastore.preferences)
             implementation(libs.google.billing)
+            implementation(libs.play.app.update)
             implementation(libs.koin.android)
         }
         commonMain.dependencies {

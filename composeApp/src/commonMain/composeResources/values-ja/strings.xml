@@ -122,4 +122,14 @@
     <!-- ── Premium screen — purchasing state ──────────────────────────── -->
     <string name="premium_purchasing">…</string>
 
+    <!-- ── How to Use — extended sections ────────────────────────────── -->
+    <string name="how_to_use_section_premium">Craft+とは？</string>
+    <string name="how_to_use_premium_body">Craft+はサブスクリプションや追加料金のない買い切りのアンロックです。購入後、4つの追加ツールが使えます：\n\n• フォーカス計算機 — フォーカスポイントで何バッチ制作でき、どのくらいの返還率かを確認\n• バッチ数量モード — 1回の計算で何回でもクラフトを計画\n• 都市価格モニター — 全都市のハーブ・素材・ポーションのリアルタイム市場価格\n• 利益アドバイザー — 全ポーションを収益性で自動ランキング\n\n注意：Craft+はこのアプリのアプリ内購入です。Albion Online Premiumサブスクリプションとは異なります。</string>
+
+    <string name="how_to_use_section_focus">フォーカスの仕組み（Craft+のみ）</string>
+    <string name="how_to_use_focus_body">Albion Onlineのフォーカスポイントは、制作時にボーナスリソースを返還します。Craft+解放後：\n\n1. Craft+タブに切り替える\n2. 「フォーカスを使用」をオンにする\n3. 3つの値を入力：\n   • 基本特化レベル — 一般的な制作特化\n   • 熟練レベル — このポーションタイプの特化\n   • 利用可能フォーカス — 現在のフォーカスポイント\n\n計算機が表示するもの：\n• フォーカスで制作できるバッチ数\n• 実効返還率\n• バッチあたりのフォーカスコスト\n\n特化と熟練が高いほど、バッチあたりのフォーカス消費が少なくなります。</string>
+
+    <string name="how_to_use_section_support">制作者からのメッセージ</string>
+    <string name="how_to_use_support_body">こんにちは、クラフター！毎回のクラフトセッション前にスプレッドシート計算をするのに疲れたAlbion Onlineプレイヤーとして、このツールを作りました。時間とシルバーの節約に役立てれば幸いです。\n\n役立った場合、プロジェクトをサポートする最良の方法：\n• Craft+をアンロック — 継続的な開発を支援します\n• Google Playにレビューを残す — 他のクラフターがアプリを見つける助けになります\n• フィードバックを共有 — すべての提案がアプリを改善します\n\nPotion Crafting Calculatorをご利用いただきありがとうございます！ハーブが安く、ポーションが高く売れますように！</string>
+
 </resources>
