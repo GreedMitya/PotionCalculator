@@ -86,8 +86,8 @@ android {
         applicationId = "com.greedmitya.albcalculator"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 8
-        versionName = "Public Beta v_8.0"
+        versionCode = 9
+        versionName = "Public Beta v_9.0"
     }
     packaging {
         resources {

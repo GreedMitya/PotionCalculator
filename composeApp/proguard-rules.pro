@@ -12,9 +12,10 @@
     @kotlinx.serialization.SerialName <fields>;
 }
 
-# Keep our data models for safe parsing (Model and Domain)
+# Keep our data models, domain, and pure logic for safe parsing and reflection-free use
 -keep class com.greedmitya.albcalculator.model.** { *; }
 -keep class com.greedmitya.albcalculator.domain.** { *; }
+-keep class com.greedmitya.albcalculator.logic.** { *; }
 
 # Koin & ViewModels (needed for reflection-based DSL like viewModelOf)
 # Keep constructors for all injected classes
