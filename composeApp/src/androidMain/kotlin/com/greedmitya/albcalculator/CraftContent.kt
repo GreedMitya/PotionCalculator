@@ -15,8 +15,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,6 +27,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.math.pow
+import kotlin.math.roundToInt
 import com.greedmitya.albcalculator.components.ActionIconMenuButton
 import com.greedmitya.albcalculator.components.ActionTextButton
 import com.greedmitya.albcalculator.components.AppColors
@@ -223,7 +227,18 @@ fun CraftContent(
             if (useFocus) {
                 Spacer(Modifier.height(12.dp))
                 SmallInputField(
+                    title = stringResource(Res.string.craft_focus_general),
+                    hint = stringResource(Res.string.craft_focus_general_hint),
+                    placeholder = "0 – 100",
+                    value = viewModel.focusGeneralSpec,
+                    onValueChange = { viewModel.focusGeneralSpec = it },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                SmallInputField(
                     title = stringResource(Res.string.craft_focus_basic),
+                    hint = stringResource(Res.string.craft_focus_basic_hint),
+                    placeholder = "0 – 1500",
                     value = viewModel.focusBasic,
                     onValueChange = { viewModel.focusBasic = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -231,13 +246,46 @@ fun CraftContent(
                 Spacer(Modifier.height(8.dp))
                 SmallInputField(
                     title = stringResource(Res.string.craft_focus_mastery),
+                    hint = stringResource(Res.string.craft_focus_mastery_hint),
+                    placeholder = "0 – 100",
                     value = viewModel.focusMastery,
                     onValueChange = { viewModel.focusMastery = it },
                     modifier = Modifier.fillMaxWidth(),
                 )
+
+                val efficiencyInfo by remember {
+                    derivedStateOf {
+                        val g = viewModel.focusGeneralSpec.toDoubleOrNull() ?: 0.0
+                        val b = viewModel.focusBasic.toDoubleOrNull() ?: 0.0
+                        val m = viewModel.focusMastery.toDoubleOrNull() ?: 0.0
+                        val pts = (g * 30.0 + b * 18.0 + m * 250.0).toLong()
+                        val savePct = ((1.0 - 0.5.pow(pts / 10_000.0)) * 100).roundToInt()
+                        if (pts > 0) Pair(pts, savePct) else null
+                    }
+                }
+                efficiencyInfo?.let { (pts, savePct) ->
+                    Spacer(Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.craft_focus_efficiency_pts, "%,d".format(pts)),
+                            color = AppColors.LightBeige.copy(alpha = 0.6f),
+                            fontSize = 11.sp,
+                        )
+                        Text(
+                            text = stringResource(Res.string.craft_focus_efficiency_save, savePct),
+                            color = AppColors.LightBeige.copy(alpha = 0.6f),
+                            fontSize = 11.sp,
+                        )
+                    }
+                }
+
                 Spacer(Modifier.height(8.dp))
                 SmallInputField(
                     title = stringResource(Res.string.craft_focus_available),
+                    hint = stringResource(Res.string.craft_focus_available_hint),
                     value = viewModel.availableFocus,
                     onValueChange = { viewModel.availableFocus = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -309,13 +357,14 @@ fun CraftContent(
                 if (craftSubTab == 1 && useFocus && focusResult != null && focusResult.focusCostPerBatch > 0) {
                     Spacer(Modifier.height(8.dp))
                     val craftQty = if (craftSubTab == 1) viewModel.craftQuantityInt else 1
+                    val outputQty = focusResult.outputQuantity
                     val returnPct = "%.1f".format(focusResult.effectiveReturnRate * 100)
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
-                            text = stringResource(Res.string.focus_batches_info, focusResult.batchesWithFocus, craftQty),
+                            text = stringResource(Res.string.focus_batches_info, focusResult.batchesWithFocus * outputQty, craftQty * outputQty),
                             color = AppColors.LightBeige.copy(alpha = 0.7f),
                             fontSize = 12.sp,
                         )

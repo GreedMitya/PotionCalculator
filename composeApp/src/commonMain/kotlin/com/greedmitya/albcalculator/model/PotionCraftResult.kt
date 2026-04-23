@@ -10,6 +10,8 @@ data class PotionCraftResult(
     val estimatedSellPrice: Double? = null,
     val profitSilver: Double,
     val craftQuantity: Int = 1,
+    /** Number of items produced per crafting batch (e.g. 5 for regular potions, 10 for rare potions). */
+    val outputQuantity: Int = 1,
     val batchesWithFocus: Int = 0,
     val focusCostPerBatch: Int = 0,
     val reducedFocusCostPerBatch: Int = 0,
@@ -18,8 +20,10 @@ data class PotionCraftResult(
     val profitPercent: Double?
         get() = if (finalCost != 0.0) (profitSilver / finalCost) * 100 else null
 
-    val totalProfitSilver: Double get() = profitSilver * craftQuantity
-    val totalCostSilver: Double get() = finalCost * craftQuantity
+    /** Total profit for all potions crafted: profitPerItem × batches × itemsPerBatch. */
+    val totalProfitSilver: Double get() = profitSilver * craftQuantity * outputQuantity
+    /** Total cost for all potions crafted: costPerItem × batches × itemsPerBatch. */
+    val totalCostSilver: Double get() = finalCost * craftQuantity * outputQuantity
 
     private fun Double.toFixed(decimals: Int): String {
         val factor = 10.0.pow(decimals)

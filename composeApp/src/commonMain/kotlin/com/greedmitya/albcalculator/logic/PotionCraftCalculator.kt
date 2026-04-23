@@ -34,20 +34,28 @@ object PotionCraftCalculator {
     // Each point of efficiency halves the focus cost at 10,000 pts (community-verified formula).
     private const val FOCUS_REDUCTION_HALF_LIFE = 10_000.0
 
+    // Efficiency points contributed by each specialization tier (Destiny Board hierarchy).
+    private const val GENERAL_SPEC_EFFICIENCY_PTS = 30.0   // Top-level crafting node, max 100 levels
+    private const val CATEGORY_SPEC_EFFICIENCY_PTS = 18.0  // Alchemist category node, max ~1,500 levels
+    private const val MASTERY_EFFICIENCY_PTS = 250.0        // Item-specific mastery node
+
     private const val CRAFTING_TAX_MULTIPLIER = 0.001125
     private const val PREMIUM_MARKET_TAX_RATE = 0.065
     private const val STANDARD_MARKET_TAX_RATE = 0.105
 
     private const val RARE_INGREDIENT_MARKER = "RARE"
 
-    /**
-     * General crafting spec: +30 efficiency pts/level.
-     * Potion mastery: +280 efficiency pts/level.
-     * reducedCost = baseCost × 0.5^(totalPts / 10000)
-     */
-    internal fun reduceFocusCost(baseCost: Int, basicSpecLevel: Double, masteryLevel: Double): Int {
+    // reducedCost = baseCost × 0.5^(totalPts / 10,000)
+    internal fun reduceFocusCost(
+        baseCost: Int,
+        generalSpecLevel: Double = 0.0,
+        basicSpecLevel: Double = 0.0,
+        masteryLevel: Double = 0.0,
+    ): Int {
         if (baseCost <= 0) return 0
-        val efficiencyPts = basicSpecLevel * 30.0 + masteryLevel * 280.0
+        val efficiencyPts = generalSpecLevel * GENERAL_SPEC_EFFICIENCY_PTS +
+                basicSpecLevel * CATEGORY_SPEC_EFFICIENCY_PTS +
+                masteryLevel * MASTERY_EFFICIENCY_PTS
         return (baseCost * 0.5.pow(efficiencyPts / FOCUS_REDUCTION_HALF_LIFE)).roundToInt()
     }
 
@@ -63,6 +71,7 @@ object PotionCraftCalculator {
         sellPrice: Double?,
         outputQuantity: Int,
         craftQuantity: Int = 1,
+        generalSpecLevel: Double = 0.0,
         basicSpecLevel: Double = 0.0,
         masteryLevel: Double = 0.0,
     ): PotionCraftResult {
@@ -73,7 +82,7 @@ object PotionCraftCalculator {
         val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
         val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
 
-        val effectiveFocusCost = reduceFocusCost(focusCostPerBatch, basicSpecLevel, masteryLevel)
+        val effectiveFocusCost = reduceFocusCost(focusCostPerBatch, generalSpecLevel, basicSpecLevel, masteryLevel)
 
         val (returnRate, batchesWithFocus) = resolveReturnRate(
             city = city,
@@ -99,6 +108,7 @@ object PotionCraftCalculator {
             estimatedSellPrice = sellPrice,
             profitSilver = profitSilver,
             craftQuantity = craftQuantity,
+            outputQuantity = outputQuantity,
             batchesWithFocus = batchesWithFocus,
             focusCostPerBatch = focusCostPerBatch,
             reducedFocusCostPerBatch = effectiveFocusCost,

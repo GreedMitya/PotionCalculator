@@ -32,7 +32,9 @@ fun SmallInputField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isError: Boolean = false
+    hint: String? = null,
+    placeholder: String? = null,
+    isError: Boolean = false,
 ) {
     var localError by remember { mutableStateOf(false) }
 
@@ -52,8 +54,15 @@ fun SmallInputField(
         Text(
             text = title,
             fontSize = 14.sp,
-            color = AppColors.PrimaryGold
+            color = AppColors.PrimaryGold,
         )
+        if (hint != null) {
+            Text(
+                text = hint,
+                fontSize = 11.sp,
+                color = AppColors.LightBeige.copy(alpha = 0.55f),
+            )
+        }
         Spacer(Modifier.height(4.dp))
         TextField(
             value = value,
@@ -62,8 +71,17 @@ fun SmallInputField(
             singleLine = true,
             textStyle = TextStyle(
                 fontSize = 14.sp,
-                color = AppColors.White
+                color = AppColors.White,
             ),
+            placeholder = if (placeholder != null) {
+                {
+                    Text(
+                        text = placeholder,
+                        fontSize = 13.sp,
+                        color = AppColors.LightBeige.copy(alpha = 0.4f),
+                    )
+                }
+            } else null,
             shape = RoundedCornerShape(6.dp),
             colors = TextFieldDefaults.colors(
                 focusedTextColor = AppColors.White,
@@ -72,11 +90,11 @@ fun SmallInputField(
                 unfocusedContainerColor = AppColors.PanelBrown,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = AppColors.PrimaryGold
+                cursorColor = AppColors.PrimaryGold,
             ),
             modifier = Modifier
                 .height(48.dp)
-                .border(1.dp, borderColor, RoundedCornerShape(6.dp))
+                .border(1.dp, borderColor, RoundedCornerShape(6.dp)),
         )
     }
 }

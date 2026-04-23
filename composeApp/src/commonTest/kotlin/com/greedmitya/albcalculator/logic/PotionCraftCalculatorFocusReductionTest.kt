@@ -35,39 +35,65 @@ class PotionCraftCalculatorFocusReductionTest {
 
     @Test
     fun reduceFocusCost_100Mastery_reducesToAbout14Percent() {
-        // 100 mastery × 280 = 28000 pts → 0.5^(28000/10000) = 0.5^2.8 ≈ 0.1435
-        // 210 × 0.1435 ≈ 30.1 → rounds to 30
+        // 100 mastery × 250 = 25,000 pts → 0.5^(25000/10000) = 0.5^2.5 ≈ 0.1768
+        // 210 × 0.1768 ≈ 37.1 → rounds to 37
         val result = PotionCraftCalculator.reduceFocusCost(
             baseCost = 210,
             basicSpecLevel = 0.0,
             masteryLevel = 100.0,
         )
-        assertTrue(result in 28..32, "Expected ~30 for 100 mastery, got $result")
+        assertTrue(result in 34..40, "Expected ~37 for 100 mastery, got $result")
     }
 
     @Test
     fun reduceFocusCost_withBasicAndMastery_appliesCombined() {
-        // 50 basic × 30 + 50 mastery × 280 = 1500 + 14000 = 15500 pts
-        // 0.5^(15500/10000) = 0.5^1.55 ≈ 0.3408
-        // 1000 × 0.3408 ≈ 341
+        // 50 basic × 18 + 50 mastery × 250 = 900 + 12,500 = 13,400 pts
+        // 0.5^(13400/10000) = 0.5^1.34 ≈ 0.394
+        // 1000 × 0.394 ≈ 394
         val result = PotionCraftCalculator.reduceFocusCost(
             baseCost = 1000,
             basicSpecLevel = 50.0,
             masteryLevel = 50.0,
         )
-        assertTrue(result in 330..355, "Expected ~341 for basic=50 mastery=50, got $result")
+        assertTrue(result in 380..410, "Expected ~394 for basic=50 mastery=50, got $result")
     }
 
     @Test
     fun reduceFocusCost_onlyBasicSpec_reducesModestly() {
-        // 100 basic × 30 = 3000 pts → 0.5^0.3 ≈ 0.812
-        // 210 × 0.812 ≈ 171
+        // 100 basic × 18 = 1,800 pts → 0.5^0.18 ≈ 0.882
+        // 210 × 0.882 ≈ 185
         val result = PotionCraftCalculator.reduceFocusCost(
             baseCost = 210,
             basicSpecLevel = 100.0,
             masteryLevel = 0.0,
         )
-        assertTrue(result in 165..178, "Expected ~171 for basic=100, got $result")
+        assertTrue(result in 178..193, "Expected ~185 for basic=100, got $result")
+    }
+
+    @Test
+    fun reduceFocusCost_withGeneralSpec_reducesCorrectly() {
+        // 100 generalSpec × 30 = 3,000 pts → 0.5^0.3 ≈ 0.812
+        // 210 × 0.812 ≈ 171
+        val result = PotionCraftCalculator.reduceFocusCost(
+            baseCost = 210,
+            generalSpecLevel = 100.0,
+            basicSpecLevel = 0.0,
+            masteryLevel = 0.0,
+        )
+        assertTrue(result in 165..178, "Expected ~171 for generalSpec=100, got $result")
+    }
+
+    @Test
+    fun reduceFocusCost_allThreeTiers_combinesCorrectly() {
+        // 100 general × 30 + 500 basic × 18 + 10 mastery × 250 = 3000 + 9000 + 2500 = 14,500 pts
+        // 0.5^1.45 ≈ 0.366 → 1000 × 0.366 ≈ 366
+        val result = PotionCraftCalculator.reduceFocusCost(
+            baseCost = 1000,
+            generalSpecLevel = 100.0,
+            basicSpecLevel = 500.0,
+            masteryLevel = 10.0,
+        )
+        assertTrue(result in 350..385, "Expected ~366 for all three tiers combined, got $result")
     }
 
     // ── Integration: reduced cost affects batchesWithFocus ──

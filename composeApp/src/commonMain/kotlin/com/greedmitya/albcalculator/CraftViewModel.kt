@@ -97,6 +97,7 @@ class CraftViewModel(
     var isPremium by mutableStateOf(false)
     var useFocus by mutableStateOf(false)
     var availableFocus by mutableStateOf("")
+    var focusGeneralSpec by mutableStateOf("")
     var focusBasic by mutableStateOf("")
     var focusMastery by mutableStateOf("")
 
@@ -250,6 +251,7 @@ class CraftViewModel(
             useFocus = useFocus,
             isPremium = isPremium,
             availableFocus = availableFocus,
+            generalSpecLevel = focusGeneralSpec,
             basicSpecLevel = focusBasic,
             masteryLevel = focusMastery,
             selectedCity = selectedCity,

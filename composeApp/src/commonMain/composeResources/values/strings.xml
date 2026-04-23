@@ -29,10 +29,18 @@
     <string name="craft_fee_label">Fee for 100 nutrition</string>
     <string name="craft_toggle_premium">Premium</string>
     <string name="craft_toggle_focus">Use focus</string>
-    <string name="craft_focus_basic">Basic Spec Level</string>
+    <string name="craft_focus_general">Crafting Spec</string>
+    <string name="craft_focus_general_hint">+30 pts/lvl · max 100</string>
+    <string name="craft_focus_basic">Total Specs</string>
+    <string name="craft_focus_basic_hint">+18 pts/lvl · max ~1,500</string>
     <string name="craft_focus_mastery">Mastery Level</string>
+    <string name="craft_focus_mastery_hint">+250 pts/lvl</string>
     <string name="craft_focus_available">Available Focus</string>
-    <string name="focus_batches_info">Focus batches: %1$d / %2$d</string>
+    <string name="craft_focus_available_hint">Your current focus points</string>
+    <!-- %1$s = formatted efficiency points, %2$d = focus savings percent -->
+    <string name="craft_focus_efficiency_pts">Efficiency: %1$s pts</string>
+    <string name="craft_focus_efficiency_save">saves %1$d%% focus</string>
+    <string name="focus_batches_info">Focus items: %1$d / %2$d</string>
     <string name="focus_return_rate_info">Return rate: %1$s%%</string>
     <string name="focus_cost_info">Focus cost: %1$d pts/batch</string>
     <string name="craft_runs_label">Craft Runs</string>
@@ -135,7 +143,7 @@
     <string name="how_to_use_premium_body">Craft+ is a one-time unlock — no subscription, no recurring fees. Once purchased you get four extra tools:\n\n• Focus Crafting Calculator — see how many batches you can craft with Focus Points and at what return rate\n• Batch Quantity Mode — plan any number of craft runs in a single calculation\n• City Price Monitor — live market prices for herbs, components and potions across all cities\n• Potion Profit Advisor — automatically ranks every potion by profit so you always know what to craft next\n\nNote: Craft+ is an in-app purchase for this calculator. It is NOT the same as an Albion Online Premium subscription.</string>
 
     <string name="how_to_use_section_focus">How Focus Works (Craft+ only)</string>
-    <string name="how_to_use_focus_body">Focus Points in Albion Online give bonus resource returns when crafting. After unlocking Craft+:\n\n1. Switch to the Craft+ tab\n2. Toggle \"Use Focus\" ON\n3. Enter three values:\n   • Basic Spec Level — your general crafting specialization\n   • Mastery Level — your specialization for this potion type\n   • Available Focus — focus points you have right now\n\nThe calculator shows:\n• How many batches you can craft with Focus\n• Your effective return rate\n• Focus cost per batch (reduced by your spec and mastery)\n\nHigher spec and mastery = less focus spent per batch.</string>
+    <string name="how_to_use_focus_body">Focus Points in Albion Online give bonus resource returns when crafting. After unlocking Craft+:\n\n1. Switch to the Craft+ tab\n2. Toggle \"Use Focus\" ON\n3. Enter your three Destiny Board levels:\n   • Crafting Spec — top-level crafting node (max 100 levels, +30 pts each)\n   • Total Specs — your total Alchemist category levels (max ~1,500, +18 pts each)\n   • Mastery Level — mastery for this specific potion (+250 pts each)\n   • Available Focus — focus points you have right now\n\nThe live \"Efficiency\" line shows your total pts and how much focus you save.\n\nThe calculator shows:\n• How many batches you can craft with Focus\n• Your effective return rate\n• Focus cost per batch (reduced by your specialization)\n\nHigher specialization = less focus spent per batch.</string>
 
     <string name="how_to_use_section_support">A Word from the Creator</string>
     <string name="how_to_use_support_body">Hey, fellow crafter! I built this tool as an Albion Online player who was tired of doing spreadsheet math before every crafting session. I hope it saves you time and silver.\n\nIf you find it useful, the best ways to support the project are:\n• Unlock Craft+ — it funds continued development\n• Leave a review on Google Play — it helps other crafters find the app\n• Share feedback — every suggestion makes the app better\n\nThank you for using Potion Crafting Calculator. May your herbs be cheap and your potions sell high!</string>

@@ -18,6 +18,7 @@ class CalculateProfitUseCase {
         useFocus: Boolean,
         isPremium: Boolean,
         availableFocus: String,
+        generalSpecLevel: String = "",
         basicSpecLevel: String = "",
         masteryLevel: String = "",
         selectedCity: String?,
@@ -51,6 +52,7 @@ class CalculateProfitUseCase {
             sellPrice = potionSellPrice.toDoubleOrNull(),
             outputQuantity = outputQuantity,
             craftQuantity = craftQuantity,
+            generalSpecLevel = generalSpecLevel.toDoubleOrNull() ?: 0.0,
             basicSpecLevel = basicSpecLevel.toDoubleOrNull() ?: 0.0,
             masteryLevel = masteryLevel.toDoubleOrNull() ?: 0.0,
         )

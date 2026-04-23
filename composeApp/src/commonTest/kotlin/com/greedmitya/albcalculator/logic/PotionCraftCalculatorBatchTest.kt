@@ -105,8 +105,8 @@ class PotionCraftCalculatorBatchTest {
             craftQuantity = 5,
         )
 
-        // totalProfitSilver = profitSilver * craftQuantity
-        assertEquals(result.profitSilver * 5, result.totalProfitSilver, DELTA)
+        // totalProfitSilver = profitSilver * craftQuantity(batches) * outputQuantity(items per batch)
+        assertEquals(result.profitSilver * 5 * 5, result.totalProfitSilver, DELTA)
     }
 
     @Test
@@ -126,7 +126,7 @@ class PotionCraftCalculatorBatchTest {
             craftQuantity = 8,
         )
 
-        // totalCostSilver = finalCost * craftQuantity
-        assertEquals(result.finalCost * 8, result.totalCostSilver, DELTA)
+        // totalCostSilver = finalCost * craftQuantity(batches) * outputQuantity(items per batch)
+        assertEquals(result.finalCost * 8 * 5, result.totalCostSilver, DELTA)
     }
 }

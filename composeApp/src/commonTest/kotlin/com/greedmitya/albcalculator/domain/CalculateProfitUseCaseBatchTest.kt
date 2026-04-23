@@ -110,7 +110,7 @@ class CalculateProfitUseCaseBatchTest {
         assertEquals(resultSingle.profitSilver, resultTen.profitSilver, DELTA)
         assertEquals(resultSingle.finalCost, resultTen.finalCost, DELTA)
 
-        // But total profit should scale
-        assertEquals(resultSingle.profitSilver * 10, resultTen.totalProfitSilver, DELTA)
+        // Total profit = profitPerItem × craftQuantity(batches) × outputQuantity(items per batch)
+        assertEquals(resultSingle.profitSilver * 10 * 5, resultTen.totalProfitSilver, DELTA)
     }
 }
