@@ -24,6 +24,7 @@ koin = "4.0.0"
 napier = "2.7.1"
 android-billing = "7.1.1"
 play-app-update = "2.1.0"
+google-mobile-ads = "23.6.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -57,6 +58,7 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", ver
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 google-billing = { module = "com.android.billingclient:billing-ktx", version.ref = "android-billing" }
 play-app-update = { module = "com.google.android.play:app-update-ktx", version.ref = "play-app-update" }
+google-mobile-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "google-mobile-ads" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

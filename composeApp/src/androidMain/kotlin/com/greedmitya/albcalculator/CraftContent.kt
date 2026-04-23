@@ -441,6 +441,7 @@ fun CraftContent(
                     onSaveClick = { viewModel.saveToFavorites() }
                 )
             }
+
         }
         } // end scrollable Column
     }

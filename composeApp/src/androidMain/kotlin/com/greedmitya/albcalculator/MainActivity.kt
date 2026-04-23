@@ -9,20 +9,40 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.play.core.install.InstallStateUpdatedListener
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private val updateLauncher = registerForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
-    ) { /* flexible update — Play handles download and restart UI */ }
+    ) { /* flexible update — download starts in background, listener handles completion */ }
+
+    private lateinit var updateChecker: AppUpdateChecker
+    private var installListener: InstallStateUpdatedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        if (BuildConfig.DEBUG) {
+            MobileAds.setRequestConfiguration(
+                RequestConfiguration.Builder()
+                    .setTestDeviceIds(listOf(AdRequest.DEVICE_ID_EMULATOR))
+                    .build()
+            )
+        }
+        MobileAds.initialize(this)
 
         var showUpdateDialog by mutableStateOf(false)
-        val updateChecker = AppUpdateChecker(this)
+        updateChecker = AppUpdateChecker(this)
+
+        // When the download finishes in the background — trigger install immediately
+        installListener = updateChecker.registerInstallListener {
+            lifecycleScope.launch { updateChecker.completeUpdateIfDownloaded() }
+        }
 
         setContent {
             AndroidApp()
@@ -49,5 +69,16 @@ class MainActivity : AppCompatActivity() {
                 showUpdateDialog = true
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Handles the case where the app was backgrounded after download completed
+        lifecycleScope.launch { updateChecker.completeUpdateIfDownloaded() }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        installListener?.let { updateChecker.unregisterInstallListener(it) }
     }
 }

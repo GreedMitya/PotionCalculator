@@ -15,6 +15,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.greedmitya.albcalculator.ads.AdBannerView
 import com.greedmitya.albcalculator.CraftContent
 import com.greedmitya.albcalculator.CraftViewModel
 import com.greedmitya.albcalculator.FavoritesScreen
@@ -105,17 +106,22 @@ fun CraftScreen(viewModel: CraftViewModel) {
             }
         },
         bottomBar = {
-            Surface(
-                color = AppColors.PanelBrown,
-                tonalElevation = 4.dp,
-                modifier = Modifier.navigationBarsPadding()
-            ) {
-                BottomNavigationBar(
-                    items = navItems,
-                    selectedIndex = selectedTab,
-                    onSelect = { selectedTab = it },
-                    modifier = Modifier.fillMaxWidth()
-                )
+            Column {
+                if (!viewModel.isAppPremiumUnlocked && selectedTab == 0) {
+                    AdBannerView(modifier = Modifier.fillMaxWidth())
+                }
+                Surface(
+                    color = AppColors.PanelBrown,
+                    tonalElevation = 4.dp,
+                    modifier = Modifier.navigationBarsPadding()
+                ) {
+                    BottomNavigationBar(
+                        items = navItems,
+                        selectedIndex = selectedTab,
+                        onSelect = { selectedTab = it },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
     ) { innerPadding ->

@@ -35,6 +35,11 @@
 -keep class org.koin.** { *; }
 -dontwarn org.koin.**
 
+# Google Mobile Ads (AdMob)
+-keep class com.google.android.gms.ads.** { *; }
+-keep class com.google.ads.** { *; }
+-dontwarn com.google.android.gms.ads.**
+
 # Google Play Billing
 -keep class com.android.billingclient.** { *; }
 
