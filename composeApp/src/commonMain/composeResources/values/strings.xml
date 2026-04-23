@@ -40,9 +40,9 @@
     <string name="craft_focus_available_hint">Leave empty to assume all batches use focus</string>
     <!-- %1$s = formatted efficiency points, %2$d = focus savings percent -->
     <string name="craft_focus_efficiency_pts">Efficiency: %1$s pts</string>
-    <string name="craft_focus_efficiency_save">saves %1$d%% focus</string>
+    <string name="craft_focus_efficiency_save">saves %1$d% focus</string>
     <string name="focus_batches_info">Focus items: %1$d / %2$d</string>
-    <string name="focus_return_rate_info">Return rate: %1$s%%</string>
+    <string name="focus_return_rate_info">Return rate: %1$s%</string>
     <string name="focus_cost_info">Focus cost: %1$d pts/batch</string>
     <string name="craft_runs_label">Craft Runs</string>
     <string name="button_calculate">Calculate</string>

@@ -38,9 +38,9 @@
     <string name="craft_focus_available">Foco disponible</string>
     <string name="craft_focus_available_hint">Dejar vacío = todas las tandas con foco</string>
     <string name="craft_focus_efficiency_pts">Eficiencia: %1$s pts</string>
-    <string name="craft_focus_efficiency_save">ahorra %1$d%% foco</string>
+    <string name="craft_focus_efficiency_save">ahorra %1$d% foco</string>
     <string name="focus_batches_info">Items con foco: %1$d / %2$d</string>
-    <string name="focus_return_rate_info">Tasa de retorno: %1$s%%</string>
+    <string name="focus_return_rate_info">Tasa de retorno: %1$s%</string>
     <string name="focus_cost_info">Costo de foco: %1$d pts/tanda</string>
     <string name="craft_runs_label">Elaboraciones</string>
     <string name="button_calculate">Calcular</string>

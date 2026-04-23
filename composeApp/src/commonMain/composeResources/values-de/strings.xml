@@ -38,9 +38,9 @@
     <string name="craft_focus_available">Verfügbarer Fokus</string>
     <string name="craft_focus_available_hint">Leer lassen = alle Chargen mit Fokus</string>
     <string name="craft_focus_efficiency_pts">Effizienz: %1$s Pkt</string>
-    <string name="craft_focus_efficiency_save">spart %1$d%% Fokus</string>
+    <string name="craft_focus_efficiency_save">spart %1$d% Fokus</string>
     <string name="focus_batches_info">Items mit Fokus: %1$d / %2$d</string>
-    <string name="focus_return_rate_info">Rückgaberate: %1$s%%</string>
+    <string name="focus_return_rate_info">Rückgaberate: %1$s%</string>
     <string name="focus_cost_info">Fokuskosten: %1$d P./Charge</string>
     <string name="craft_runs_label">Herstellungen</string>
     <string name="button_calculate">Berechnen</string>
