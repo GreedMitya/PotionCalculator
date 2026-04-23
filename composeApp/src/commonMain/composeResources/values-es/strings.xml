@@ -14,6 +14,7 @@
     <string name="button_delete">Eliminar</string>
     <string name="button_save">Guardar</string>
     <string name="placeholder_enter">Introducir</string>
+    <string name="placeholder_optional">opcional</string>
     <string name="placeholder_choose">Elegir</string>
     <string name="snackbar_copied">¡Copiado!</string>
     <string name="snackbar_fill">¡Rellena!</string>
@@ -33,9 +34,9 @@
     <string name="craft_focus_basic">Total esp.</string>
     <string name="craft_focus_basic_hint">+18 pts/niv · máx ~1.500</string>
     <string name="craft_focus_mastery">Maestría</string>
-    <string name="craft_focus_mastery_hint">+250 pts/niv</string>
+    <string name="craft_focus_mastery_hint">+250 pts/niv · máx 100</string>
     <string name="craft_focus_available">Foco disponible</string>
-    <string name="craft_focus_available_hint">Tus puntos de foco actuales</string>
+    <string name="craft_focus_available_hint">Dejar vacío = todas las tandas con foco</string>
     <string name="craft_focus_efficiency_pts">Eficiencia: %1$s pts</string>
     <string name="craft_focus_efficiency_save">ahorra %1$d%% foco</string>
     <string name="focus_batches_info">Items con foco: %1$d / %2$d</string>

@@ -14,6 +14,7 @@
     <string name="button_delete">削除</string>
     <string name="button_save">保存</string>
     <string name="placeholder_enter">入力</string>
+    <string name="placeholder_optional">任意</string>
     <string name="placeholder_choose">選択</string>
     <string name="snackbar_copied">コピーしました！</string>
     <string name="snackbar_fill">入力してください！</string>
@@ -33,9 +34,9 @@
     <string name="craft_focus_basic">総専門化</string>
     <string name="craft_focus_basic_hint">+18pt/Lv · 最大~1,500</string>
     <string name="craft_focus_mastery">熟練度</string>
-    <string name="craft_focus_mastery_hint">+250pt/Lv</string>
+    <string name="craft_focus_mastery_hint">+250pt/Lv · 最大100</string>
     <string name="craft_focus_available">利用可能なフォーカス</string>
-    <string name="craft_focus_available_hint">現在のフォーカスポイント</string>
+    <string name="craft_focus_available_hint">空欄＝全バッチがフォーカスを使用</string>
     <string name="craft_focus_efficiency_pts">効率：%1$s pt</string>
     <string name="craft_focus_efficiency_save">フォーカス%1$d%%節約</string>
     <string name="focus_batches_info">フォーカスアイテム: %1$d / %2$d</string>

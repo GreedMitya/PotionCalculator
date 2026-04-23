@@ -14,6 +14,7 @@
     <string name="button_delete">Usuń</string>
     <string name="button_save">Zapisz</string>
     <string name="placeholder_enter">Wprowadź</string>
+    <string name="placeholder_optional">opcjonalne</string>
     <string name="placeholder_choose">Wybierz</string>
     <string name="snackbar_copied">Skopiowano!</string>
     <string name="snackbar_fill">Wypełnij!</string>
@@ -33,9 +34,9 @@
     <string name="craft_focus_basic">Łączna spec.</string>
     <string name="craft_focus_basic_hint">+18 pkt/poz · maks ~1500</string>
     <string name="craft_focus_mastery">Mistrzostwo</string>
-    <string name="craft_focus_mastery_hint">+250 pkt/poz</string>
+    <string name="craft_focus_mastery_hint">+250 pkt/poz · maks 100</string>
     <string name="craft_focus_available">Dostępny focus</string>
-    <string name="craft_focus_available_hint">Twoje aktualne punkty focusu</string>
+    <string name="craft_focus_available_hint">Zostaw puste, by zakładać fokus na każdą partię</string>
     <string name="craft_focus_efficiency_pts">Efektywność: %1$s pkt</string>
     <string name="craft_focus_efficiency_save">oszczędza %1$d%% focusu</string>
     <string name="focus_batches_info">Przedmioty z focusem: %1$d / %2$d</string>

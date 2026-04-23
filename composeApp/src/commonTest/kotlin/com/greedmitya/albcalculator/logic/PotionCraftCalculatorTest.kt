@@ -546,7 +546,7 @@ class PotionCraftCalculatorTest {
             feePerNutrition = 0.0,
             useFocus = true,
             isPremium = false,
-            availableFocus = 1000.0,
+            availableFocus = 5000.0,
             focusCostPerBatch = 210,
             itemValue = 0,
             city = "Brecilien",
@@ -554,7 +554,7 @@ class PotionCraftCalculatorTest {
             outputQuantity = 5,
             craftQuantity = 4,
         )
-        // 1000 / 210 = 4 batches with focus — covers all 4
+        // 5000 / (210×5) = 5000 / 1050 = 4 batches with focus — covers all 4
         assertEquals(PotionCraftCalculator.BRECILIEN_FOCUS_RETURN_RATE, result.effectiveReturnRate, DELTA)
         assertEquals(4, result.batchesWithFocus)
     }
@@ -580,13 +580,13 @@ class PotionCraftCalculatorTest {
     @Test
     fun calculate_withFocus_focusRunsOutHalfway_returnsBlendedRate() {
         val ingredients = listOf(Ingredient(name = "Herb", quantity = 10, price = 100.0))
-        // 2 batches planned, focus for exactly 1 batch
+        // 2 batches planned, focus for exactly 1 batch (1050 = 210 per item × 5 items)
         val result = PotionCraftCalculator.calculate(
             ingredients = ingredients,
             feePerNutrition = 0.0,
             useFocus = true,
             isPremium = false,
-            availableFocus = 210.0,
+            availableFocus = 1050.0,
             focusCostPerBatch = 210,
             itemValue = 0,
             city = "Brecilien",

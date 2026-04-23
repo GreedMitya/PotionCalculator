@@ -14,6 +14,7 @@
     <string name="button_delete">Удалить</string>
     <string name="button_save">Сохранить</string>
     <string name="placeholder_enter">Введите</string>
+    <string name="placeholder_optional">необяз.</string>
     <string name="placeholder_choose">Выберите</string>
     <string name="snackbar_copied">Скопировано!</string>
     <string name="snackbar_fill">Заполните!</string>
@@ -34,9 +35,9 @@
     <string name="craft_focus_basic">Общ. спец.</string>
     <string name="craft_focus_basic_hint">+18 очк/ур · макс ~1500</string>
     <string name="craft_focus_mastery">Мастерство</string>
-    <string name="craft_focus_mastery_hint">+250 очк/ур</string>
+    <string name="craft_focus_mastery_hint">+250 очк/ур · макс 100</string>
     <string name="craft_focus_available">Доступный фокус</string>
-    <string name="craft_focus_available_hint">Ваши текущие очки фокуса</string>
+    <string name="craft_focus_available_hint">Оставьте пустым — все партии с фокусом</string>
     <string name="craft_focus_efficiency_pts">Эффективность: %1$s очк</string>
     <string name="craft_focus_efficiency_save">экономия %1$d%% фокуса</string>
     <string name="focus_batches_info">Предметов с фокусом: %1$d / %2$d</string>

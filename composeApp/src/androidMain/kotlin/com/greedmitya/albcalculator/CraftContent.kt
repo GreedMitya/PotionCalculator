@@ -286,6 +286,7 @@ fun CraftContent(
                 SmallInputField(
                     title = stringResource(Res.string.craft_focus_available),
                     hint = stringResource(Res.string.craft_focus_available_hint),
+                    placeholder = stringResource(Res.string.placeholder_optional),
                     value = viewModel.availableFocus,
                     onValueChange = { viewModel.availableFocus = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -374,7 +375,7 @@ fun CraftContent(
                             fontSize = 12.sp,
                         )
                     }
-                    if (focusResult.reducedFocusCostPerBatch != focusResult.focusCostPerBatch) {
+                    if (focusResult.reducedFocusCostPerBatch != focusResult.focusCostPerBatch * focusResult.outputQuantity) {
                         Spacer(Modifier.height(2.dp))
                         Text(
                             text = stringResource(Res.string.focus_cost_info, focusResult.reducedFocusCostPerBatch),

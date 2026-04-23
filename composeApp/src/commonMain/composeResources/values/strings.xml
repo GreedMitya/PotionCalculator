@@ -14,6 +14,7 @@
     <string name="button_delete">Delete</string>
     <string name="button_save">Save</string>
     <string name="placeholder_enter">Enter</string>
+    <string name="placeholder_optional">optional</string>
     <string name="placeholder_choose">Choose</string>
     <string name="snackbar_copied">Copied!</string>
     <string name="snackbar_fill">Fill!</string>
@@ -34,9 +35,9 @@
     <string name="craft_focus_basic">Total Specs</string>
     <string name="craft_focus_basic_hint">+18 pts/lvl · max ~1,500</string>
     <string name="craft_focus_mastery">Mastery Level</string>
-    <string name="craft_focus_mastery_hint">+250 pts/lvl</string>
+    <string name="craft_focus_mastery_hint">+250 pts/lvl · max 100</string>
     <string name="craft_focus_available">Available Focus</string>
-    <string name="craft_focus_available_hint">Your current focus points</string>
+    <string name="craft_focus_available_hint">Leave empty to assume all batches use focus</string>
     <!-- %1$s = formatted efficiency points, %2$d = focus savings percent -->
     <string name="craft_focus_efficiency_pts">Efficiency: %1$s pts</string>
     <string name="craft_focus_efficiency_save">saves %1$d%% focus</string>

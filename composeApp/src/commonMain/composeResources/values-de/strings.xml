@@ -14,6 +14,7 @@
     <string name="button_delete">Löschen</string>
     <string name="button_save">Speichern</string>
     <string name="placeholder_enter">Eingeben</string>
+    <string name="placeholder_optional">optional</string>
     <string name="placeholder_choose">Auswählen</string>
     <string name="snackbar_copied">Kopiert!</string>
     <string name="snackbar_fill">Ausfüllen!</string>
@@ -33,9 +34,9 @@
     <string name="craft_focus_basic">Ges. Spez.</string>
     <string name="craft_focus_basic_hint">+18 Pkt/Stufe · max ~1.500</string>
     <string name="craft_focus_mastery">Meisterschaft</string>
-    <string name="craft_focus_mastery_hint">+250 Pkt/Stufe</string>
+    <string name="craft_focus_mastery_hint">+250 Pkt/Stufe · max 100</string>
     <string name="craft_focus_available">Verfügbarer Fokus</string>
-    <string name="craft_focus_available_hint">Deine aktuellen Fokuspunkte</string>
+    <string name="craft_focus_available_hint">Leer lassen = alle Chargen mit Fokus</string>
     <string name="craft_focus_efficiency_pts">Effizienz: %1$s Pkt</string>
     <string name="craft_focus_efficiency_save">spart %1$d%% Fokus</string>
     <string name="focus_batches_info">Items mit Fokus: %1$d / %2$d</string>

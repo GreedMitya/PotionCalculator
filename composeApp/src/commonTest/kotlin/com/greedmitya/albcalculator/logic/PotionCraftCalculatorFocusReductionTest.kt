@@ -134,8 +134,8 @@ class PotionCraftCalculatorFocusReductionTest {
             masteryLevel = 100.0,
         )
 
-        // With 0 mastery: floor(210/210) = 1 batch with focus
-        assertEquals(1, resultNoMastery.batchesWithFocus)
+        // With 0 mastery: floor(210 / (210×5)) = floor(210/1050) = 0 batches with focus
+        assertEquals(0, resultNoMastery.batchesWithFocus)
 
         // With 100 mastery: reduced cost ≈ 30, floor(210/30) = 7 batches with focus
         assertTrue(
@@ -162,15 +162,16 @@ class PotionCraftCalculatorFocusReductionTest {
             masteryLevel = 100.0,
         )
 
-        // reducedFocusCostPerBatch should be < base cost with 100 mastery
+        // reducedFocusCostPerBatch (per-batch = reduced per-item × outputQuantity) should be
+        // less than focusCostPerBatch * outputQuantity (unreduced per-batch) with 100 mastery
         assertTrue(
-            result.reducedFocusCostPerBatch < result.focusCostPerBatch,
-            "reducedFocusCostPerBatch (${result.reducedFocusCostPerBatch}) should be < base (${result.focusCostPerBatch})"
+            result.reducedFocusCostPerBatch < result.focusCostPerBatch * 5,
+            "reducedFocusCostPerBatch (${result.reducedFocusCostPerBatch}) should be < base×5 (${result.focusCostPerBatch * 5})"
         )
     }
 
     @Test
-    fun calculate_zeroMastery_reducedCostEqualsBaseCost() {
+    fun calculate_zeroMastery_reducedBatchCostEqualsBasePerItemTimesOutputQuantity() {
         val result = PotionCraftCalculator.calculate(
             ingredients = listOf(Ingredient(name = "Herb", quantity = 4, price = 100.0)),
             feePerNutrition = 0.0,
@@ -185,6 +186,8 @@ class PotionCraftCalculatorFocusReductionTest {
             craftQuantity = 1,
         )
 
-        assertEquals(result.focusCostPerBatch, result.reducedFocusCostPerBatch)
+        // focusCostPerBatch is per-item; reducedFocusCostPerBatch is per-batch (× outputQuantity=5)
+        // With zero specialisation there is no reduction, so: reduced per-batch = base per-item × 5
+        assertEquals(result.focusCostPerBatch * 5, result.reducedFocusCostPerBatch)
     }
 }
