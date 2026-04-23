@@ -19,6 +19,7 @@ val WHATS_NEW = listOf(
     "Auto-update notifications when a new version is available",
     "UI polishing across all 10 supported languages",
     "Bug fixes and stability improvements",
+    "New checked formula for FOCUS",
 )
 
 private suspend fun <T> Task<T>.await(): T = suspendCancellableCoroutine { cont ->

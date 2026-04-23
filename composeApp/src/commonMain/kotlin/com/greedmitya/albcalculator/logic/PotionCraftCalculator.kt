@@ -82,7 +82,7 @@ object PotionCraftCalculator {
         val rareCost = rareIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
         val regularRawCost = regularIngredients.sumOf { (it.price ?: 0.0) * it.quantity }
 
-        val effectiveFocusCost = reduceFocusCost(focusCostPerBatch, generalSpecLevel, basicSpecLevel, masteryLevel)
+        val effectiveFocusCost = reduceFocusCost(focusCostPerBatch, generalSpecLevel, basicSpecLevel, masteryLevel) * outputQuantity // manually changed at 10:45
 
         val (returnRate, batchesWithFocus) = resolveReturnRate(
             city = city,
