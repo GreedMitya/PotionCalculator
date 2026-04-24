@@ -85,7 +85,7 @@ fun MarketsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppColors.BackgroundDark)
-                .padding(horizontal = 20.dp, vertical = 60.dp)
+                .padding(start = 20.dp, end = 20.dp, top = 60.dp)
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -114,7 +114,7 @@ fun MarketsScreen(
                 isPurchasing = craftViewModel.isPurchasing,
                 modifier = Modifier
                     .weight(1f)
-                    .padding(top = 20.dp),
+                    .padding(top = 8.dp),
             )
         }
         return

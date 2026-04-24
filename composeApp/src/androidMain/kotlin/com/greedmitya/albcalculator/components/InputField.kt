@@ -39,9 +39,7 @@ fun InputField(
     val borderColor by rememberBlinkingError(isError)
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .widthIn(max = 350.dp)
+        modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = title,

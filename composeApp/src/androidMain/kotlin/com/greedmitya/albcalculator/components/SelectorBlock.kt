@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 import com.greedmitya.albcalculator.R
 import kotlinx.coroutines.delay
@@ -77,6 +78,7 @@ fun SelectorBlock(
                     val pxWidth = coordinates.size.width
                     selectorWidth = with(density) { pxWidth.toDp() }
                 }
+                .heightIn(min = 48.dp)
                 .border(
                     width = 1.dp,
                     color = animatedBorderColor,
@@ -84,7 +86,8 @@ fun SelectorBlock(
                 )
                 .background(animatedBackgroundColor, RoundedCornerShape(8.dp))
                 .clickable { expanded = true }
-                .padding(horizontal = 12.dp, vertical = 12.dp)
+                .padding(horizontal = 12.dp, vertical = 12.dp),
+            contentAlignment = Alignment.CenterStart
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -94,7 +97,10 @@ fun SelectorBlock(
                 Text(
                     text = selectedOption?.let { displayTransform(it) } ?: stringResource(Res.string.placeholder_choose),
                     color = AppColors.White,
-                    fontSize = 16.sp
+                    fontSize = 16.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.chevron_down),

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -52,26 +51,26 @@ fun PremiumUpgradeScreen(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .verticalScroll(rememberScrollState())
-            .padding(top = 16.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
+            .padding(top = 8.dp, bottom = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_lock),
             contentDescription = null,
             tint = AppColors.PrimaryGold,
-            modifier = Modifier.size(48.dp),
+            modifier = Modifier.size(32.dp),
         )
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(6.dp))
 
         Text(
             text = stringResource(Res.string.premium_badge),
             color = AppColors.PrimaryGold,
             fontFamily = EBGaramond,
             fontWeight = FontWeight.Bold,
-            fontSize = 28.sp,
+            fontSize = 22.sp,
         )
 
         Text(
@@ -79,25 +78,25 @@ fun PremiumUpgradeScreen(
             color = AppColors.Secondary_Beige,
             fontFamily = EBGaramond,
             fontWeight = FontWeight.Medium,
-            fontSize = 16.sp,
+            fontSize = 13.sp,
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(12.dp))
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(AppColors.Gray500, RoundedCornerShape(12.dp))
                 .border(1.dp, AppColors.PrimaryGold.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+                .padding(horizontal = 14.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Text(
                 text = stringResource(Res.string.premium_features_header),
                 color = AppColors.PrimaryGold,
                 fontFamily = EBGaramond,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp,
+                fontSize = 15.sp,
             )
 
             FeatureRow(stringResource(Res.string.premium_feature_focus))
@@ -106,13 +105,11 @@ fun PremiumUpgradeScreen(
             FeatureRow(stringResource(Res.string.premium_feature_advisor))
         }
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(16.dp))
 
         if (premiumPrice != null) {
             PriceBadge(price = premiumPrice)
-            Spacer(Modifier.height(16.dp))
-        } else {
-            Spacer(Modifier.height(48.dp))
+            Spacer(Modifier.height(10.dp))
         }
 
         ActionTextButton(
@@ -125,7 +122,7 @@ fun PremiumUpgradeScreen(
             borderColor = if (isPurchasing) AppColors.Gray400 else AppColors.PrimaryGold,
         )
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(6.dp))
 
         ActionTextButton(
             text = stringResource(Res.string.button_restore),
@@ -137,12 +134,12 @@ fun PremiumUpgradeScreen(
             borderColor = if (isPurchasing) AppColors.Gray400 else AppColors.Secondary_Beige.copy(alpha = 0.5f),
         )
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(6.dp))
 
         Text(
             text = stringResource(Res.string.premium_disclaimer),
             color = AppColors.Gray300,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             textAlign = TextAlign.Center,
         )
     }
@@ -169,7 +166,7 @@ private fun PriceBadge(price: String) {
             color = AppColors.PrimaryGold,
             fontFamily = EBGaramond,
             fontWeight = FontWeight.Bold,
-            fontSize = 32.sp,
+            fontSize = 26.sp,
             letterSpacing = 1.sp,
         )
     }

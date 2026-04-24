@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -50,7 +51,7 @@ fun ActionTextButton(
     Box(
         modifier = modifier
             .height(48.dp)
-            .widthIn(min = 100.dp, max = 160.dp)
+            .widthIn(min = 100.dp)
             .background(bgColor, RoundedCornerShape(8.dp))
             .border(1.dp, borderColor, RoundedCornerShape(8.dp))
             .clickable(
@@ -66,7 +67,10 @@ fun ActionTextButton(
             color = textColor,
             fontFamily = EBGaramond,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
     }
 }

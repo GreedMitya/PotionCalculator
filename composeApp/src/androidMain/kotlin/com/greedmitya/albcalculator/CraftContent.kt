@@ -1,15 +1,19 @@
 package com.greedmitya.albcalculator
 
+import android.annotation.SuppressLint
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -23,6 +27,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,6 +52,7 @@ import org.jetbrains.compose.resources.stringResource
 import potioncalculator.composeapp.generated.resources.*
 
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CraftContent(
     viewModel: CraftViewModel,
@@ -72,10 +78,14 @@ fun CraftContent(
         }
     }
 
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+    val sidePadding = if (maxWidth < 380.dp) 16.dp else 24.dp
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 40.dp, start = 30.dp, end = 30.dp, bottom = 30.dp),
+            .fillMaxHeight()
+            .widthIn(max = 600.dp)
+            .align(Alignment.TopCenter)
+            .padding(top = 40.dp, start = sidePadding, end = sidePadding, bottom = 16.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
@@ -83,7 +93,7 @@ fun CraftContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .padding(bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -111,7 +121,7 @@ fun CraftContent(
             },
         )
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(12.dp))
 
         if (craftSubTab == 1 && !viewModel.isAppPremiumUnlocked) {
             PremiumUpgradeScreen(
@@ -121,8 +131,7 @@ fun CraftContent(
                 isPurchasing = viewModel.isPurchasing,
                 modifier = Modifier.weight(1f),
             )
-            return
-        }
+        } else {
 
         Column(
             modifier = Modifier
@@ -141,7 +150,7 @@ fun CraftContent(
             displayTransform = { gameNameProvider.getPotionDisplayName(it) },
         )
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(8.dp))
 
         Row(
             Modifier.fillMaxWidth(),
@@ -168,11 +177,12 @@ fun CraftContent(
             )
         }
 
-        Spacer(Modifier.height(12.dp))
+        Spacer(Modifier.height(8.dp))
 
         Row(
             Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.Bottom
         ) {
             SelectorBlock(
                 title = stringResource(Res.string.craft_selector_city),
@@ -193,7 +203,7 @@ fun CraftContent(
             )
         }
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
 
         if (craftSubTab == 0) {
             // Free Craft tab: only Premium toggle, no focus
@@ -303,7 +313,7 @@ fun CraftContent(
             )
         }
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
         val ingredients = viewModel.getRecipeForSelected()
 
         Column {
@@ -322,7 +332,7 @@ fun CraftContent(
                         coroutineScope.showTimedSnackbar(snackbarHostState, copiedText, 1200)
                     },
                 )
-                Spacer(Modifier.height(12.dp))
+                Spacer(Modifier.height(8.dp))
             }
 
             val result = viewModel.result
@@ -368,11 +378,14 @@ fun CraftContent(
                             text = stringResource(Res.string.focus_batches_info, focusResult.batchesWithFocus * outputQty, craftQty * outputQty),
                             color = AppColors.LightBeige.copy(alpha = 0.7f),
                             fontSize = 12.sp,
+                            modifier = Modifier.weight(1f),
                         )
                         Text(
                             text = stringResource(Res.string.focus_return_rate_info, returnPct),
                             color = AppColors.LightBeige.copy(alpha = 0.7f),
                             fontSize = 12.sp,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.weight(1f),
                         )
                     }
                     if (focusResult.reducedFocusCostPerBatch != focusResult.focusCostPerBatch * focusResult.outputQuantity) {
@@ -386,7 +399,7 @@ fun CraftContent(
                 }
             }
 
-            Spacer(Modifier.height(40.dp))
+            Spacer(Modifier.height(24.dp))
 
             Row(
                 Modifier.fillMaxWidth(),
@@ -444,5 +457,7 @@ fun CraftContent(
 
         }
         } // end scrollable Column
+        } // end else (craft content vs premium)
     }
+    } // end BoxWithConstraints
 }
