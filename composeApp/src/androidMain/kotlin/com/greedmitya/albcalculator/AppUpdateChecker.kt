@@ -17,10 +17,9 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 // Edit this list before every release — displayed in the update dialog
 val WHATS_NEW = listOf(
-    "Free tier now supported by non-intrusive banner ads",
-    "Premium users remain completely ad-free",
     "Fixed in-app update — updates now install automatically after download",
     "Performance and stability improvements",
+    "UI Fixes and stability"
 )
 
 private suspend fun <T> Task<T>.await(): T = suspendCancellableCoroutine { cont ->
