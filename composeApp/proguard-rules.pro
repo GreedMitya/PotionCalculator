@@ -40,6 +40,10 @@
 -keep class com.google.ads.** { *; }
 -dontwarn com.google.android.gms.ads.**
 
+# Google UMP (User Messaging Platform / GDPR consent)
+-keep class com.google.android.ump.** { *; }
+-dontwarn com.google.android.ump.**
+
 # Google Play Billing
 -keep class com.android.billingclient.** { *; }
 

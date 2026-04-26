@@ -46,6 +46,7 @@ kotlin {
             implementation(libs.play.app.update)
             implementation(libs.koin.android)
             implementation(libs.google.mobile.ads)
+            implementation(libs.google.ump)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -88,8 +89,8 @@ android {
         applicationId = "com.greedmitya.albcalculator"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 14
-        versionName = "v1.2.0"
+        versionCode = 15
+        versionName = "v1.2.1"
     }
     packaging {
         resources {

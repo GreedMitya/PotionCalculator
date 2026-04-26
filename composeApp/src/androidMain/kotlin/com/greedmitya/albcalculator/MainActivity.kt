@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.ump.ConsentRequestParameters
+import com.google.android.ump.UserMessagingPlatform
 import com.google.android.play.core.install.InstallStateUpdatedListener
 import kotlinx.coroutines.launch
 
@@ -27,14 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        if (BuildConfig.DEBUG) {
-            MobileAds.setRequestConfiguration(
-                RequestConfiguration.Builder()
-                    .setTestDeviceIds(listOf(AdRequest.DEVICE_ID_EMULATOR))
-                    .build()
-            )
-        }
-        MobileAds.initialize(this)
+        initializeAdsWithConsent()
 
         var showUpdateDialog by mutableStateOf(false)
         updateChecker = AppUpdateChecker(this)
@@ -69,6 +64,35 @@ class MainActivity : AppCompatActivity() {
                 showUpdateDialog = true
             }
         }
+    }
+
+    private fun initializeAdsWithConsent() {
+        val params = ConsentRequestParameters.Builder().build()
+        val consentInfo = UserMessagingPlatform.getConsentInformation(this)
+
+        consentInfo.requestConsentInfoUpdate(this, params,
+            {
+                if (consentInfo.isConsentFormAvailable) {
+                    UserMessagingPlatform.loadAndShowConsentFormIfRequired(this) {
+                        if (consentInfo.canRequestAds()) initMobileAds()
+                    }
+                } else if (consentInfo.canRequestAds()) {
+                    initMobileAds()
+                }
+            },
+            { initMobileAds() }
+        )
+    }
+
+    private fun initMobileAds() {
+        if (BuildConfig.DEBUG) {
+            MobileAds.setRequestConfiguration(
+                RequestConfiguration.Builder()
+                    .setTestDeviceIds(listOf(AdRequest.DEVICE_ID_EMULATOR))
+                    .build()
+            )
+        }
+        MobileAds.initialize(this)
     }
 
     override fun onResume() {

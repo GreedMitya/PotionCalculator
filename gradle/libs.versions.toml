@@ -25,6 +25,7 @@ napier = "2.7.1"
 android-billing = "7.1.1"
 play-app-update = "2.1.0"
 google-mobile-ads = "23.6.0"
+user-messaging-platform = "3.1.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -59,6 +60,7 @@ napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 google-billing = { module = "com.android.billingclient:billing-ktx", version.ref = "android-billing" }
 play-app-update = { module = "com.google.android.play:app-update-ktx", version.ref = "play-app-update" }
 google-mobile-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "google-mobile-ads" }
+google-ump = { module = "com.google.android.ump:user-messaging-platform", version.ref = "user-messaging-platform" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

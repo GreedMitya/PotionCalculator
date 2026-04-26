@@ -17,9 +17,8 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 // Edit this list before every release — displayed in the update dialog
 val WHATS_NEW = listOf(
-    "Fixed in-app update — updates now install automatically after download",
+    "GDPR consent dialog for EU users — ads now respect your privacy choices",
     "Performance and stability improvements",
-    "UI Fixes and stability"
 )
 
 private suspend fun <T> Task<T>.await(): T = suspendCancellableCoroutine { cont ->
